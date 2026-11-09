@@ -1,0 +1,12 @@
+{# aspect-ratio — Django Cotton. See registry/ui/aspect-ratio.tsx for platform references. #}
+<c-vars
+  ratio="16/9"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="aspect-ratio"
+  data-ratio="{{ ratio }}"
+  class="relative block w-full overflow-hidden {% if ratio == "1/1" %}aspect-square{% elif ratio == "16/9" %}aspect-video{% else %}aspect-[{{ ratio|cut:" " }}]{% endif %} {{ class }}" {{ attrs }}>{{ slot }}</div>
+{% endlocalize %}

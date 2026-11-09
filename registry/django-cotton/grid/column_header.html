@@ -1,0 +1,13 @@
+{# grid — Django Cotton. See registry/ui/grid.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :sort="None"
+  :aria-colindex="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<th scope="col"
+    data-slot="grid-columnheader"
+    data-grid-cell=""{% if sort is not None %} data-sortable="true" aria-sort="{{ sort|default_if_none:"" }}"{% endif %}{% if aria_colindex is not None %} aria-colindex="{{ aria_colindex|default_if_none:"" }}"{% endif %} {{ attrs }}
+    class="border-b border-r px-3 py-2 align-middle outline-none focus-visible:relative focus-visible:z-10 focus-visible:ring-[2px] focus-visible:ring-ring/50 data-[grid-active=true]:bg-muted/50 border-t bg-muted/50 text-left font-medium text-muted-foreground first:rounded-tl-md last:rounded-tr-md {{ class }}"><span class="inline-flex items-center gap-1.5">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}{% if sort == "ascending" %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5" aria-hidden="true"><polyline points="18 15 12 9 6 15" /></svg>{% elif sort == "descending" %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>{% elif sort == "none" %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 opacity-30" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>{% endif %}</span></th>
+{% endlocalize %}

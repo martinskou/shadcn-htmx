@@ -1,0 +1,9 @@
+{# treegrid — Django Cotton. See registry/ui/treegrid.tsx for platform references. #}
+<c-vars
+  :content="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<td role="gridcell" data-slot="treegrid-cell"
+    class="px-2 py-1.5 align-middle outline-none focus-visible:bg-accent focus-visible:text-accent-foreground {{ class }}" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ content|default_if_none:"" }}{% endif %}</td>
+{% endlocalize %}

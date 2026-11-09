@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { POPOVER_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Popover, PopoverTrigger } from "@/registry/ui/popover"
 import { Button } from "@/registry/ui/button"
@@ -96,6 +97,7 @@ popoverRoutes.get("/", async (c) => {
             <LangTabs
               id="install-popover"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "popover" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/popover.tsx", source: popJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/popover.html", source: popJinja, note: "Copy popover.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/popover.tmpl", source: popGo, note: "Add popover.tmpl alongside button.tmpl." }) },

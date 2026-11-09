@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { RADIO_GROUP_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { RadioGroup, RadioGroupItem } from "@/registry/ui/radio-group"
 import { Label } from "@/registry/ui/label"
@@ -138,6 +139,7 @@ radioGroupRoutes.get("/", async (c) => {
             <LangTabs
               id="install-radio"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "radio-group" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/radio-group.tsx", source: rgJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/radio-group.html", source: rgJinjaSource, note: "Copy radio-group.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/radio-group.tmpl", source: rgGoSource, note: "Add radio-group.tmpl alongside button.tmpl." }) },

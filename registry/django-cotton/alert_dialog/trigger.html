@@ -1,0 +1,16 @@
+{# alert-dialog — Django Cotton. See registry/ui/alert-dialog.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :dialog-for="None"
+  type="button"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<button {{ attrs }} {% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+        type="{{ type }}"
+        class="{{ class }}"
+        data-dialog-trigger="true"
+        data-dialog-target="{{ dialog_for|default_if_none:"" }}"
+        aria-haspopup="dialog">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</button>
+{% endlocalize %}

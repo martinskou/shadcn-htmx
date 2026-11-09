@@ -1,0 +1,31 @@
+{# rating — Django Cotton. See registry/ui/rating.tsx for platform references. #}
+<c-vars
+  :name="None"
+  :max="5"
+  :value="None"
+  size="default"
+  :disabled="False"
+  :required="False"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+{% load shadcn_htmx %}
+{% scn_stars max as stars %}
+<div role="radiogroup"{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% else %} aria-label="{% if aria_label %}{{ aria_label|default_if_none:"" }}{% else %}Rating{% endif %}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if disabled %} aria-disabled="true"{% endif %}{% if required %} aria-required="true"{% endif %}
+     data-slot="rating"
+     class="inline-flex w-fit items-center {{ class }}" {{ attrs }}>
+  <span class="flex flex-row-reverse items-center justify-end {% if size == "sm" %}gap-0.5{% elif size == "default" %}gap-0.5{% elif size == "lg" %}gap-1{% endif %}">{% for n in stars %}<input type="radio" id="{{ name|default_if_none:"" }}-star-{{ n }}" name="{{ name|default_if_none:"" }}" value="{{ n }}"{% if value == n %} checked{% endif %}{% if disabled %} disabled{% endif %}{% if required %}{% if n == 1 %} required{% endif %}{% endif %}
+           data-slot="rating-item"
+           class="peer/star sr-only">
+    <label for="{{ name|default_if_none:"" }}-star-{{ n }}" aria-label="{{ n }} {% if n == 1 %}star{% else %}stars{% endif %} out of {{ max }}" class="cursor-pointer p-0.5 text-muted-foreground transition-colors peer-disabled/star:cursor-not-allowed peer-disabled/star:opacity-50 peer-checked/star:text-primary peer-checked/star:[&_svg]:fill-current peer-hover/star:text-primary peer-hover/star:[&_svg]:fill-current peer-focus-visible/star:[&_svg]:ring-2 peer-focus-visible/star:[&_svg]:ring-ring/50">
+      <svg class="{% if size == "sm" %}size-4{% elif size == "default" %}size-6{% elif size == "lg" %}size-7{% endif %} shrink-0 rounded-sm stroke-current" viewBox="0 0 24 24"
+           fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    </label>{% endfor %}
+  </span>
+</div>
+{% endlocalize %}

@@ -1,0 +1,18 @@
+<c-vars
+  :n="None"
+  :href="None"
+  :active="False"
+  :disabled="False"
+  aria-label="Next page"
+  rel="next"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<li>
+{% if href and not disabled %}
+<a href="{{ href|default_if_none:"" }}" data-slot="pagination-next" {% if active %}aria-current="page"{% endif %} {% if aria_label %}aria-label="{{ aria_label }}"{% endif %} {% if rel %}rel="{{ rel }}"{% endif %} class="inline-flex h-9 min-w-9 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none {% if active %}bg-primary text-primary-foreground hover:bg-primary/90{% endif %} {% if disabled %}pointer-events-none opacity-50{% endif %} {{ class }} gap-1 pr-2.5" {{ attrs }}>{% if slot %}{{ slot }}{% else %}Next <span aria-hidden="true">›</span>{% endif %}</a>
+{% else %}
+<button type="button" data-slot="pagination-next" {% if active %}aria-current="page"{% endif %} {% if aria_label %}aria-label="{{ aria_label }}"{% endif %} {% if disabled %}disabled aria-disabled="true"{% endif %} class="inline-flex h-9 min-w-9 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none {% if active %}bg-primary text-primary-foreground hover:bg-primary/90{% endif %} {% if disabled %}pointer-events-none opacity-50{% endif %} {{ class }} gap-1 pr-2.5" {{ attrs }}>{% if slot %}{{ slot }}{% else %}Next <span aria-hidden="true">›</span>{% endif %}</button>
+{% endif %}
+</li>
+{% endlocalize %}

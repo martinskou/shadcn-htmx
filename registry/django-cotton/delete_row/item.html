@@ -1,0 +1,12 @@
+{# delete-row — Django Cotton. See registry/ui/delete-row.tsx for platform references. #}
+<c-vars
+  :swap-ms="300"
+  as="tr"
+  class=""
+  :caller="None"
+/>
+{% load l10n %}{% localize off %}
+<{{ as }} data-slot="delete-row-item" style="transition-duration:{{ swap_ms }} {{ attrs }}ms"
+   class="transition-opacity ease-out [&.htmx-swapping]:opacity-0 {{ class }}">{% if slot %}{{ slot }}{% endif %}
+</{{ as }}>
+{% endlocalize %}

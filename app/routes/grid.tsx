@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { GRID_PROPS } from "@/app/data/api-rows"
 import {
@@ -133,6 +134,7 @@ gridRoutes.get("/", async (c) => {
           <section class="space-y-4">
             <h2 id="installation" class="scroll-mt-20 text-xl font-semibold tracking-tight">Installation</h2>
             <LangTabs id="install-grid" panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "grid" }) },
               { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/grid.tsx", source: jsxSource }) },
               { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/grid.html", source: jinjaSource, note: "Copy grid.html into templates/components/." }) },
               { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/grid.tmpl", source: goSource, note: "Add grid.tmpl alongside your other templates." }) },

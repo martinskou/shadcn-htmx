@@ -37,6 +37,24 @@
       "type": "registry:file",
       "target": "snippets/collapsible.html",
       "content": "<!--\n  shadcn-htmx — raw HTML collapsible snippet.\n\n  Native <details> + <summary> single disclosure (WAI-ARIA Disclosure\n  pattern). Click / Space / Enter toggle open, the summary is focusable and\n  implicitly role=\"button\", and the browser mirrors aria-expanded — all with\n  zero JavaScript. Distinct from accordion: a single standalone show/hide,\n  with no `name` group attribute.\n\n  Relies only on the theme tokens in styles.css.\n-->\n\n<details data-slot=\"collapsible\" open class=\"w-full\">\n  <summary data-slot=\"collapsible-trigger\"\n    class=\"flex cursor-pointer items-center justify-between gap-4 rounded-md py-2 text-left text-sm font-medium transition-all outline-none select-none marker:hidden hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 list-none [&::-webkit-details-marker]:hidden [details[open]>&_[data-slot=collapsible-chevron]]:rotate-180\">\n    Can I use this without JavaScript?\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"\n         data-slot=\"collapsible-chevron\" class=\"pointer-events-none size-4 shrink-0 text-muted-foreground transition-transform duration-200\" aria-hidden=\"true\">\n      <polyline points=\"6 9 12 15 18 9\" />\n    </svg>\n  </summary>\n  <div data-slot=\"collapsible-content\" class=\"overflow-hidden pt-2 pb-1 text-sm\">\n    Yes. The open/close toggle, keyboard handling (Space / Enter), focus, and\n    aria-expanded are all native to &lt;details&gt;/&lt;summary&gt;.\n  </div>\n</details>\n"
+    },
+    {
+      "path": "registry/django-cotton/collapsible/content.html",
+      "type": "registry:file",
+      "target": "templates/cotton/collapsible/content.html",
+      "content": "{# collapsible — Django Cotton. See registry/ui/collapsible.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"collapsible-content\" class=\"overflow-hidden pt-2 pb-1 text-sm {{ class }}\">{{ slot }}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/collapsible/index.html",
+      "type": "registry:file",
+      "target": "templates/cotton/collapsible/index.html",
+      "content": "{# collapsible — Django Cotton. See registry/ui/collapsible.tsx for platform references. #}\n<c-vars\n  :open=\"False\"\n  :disabled=\"False\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<details data-slot=\"collapsible\"{% if disabled %} data-disabled=\"true\"{% endif %}{% if open %} open{% endif %}\n         class=\"w-full {% if disabled %}pointer-events-none opacity-50{% endif %} {{ class }}\" {{ attrs }}>{{ slot }}</details>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/collapsible/trigger.html",
+      "type": "registry:file",
+      "target": "templates/cotton/collapsible/trigger.html",
+      "content": "{# collapsible — Django Cotton. See registry/ui/collapsible.tsx for platform references. #}\n<c-vars\n  :text=\"None\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<summary {{ attrs }} data-slot=\"collapsible-trigger\"\n  class=\"flex cursor-pointer items-center justify-between gap-4 rounded-md py-2 text-left text-sm font-medium transition-all outline-none select-none marker:hidden hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 list-none [&::-webkit-details-marker]:hidden [details[open]>&_[data-slot=collapsible-chevron]]:rotate-180 {{ class }}\">\n  {% if slot %}{{ slot }}{% else %}{{ text|default_if_none:\"\" }}{% endif %}\n  <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"\n       data-slot=\"collapsible-chevron\"\n       class=\"pointer-events-none size-4 shrink-0 text-muted-foreground transition-transform duration-200\" aria-hidden=\"true\">\n    <polyline points=\"6 9 12 15 18 9\" />\n  </svg>\n</summary>\n{% endlocalize %}\n"
     }
   ]
 }

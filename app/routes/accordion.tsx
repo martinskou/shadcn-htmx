@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { ACCORDION_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import {
   Accordion,
@@ -129,6 +130,7 @@ accordionRoutes.get("/", async (c) => {
             <LangTabs
               id="install-accordion"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "accordion" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/accordion.tsx", source: accJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/accordion.html", source: accJinja, note: "Copy accordion.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/accordion.tmpl", source: accGo, note: "Add accordion.tmpl alongside button.tmpl." }) },

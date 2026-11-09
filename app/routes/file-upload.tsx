@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { FILE_UPLOAD_PROPS } from "@/app/data/api-rows"
 import { FileUpload } from "@/registry/ui/file-upload"
@@ -127,6 +128,7 @@ fileUploadRoutes.get("/", async (c) => {
             <LangTabs
               id="install-file-upload"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "file-upload" }) },
                 {
                   lang: "jsx",
                   node: await InstallPanel({

@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { STATUS_PROPS } from "@/app/data/api-rows"
 import { Status, StatusItem } from "@/registry/ui/status"
@@ -107,6 +108,7 @@ statusRoutes.get("/", async (c) => {
             <LangTabs
               id="install-status"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "status" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/status.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/status.html", source: jinjaSource, note: "Copy status.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/status.tmpl", source: goSource, note: "Add status.tmpl alongside your templates." }) },

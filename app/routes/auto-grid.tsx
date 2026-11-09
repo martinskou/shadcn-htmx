@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { AUTO_GRID_PROPS } from "@/app/data/api-rows"
 import { AutoGrid } from "@/registry/ui/auto-grid"
@@ -120,6 +121,7 @@ autoGridRoutes.get("/", async (c) => {
             <LangTabs
               id="install-auto-grid"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "auto-grid" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/auto-grid.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/auto-grid.html", source: jinjaSource, note: "Copy auto-grid.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/auto-grid.tmpl", source: goSource, note: "Add auto-grid.tmpl alongside your templates." }) },

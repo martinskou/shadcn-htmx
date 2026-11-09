@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { COLOR_PICKER_PROPS } from "@/app/data/api-rows"
 import { ColorPicker } from "@/registry/ui/color-picker"
@@ -84,6 +85,7 @@ colorPickerRoutes.get("/", async (c) => {
             <LangTabs
               id="install-color-picker"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "color-picker" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/color-picker.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/color-picker.html", source: jinjaSource, note: "Copy color-picker.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/color-picker.tmpl", source: goSource, note: "Add color-picker.tmpl alongside your templates." }) },

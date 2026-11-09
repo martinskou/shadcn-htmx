@@ -1,0 +1,21 @@
+{# menubar — Django Cotton. See registry/ui/menubar.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :href="None"
+  :onclick="None"
+  :disabled="False"
+  variant="default"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+{% if href %}
+<a role="menuitem" tabindex="-1" href="{{ href|default_if_none:"" }}"
+   data-slot="menubar-item"{% if disabled %} data-disabled="true"{% endif %}
+   class="relative flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none focus:bg-accent focus:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 {% if variant == "destructive" %}text-destructive focus:bg-destructive/10 focus:text-destructive{% endif %} {{ class }}" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</a>
+{% else %}
+<button type="button" role="menuitem" tabindex="-1"
+        {% if onclick %}onclick="{{ onclick|default_if_none:"" }}"{% endif %}
+        data-slot="menubar-item"{% if disabled %} data-disabled="true"{% endif %}
+        class="relative flex w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none focus:bg-accent focus:text-accent-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 {% if variant == "destructive" %}text-destructive focus:bg-destructive/10 focus:text-destructive{% endif %} {{ class }}" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</button>
+{% endif %}
+{% endlocalize %}

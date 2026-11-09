@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { THEME_TOGGLE_PROPS } from "@/app/data/api-rows"
 import { ThemeToggle } from "@/registry/ui/theme-toggle"
@@ -98,6 +99,7 @@ themeToggleRoutes.get("/", async (c) => {
             <LangTabs
               id="install-theme-toggle"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "theme-toggle" }) },
                 {
                   lang: "jsx",
                   node: await InstallPanel({

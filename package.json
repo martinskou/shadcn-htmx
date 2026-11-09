@@ -1,7 +1,7 @@
 {
   "name": "shadcn-htmx",
   "version": "0.0.2",
-  "description": "shadcn-style UI components for htmx v4 + Tailwind v4 — 82 web-standards components in five flavours, with a flavour-aware CLI.",
+  "description": "shadcn-style UI components for htmx v4 + Tailwind v4 — 82 web-standards components in six flavours, with a flavour-aware CLI.",
   "license": "MIT",
   "author": "productdevbook",
   "type": "module",
@@ -16,6 +16,8 @@
     "accessibility",
     "wai-aria",
     "jinja2",
+    "django",
+    "django-cotton",
     "go-templates",
     "phoenix",
     "hono",
@@ -46,6 +48,7 @@
   },
   "scripts": {
     "cli": "node scripts/cli.mjs",
+    "test:cotton": "python3 -m unittest discover -s tests/cotton -p 'test_*.py'",
     "test:cli": "bun test scripts/cli.test.ts",
     "dev": "concurrently -k -n server,css -c blue,green \"bun run dev:server\" \"bun run dev:css\"",
     "dev:server": "bun run --hot app/server.tsx",

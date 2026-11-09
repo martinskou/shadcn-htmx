@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { TREEGRID_PROPS } from "@/app/data/api-rows"
 import { Treegrid, TreegridRow, TreegridCell } from "@/registry/ui/treegrid"
@@ -191,6 +192,7 @@ treegridRoutes.get("/", async (c) => {
             <LangTabs
               id="install-treegrid"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "treegrid" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/treegrid.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/treegrid.html", source: jinjaSource, note: "Copy treegrid.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/treegrid.tmpl", source: goSource, note: "Add treegrid.tmpl alongside your other templates." }) },

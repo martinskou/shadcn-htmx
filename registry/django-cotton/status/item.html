@@ -1,0 +1,9 @@
+{# status — Django Cotton. See registry/ui/status.tsx for platform references. #}
+<c-vars
+  :text="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %} data-slot="status-item" class="py-0.5 {{ class }}">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</div>
+{% endlocalize %}

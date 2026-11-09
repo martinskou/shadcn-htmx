@@ -10,7 +10,7 @@ export const introductionRoutes = new Hono()
 const tocItems = [
   { href: "#overview", label: "Overview" },
   { href: "#principles", label: "What makes it different" },
-  { href: "#flavours", label: "Five flavours" },
+  { href: "#flavours", label: "Six flavours" },
   { href: "#how", label: "How it works" },
   { href: "#a11y", label: "Accessibility" },
   { href: "#install", label: "Install" },
@@ -22,6 +22,7 @@ const FLAVOURS: { flavour: string; label: string; copy: string }[] = [
   { flavour: "jinja", label: "Jinja2", copy: "A {% macro %} you call" },
   { flavour: "go", label: "Go html/template", copy: "A {{ define }} template" },
   { flavour: "phoenix", label: "Phoenix", copy: "A ~H function component" },
+  { flavour: "cotton", label: "Django-Cotton", copy: "Django template components with <c-*> tags" },
   { flavour: "html", label: "Raw HTML", copy: "A copy-paste snippet" },
 ]
 
@@ -37,7 +38,7 @@ function Code({ children }: { children: any }) {
 }
 
 introductionRoutes.get("/", async (c) => {
-  const installSnippet = `# pick your stack once (jsx | jinja | go | phoenix | html)
+  const installSnippet = `# pick your stack once (jsx | jinja | go | phoenix | cotton | html)
 npx shadcn-htmx init --flavour jinja
 
 # add one or many — only your flavour's file lands in your project
@@ -58,8 +59,8 @@ npx shadcn-htmx list`
             <h1 class="text-3xl font-bold tracking-tight">Introduction</h1>
             <p class="text-muted-foreground">
               shadcn-htmx is a library of shadcn-style UI components for teams that render HTML on the
-              server. One design, 82 components, five flavours — Hono JSX, Jinja2, Go templates,
-              Phoenix, and raw HTML — all built on web standards and wired for{" "}
+              server. One design, 82 components, six flavours — Hono JSX, Jinja2, Go templates,
+              Phoenix, Django-Cotton, and raw HTML — all built on web standards and wired for{" "}
               <a class="underline underline-offset-4" href="https://htmx.org" target="_blank" rel="noreferrer">htmx v4</a>.
             </p>
           </header>
@@ -88,9 +89,9 @@ npx shadcn-htmx list`
                 before it ships. No polyfills, no emulation.
               </li>
               <li>
-                <strong class="font-medium text-foreground">Five flavours, one design.</strong> The same
+                <strong class="font-medium text-foreground">Six flavours, one design.</strong> The same
                 accessible markup as a typed Hono JSX component, a Jinja2 macro, a Go{" "}
-                <Code>html/template</Code>, a Phoenix function component, or a copy-paste snippet.
+                <Code>html/template</Code>, a Phoenix function component, Django-Cotton tags, or a copy-paste snippet.
               </li>
               <li>
                 <strong class="font-medium text-foreground">Server-rendered &amp; htmx-native.</strong> Wired
@@ -108,9 +109,9 @@ npx shadcn-htmx list`
           </section>
 
           <section class="space-y-4">
-            <H2 id="flavours">Five flavours</H2>
+            <H2 id="flavours">Six flavours</H2>
             <p class="text-sm leading-relaxed text-muted-foreground">
-              The Hono JSX file is the canonical source; the other four mirror its semantics exactly — same
+              The Hono JSX file is the canonical source; the other five mirror its semantics exactly — same
               elements, roles, ARIA, and Tailwind classes. Only the templating syntax differs.
             </p>
             <div class="relative w-full overflow-auto rounded-lg border">
@@ -140,8 +141,8 @@ npx shadcn-htmx list`
           <section class="space-y-4">
             <H2 id="how">How it works</H2>
             <p class="text-sm leading-relaxed text-muted-foreground">
-              <Code>registry.json</Code> is the manifest — one entry per component, listing its five
-              flavour files. A build step emits <Code>public/r/&lt;name&gt;.json</Code> (the shadcn{" "}
+              <Code>registry.json</Code> is the manifest — one entry per component, listing files for all six
+              flavours. A build step emits <Code>public/r/&lt;name&gt;.json</Code> (the shadcn{" "}
               <Code>registry-item</Code> schema, with each file's contents inlined) plus an{" "}
               <Code>index.json</Code>. The docs site serves <Code>/r/*</Code>, so the CLI — or any HTTP
               client — pulls items straight over the wire. The CLI reads that same JSON and writes only the

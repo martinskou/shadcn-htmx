@@ -1,0 +1,8 @@
+{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}
+<c-vars
+  :label="None"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<span {{ attrs }} data-slot="breadcrumb-page" aria-current="page" class="font-normal text-foreground">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</span>
+{% endlocalize %}

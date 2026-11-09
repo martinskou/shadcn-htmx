@@ -1,0 +1,16 @@
+{# feed — Django Cotton. See registry/ui/feed.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  :aria-labelledby="None"
+  :busy="False"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  role="feed" data-slot="feed"{% if aria_labelledby %}aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% elif aria_label %}aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+  {% if busy %}aria-busy="true"{% endif %}
+  class="flex flex-col gap-4 {{ class }}">
+{{ slot }}
+</div>
+{% endlocalize %}

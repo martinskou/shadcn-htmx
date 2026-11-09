@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { OPTIMISTIC_TOGGLE_PROPS } from "@/app/data/api-rows"
 import { OptimisticToggle } from "@/registry/ui/optimistic-toggle"
@@ -209,6 +210,7 @@ optimisticToggleRoutes.get("/", async (c) => {
             <LangTabs
               id="install-optimistic-toggle"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "optimistic-toggle" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/optimistic-toggle.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/optimistic-toggle.html", source: jinjaSource, note: "Copy optimistic-toggle.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/optimistic-toggle.tmpl", source: goSource, note: "Add optimistic-toggle.tmpl alongside your templates." }) },

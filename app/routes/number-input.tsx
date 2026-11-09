@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { NUMBER_INPUT_PROPS } from "@/app/data/api-rows"
 import { NumberInput } from "@/registry/ui/number-input"
@@ -87,6 +88,7 @@ numberInputRoutes.get("/", async (c) => {
             <LangTabs
               id="install-number-input"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "number-input" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/number-input.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/number-input.html", source: jinjaSource, note: "Copy number-input.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/number-input.tmpl", source: goSource, note: "Add number-input.tmpl alongside your other templates." }) },

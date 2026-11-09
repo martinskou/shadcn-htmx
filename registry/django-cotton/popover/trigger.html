@@ -1,0 +1,16 @@
+{# popover — Django Cotton. See registry/ui/popover.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :popover-target="None"
+  action="toggle"
+  class=""
+  :id="None"
+/>
+{% load l10n %}{% localize off %}
+<button {{ attrs }} {% if id %}id="{{ id|default_if_none:"" }}"{% endif %}
+        type="button"
+        popovertarget="{{ popover_target|default_if_none:"" }}"
+        popovertargetaction="{{ action }}"
+        data-slot="popover-trigger"
+        class="{{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</button>
+{% endlocalize %}

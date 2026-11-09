@@ -1,0 +1,17 @@
+{# treegrid — Django Cotton. See registry/ui/treegrid.tsx for platform references. #}
+<c-vars
+  :level="None"
+  :posinset="None"
+  :setsize="None"
+  :expanded="None"
+  :hidden="False"
+  :selected="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<tr role="row" data-slot="treegrid-row"
+    aria-level="{{ level|default_if_none:"" }}" aria-posinset="{{ posinset|default_if_none:"" }}" aria-setsize="{{ setsize|default_if_none:"" }}"{% if expanded is not None %} aria-expanded="{% if expanded %}true{% else %}false{% endif %}"{% endif %}{% if selected is not None %} aria-selected="{% if selected %}true{% else %}false{% endif %}"{% endif %}{% if hidden %} hidden{% endif %}
+    class="border-b outline-none transition-colors hover:bg-muted/50 focus-visible:bg-accent focus-visible:text-accent-foreground [&:focus-within]:bg-muted/60 aria-selected:bg-muted data-[state=selected]:bg-muted {{ class }}" {{ attrs }}>
+{{ slot }}
+</tr>
+{% endlocalize %}

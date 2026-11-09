@@ -1,0 +1,25 @@
+{# grid — Django Cotton. See registry/ui/grid.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-rowcount="None"
+  :aria-colcount="None"
+  :aria-readonly="False"
+  :aria-multiselectable="False"
+  class=""
+  wrapper-class=""
+/>
+{% load l10n %}{% localize off %}
+<div class="relative w-full overflow-auto rounded-md border {{ wrapper_class }}">
+  <table role="grid"
+         data-slot="grid"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_rowcount is not None %} aria-rowcount="{{ aria_rowcount|default_if_none:"" }}"{% endif %}{% if aria_colcount is not None %} aria-colcount="{{ aria_colcount|default_if_none:"" }}"{% endif %}{% if aria_readonly %} aria-readonly="true"{% endif %}{% if aria_multiselectable %} aria-multiselectable="true"{% endif %} {{ attrs }}
+         class="w-full caption-bottom border-separate border-spacing-0 text-sm {{ class }}">{{ slot }}</table>
+  <script>(function(el){
+    var cells = el.querySelectorAll('[data-grid-cell]');
+    cells.forEach(function(c,i){ c.setAttribute('tabindex', i===0 ? '0' : '-1'); });
+    if (cells.length) cells[0].setAttribute('data-grid-active','true');
+    el.setAttribute('data-grid-ready','true');
+  })(document.currentScript.previousElementSibling);</script>
+</div>
+{% endlocalize %}

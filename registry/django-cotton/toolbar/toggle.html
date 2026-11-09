@@ -1,0 +1,16 @@
+{# toolbar — Django Cotton. See registry/ui/toolbar.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :pressed="False"
+  :disabled="False"
+  :aria-disabled="False"
+  :aria-label="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<button type="button"
+        data-slot="toolbar-toggle"
+        data-toolbar-item=""
+        aria-pressed="{% if pressed %}true{% else %}false{% endif %}"{% if disabled %} disabled{% endif %}{% if aria_disabled %} aria-disabled="true"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %} {{ attrs }}
+        class="inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-sm px-2.5 text-sm font-medium whitespace-nowrap text-foreground transition-all outline-none hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 aria-pressed:bg-accent aria-pressed:text-accent-foreground dark:aria-pressed:bg-accent/50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&.htmx-request]:pointer-events-none [&.htmx-request]:opacity-70 {{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</button>
+{% endlocalize %}

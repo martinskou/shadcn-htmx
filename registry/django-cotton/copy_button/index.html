@@ -1,0 +1,28 @@
+{# copy-button — Django Cotton. See registry/ui/copy-button.tsx for platform references. #}
+<c-vars
+  :value="None"
+  :copy-target="None"
+  variant="outline"
+  size="default"
+  label="Copy"
+  copied-label="Copied"
+  :aria-label="None"
+  live="polite"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<button type="button"
+        data-slot="copy-button" data-variant="{{ variant }}" data-size="{{ size }}"{% if value is not None %} data-copy-text="{{ value|default_if_none:"" }}"{% endif %}{% if copy_target %} data-copy-target="{{ copy_target|default_if_none:"" }}"{% endif %}
+        data-copied-label="{{ copied_label }}"
+        class="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5 [&[data-copied=true]]:text-emerald-600 dark:[&[data-copied=true]]:text-emerald-400 [&_[data-copy-check]]:hidden [&[data-copied=true]_[data-copy-icon]]:hidden [&[data-copied=true]_[data-copy-check]]:inline-flex {% if variant == "outline" %}border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50{% elif variant == "ghost" %}hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50{% elif variant == "secondary" %}bg-secondary text-secondary-foreground hover:bg-secondary/80{% endif %} {% if size == "default" %}h-8 px-2.5{% elif size == "sm" %}h-7 gap-1 px-2 text-xs [&_svg:not([class*='size-'])]:size-3{% elif size == "icon" %}size-8 [&]:px-0{% endif %} {{ class }}"{% if disabled %} disabled{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% elif size == "icon" %} aria-label="{% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}"{% endif %} {{ attrs }}>
+  <svg data-copy-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+  </svg>
+  <svg data-copy-check xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20 6 9 17l-5-5" />
+  </svg>{% if not size == "icon" %}<span data-copy-label>{% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}</span>{% endif %}
+  <span class="sr-only" aria-live="{{ live }}" data-copy-status></span>
+</button>
+{% endlocalize %}

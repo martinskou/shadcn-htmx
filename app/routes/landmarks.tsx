@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { LANDMARKS_PROPS } from "@/app/data/api-rows"
 import {
@@ -149,6 +150,7 @@ landmarksRoutes.get("/", async (c) => {
             <LangTabs
               id="install-landmarks"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "landmarks" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/landmarks.tsx", source: landmarksJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/landmarks.html", source: landmarksJinjaSource, note: "Copy landmarks.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/landmarks.tmpl", source: landmarksGoSource, note: "Add landmarks.tmpl alongside your other templates." }) },

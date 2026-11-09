@@ -1,0 +1,7 @@
+{# grid — Django Cotton. See registry/ui/grid.tsx for platform references. #}
+<c-vars
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<thead {{ attrs }} data-slot="grid-header">{{ slot }}</thead>
+{% endlocalize %}

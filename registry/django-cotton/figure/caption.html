@@ -1,0 +1,8 @@
+{# figure — Django Cotton. See registry/ui/figure.tsx for platform references. #}
+<c-vars
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<figcaption {{ attrs }} {% if id %}id="{{ id|default_if_none:"" }}" {% endif %}data-slot="figure-caption" class="px-1 text-sm leading-snug text-muted-foreground {{ class }}">{{ slot }}</figcaption>
+{% endlocalize %}

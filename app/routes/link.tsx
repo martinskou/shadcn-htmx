@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { LINK_PROPS } from "@/app/data/api-rows"
 import { Link } from "@/registry/ui/link"
@@ -90,6 +91,7 @@ linkRoutes.get("/", async (c) => {
             <LangTabs
               id="install-link"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "link" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/link.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/link.html", source: jinjaSource, note: "Copy link.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/link.tmpl", source: goSource, note: "Add link.tmpl alongside your other templates. The template uses sprig's dict + a htmlSafe helper for the optional rich body." }) },

@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { TOAST_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Toast, ToastTitle, ToastDescription, ToastViewport, type ToastVariant } from "@/registry/ui/toast"
 import { Button } from "@/registry/ui/button"
@@ -117,6 +118,7 @@ toastRoutes.get("/", async (c) => {
             <LangTabs
               id="install-toast"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "toast" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/toast.tsx", source: toastJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/toast.html", source: toastJinjaSource, note: "Copy toast.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/toast.tmpl", source: toastGoSource, note: "Add toast.tmpl alongside button.tmpl." }) },

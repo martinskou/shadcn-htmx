@@ -1,0 +1,34 @@
+{# autocomplete — Django Cotton. See registry/ui/autocomplete.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :name="None"
+  :options="[]"
+  :placeholder="None"
+  :value="None"
+  :required="False"
+  :disabled="False"
+  :readonly="False"
+  :minlength="None"
+  :maxlength="None"
+  :delay="200"
+  :endpoint="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  class=""
+  input-class=""
+/>
+{% load l10n %}{% localize off %}
+<span data-slot="autocomplete" class="inline-block w-full {{ class }}">
+  <input
+    type="text"
+    id="{{ id|default_if_none:"" }}"{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}
+    list="{{ id|default_if_none:"" }}-list"{% if value is not None %} value="{{ value|default_if_none:"" }}"{% endif %}{% if placeholder %} placeholder="{{ placeholder|default_if_none:"" }}"{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if readonly %} readonly{% endif %}{% if minlength is not None %} minlength="{{ minlength|default_if_none:"" }}"{% endif %}{% if maxlength is not None %} maxlength="{{ maxlength|default_if_none:"" }}"{% endif %}{% if endpoint %} hx-get="{{ endpoint|default_if_none:"" }}" hx-trigger="input changed delay:{{ delay }}ms" hx-target="#{{ id|default_if_none:"" }}-list" hx-swap="innerHTML" hx-sync="this:replace"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}
+    autocomplete="off"
+    data-slot="autocomplete-input"
+    class="flex h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&.htmx-request]:opacity-70 {{ input_class }}" {{ attrs }}>
+  <datalist id="{{ id|default_if_none:"" }}-list" data-slot="autocomplete-list">
+    {% for opt in options %}<option value="{{ opt.value }}"{% if opt.label %} label="{{ opt.label }}"{% endif %}>{% endfor %}
+  </datalist>
+</span>
+{% endlocalize %}

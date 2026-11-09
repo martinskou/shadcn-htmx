@@ -1,0 +1,47 @@
+{# cascading-select — Django Cotton. See registry/ui/cascading-select.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :endpoint="None"
+  parent-name="parent"
+  child-name="child"
+  :legend="None"
+  :parent-label="None"
+  :child-label="None"
+  :detail="True"
+  :disabled="False"
+  method="get"
+  class=""
+  child-body=""
+/>
+{% load l10n %}{% localize off %}
+<fieldset data-slot="cascading-select" id="{{ id|default_if_none:"" }}" class="grid gap-4 {{ class }}"{% if disabled %} disabled{% endif %}{% if legend %} aria-labelledby="{{ id|default_if_none:"" }}-legend"{% endif %}>{% if legend %}
+  <legend id="{{ id|default_if_none:"" }}-legend" class="mb-1 text-sm leading-none font-medium text-foreground" data-slot="cascading-select-legend">{{ legend|default_if_none:"" }}</legend>{% endif %}
+  <div class="grid gap-2">{% if parent_label %}
+    <label for="{{ id|default_if_none:"" }}-parent" class="text-sm leading-none font-medium text-foreground select-none">{{ parent_label|default_if_none:"" }}</label>{% endif %}
+    <span class="relative inline-flex w-full">
+      <select id="{{ id|default_if_none:"" }}-parent" name="{{ parent_name }}" data-slot="cascading-select-parent"
+              class="peer flex h-9 w-full min-w-0 cursor-pointer appearance-none items-center rounded-md border border-input bg-background px-3 pr-8 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 md:text-sm dark:bg-input/30 [&.htmx-request]:opacity-70"
+              {% if method == "post" %}hx-post{% else %}hx-get{% endif %}="{{ endpoint|default_if_none:"" }}"
+              hx-target="#{{ id|default_if_none:"" }}-child"
+              hx-include="[name='{{ parent_name }}']"
+              aria-controls="{% if detail %}{{ id|default_if_none:"" }}-child {{ id|default_if_none:"" }}-detail{% else %}{{ id|default_if_none:"" }}-child{% endif %}" {{ attrs }}>{{ slot }}</select>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground peer-disabled:opacity-50" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </span>
+  </div>
+  <div class="grid gap-2">{% if child_label %}
+    <label for="{{ id|default_if_none:"" }}-child" class="text-sm leading-none font-medium text-foreground select-none">{{ child_label|default_if_none:"" }}</label>{% endif %}
+    <span class="relative inline-flex w-full">
+      <select id="{{ id|default_if_none:"" }}-child" name="{{ child_name }}" data-slot="cascading-select-child"
+              class="peer flex h-9 w-full min-w-0 cursor-pointer appearance-none items-center rounded-md border border-input bg-background px-3 pr-8 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 md:text-sm dark:bg-input/30 [&.htmx-request]:opacity-70">{{ child_body }}</select>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground peer-disabled:opacity-50" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </span>
+  </div>{% if detail %}
+  <div id="{{ id|default_if_none:"" }}-detail" data-slot="cascading-select-detail" aria-live="polite" class="text-sm text-muted-foreground"></div>{% endif %}
+</fieldset>
+{% endlocalize %}

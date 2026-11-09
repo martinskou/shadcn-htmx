@@ -34,6 +34,48 @@
       "type": "registry:file",
       "target": "snippets/card.html",
       "content": "<!--\n  shadcn-htmx — raw HTML card snippet.\n\n  Mirrors registry/ui/card.tsx. Just divs with the right Tailwind classes —\n  no JS, no special CSS.\n\n  CARD:             flex flex-col gap-6 rounded-xl border bg-card py-6\n                    text-card-foreground shadow-sm\n  CARD HEADER:      @container/card-header grid auto-rows-min\n                    grid-rows-[auto_auto] items-start gap-2 px-6\n                    has-data-[slot=card-action]:grid-cols-[1fr_auto]\n                    [.border-b]:pb-6\n  CARD TITLE:       leading-none font-semibold\n  CARD DESCRIPTION: text-sm text-muted-foreground\n  CARD ACTION:      col-start-2 row-span-2 row-start-1 self-start\n                    justify-self-end\n  CARD CONTENT:     px-6\n  CARD FOOTER:      flex items-center px-6 [.border-t]:pt-6\n-->\n\n<!-- Basic -->\n<div data-slot=\"card\"\n  class=\"flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm\">\n  <div data-slot=\"card-header\"\n    class=\"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6\">\n    <div data-slot=\"card-title\" class=\"leading-none font-semibold\">Account</div>\n    <div data-slot=\"card-description\" class=\"text-sm text-muted-foreground\">\n      Update your account preferences and notification settings.\n    </div>\n  </div>\n  <div data-slot=\"card-content\" class=\"px-6\">\n    <p class=\"text-sm\">Body content goes here.</p>\n  </div>\n  <div data-slot=\"card-footer\" class=\"flex items-center px-6 [.border-t]:pt-6\">\n    <button class=\"inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:bg-primary/90\">\n      Save\n    </button>\n  </div>\n</div>\n\n<!-- With CardAction (top-right header slot) -->\n<div data-slot=\"card\"\n  class=\"flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm\">\n  <div data-slot=\"card-header\"\n    class=\"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6\">\n    <div data-slot=\"card-title\" class=\"leading-none font-semibold\">Untitled draft</div>\n    <div data-slot=\"card-description\" class=\"text-sm text-muted-foreground\">\n      Last edited 12 minutes ago.\n    </div>\n    <div data-slot=\"card-action\" class=\"col-start-2 row-span-2 row-start-1 self-start justify-self-end\">\n      <button class=\"inline-flex size-7 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground\" aria-label=\"More\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4\" aria-hidden=\"true\">\n          <circle cx=\"12\" cy=\"12\" r=\"1\" /><circle cx=\"19\" cy=\"12\" r=\"1\" /><circle cx=\"5\" cy=\"12\" r=\"1\" />\n        </svg>\n      </button>\n    </div>\n  </div>\n  <div data-slot=\"card-content\" class=\"px-6\">\n    <p class=\"text-sm text-muted-foreground\">3 unread comments.</p>\n  </div>\n</div>\n\n<!-- As a landmark: <section> card named by its heading.\n     CardTitle is rendered as a real heading (h2) with an id, and the card\n     references it via aria-labelledby so the region landmark gets its name\n     from the visible title. A <section> with an accessible name is exposed\n     as role=region — prefer the semantic element over an explicit role.\n     See repos/mdn/.../elements/section/index.md:55\n         repos/mdn/.../roles/region_role/index.md:25,29 -->\n<section data-slot=\"card\" aria-labelledby=\"card-title-billing\"\n  class=\"flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm\">\n  <div data-slot=\"card-header\"\n    class=\"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6\">\n    <h2 data-slot=\"card-title\" id=\"card-title-billing\" class=\"leading-none font-semibold\">Billing</h2>\n    <div data-slot=\"card-description\" class=\"text-sm text-muted-foreground\">\n      Manage your subscription and payment method.\n    </div>\n  </div>\n  <div data-slot=\"card-content\" class=\"px-6\">\n    <p class=\"text-sm\">Your plan renews on the 1st of each month.</p>\n  </div>\n</section>\n"
+    },
+    {
+      "path": "registry/django-cotton/card/action.html",
+      "type": "registry:file",
+      "target": "templates/cotton/card/action.html",
+      "content": "{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"card-action\" class=\"col-start-2 row-span-2 row-start-1 self-start justify-self-end {{ class }}\">{{ slot }}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/card/content.html",
+      "type": "registry:file",
+      "target": "templates/cotton/card/content.html",
+      "content": "{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"card-content\" class=\"px-6 {{ class }}\">{{ slot }}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/card/description.html",
+      "type": "registry:file",
+      "target": "templates/cotton/card/description.html",
+      "content": "{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}\n<c-vars\n  :text=\"None\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"card-description\" class=\"text-sm text-muted-foreground {{ class }}\">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:\"\" }}{% endif %}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/card/footer.html",
+      "type": "registry:file",
+      "target": "templates/cotton/card/footer.html",
+      "content": "{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"card-footer\" class=\"flex items-center px-6 [.border-t]:pt-6 {{ class }}\">{{ slot }}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/card/header.html",
+      "type": "registry:file",
+      "target": "templates/cotton/card/header.html",
+      "content": "{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"card-header\" class=\"@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 {{ class }}\">{{ slot }}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/card/index.html",
+      "type": "registry:file",
+      "target": "templates/cotton/card/index.html",
+      "content": "{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"card\" class=\"flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm {{ class }}\">{{ slot }}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/card/title.html",
+      "type": "registry:file",
+      "target": "templates/cotton/card/title.html",
+      "content": "{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}\n<c-vars\n  :text=\"None\"\n  class=\"\"\n  as=\"div\"\n  id=\"\"\n/>\n{% load l10n %}{% localize off %}\n<{{ as }} {{ attrs }} data-slot=\"card-title\"{% if id %} id=\"{{ id }}\"{% endif %} class=\"leading-none font-semibold {{ class }}\">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:\"\" }}{% endif %}</{{ as }}>\n{% endlocalize %}\n"
     }
   ]
 }

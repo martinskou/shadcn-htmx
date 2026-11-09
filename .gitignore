@@ -15,3 +15,6 @@ dist/
 # WHATWG HTML standard is ~1GB and NOT vendored (see AGENTS.md); fetched locally
 # as read-only reference only, never committed.
 /repos/whatwg-html/
+
+# Python template rendering tests
+__pycache__/

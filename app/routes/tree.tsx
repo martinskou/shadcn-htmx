@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { TREE_PROPS } from "@/app/data/api-rows"
 import { Tree, TreeItem, TreeGroup } from "@/registry/ui/tree"
@@ -127,6 +128,7 @@ treeRoutes.get("/", async (c) => {
             <LangTabs
               id="install-tree"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "tree" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/tree.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/tree.html", source: jinjaSource, note: "Copy tree.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/tree.tmpl", source: goSource, note: "Add tree.tmpl alongside your other templates." }) },

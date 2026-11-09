@@ -1,0 +1,40 @@
+{# tabs — Django Cotton. See registry/ui/tabs.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :value="None"
+  orientation="horizontal"
+  activation="automatic"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} id="{{ id|default_if_none:"" }}"
+     data-slot="tabs"
+     data-tabs
+     data-orientation="{{ orientation }}"
+     data-activation="{{ activation }}"
+     data-active-tab="{{ value|default_if_none:"" }}"
+     class="group/tabs flex gap-2 data-[orientation=horizontal]:flex-col {{ class }}">
+  {{ slot }}
+</div>
+<script>(function(el){
+  var active = el.getAttribute('data-active-tab');
+  el.querySelectorAll('[data-tab-panel]').forEach(function(p){
+    p.id = el.id + '-panel-' + p.getAttribute('data-tab-panel');
+  });
+  el.querySelectorAll('[data-tab-trigger]').forEach(function(t){
+    var value = t.getAttribute('data-tab-trigger');
+    var on = value === active;
+    t.setAttribute('aria-selected', on ? 'true' : 'false');
+    t.setAttribute('tabindex', on ? '0' : '-1');
+    t.setAttribute('aria-controls', el.id + '-panel-' + value);
+    t.id = el.id + '-trigger-' + value;
+  });
+  el.querySelectorAll('[data-tab-panel]').forEach(function(p){
+    var value = p.getAttribute('data-tab-panel');
+    var on = value === active;
+    if (on) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+    p.setAttribute('aria-labelledby', el.id + '-trigger-' + value);
+  });
+  el.setAttribute('data-tabs-ready','true');
+})(document.currentScript.previousElementSibling);</script>
+{% endlocalize %}

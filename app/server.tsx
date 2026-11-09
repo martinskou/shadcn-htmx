@@ -425,7 +425,7 @@ app.get("/", (c) =>
               </h1>
               <p class="mx-auto max-w-2xl text-balance text-base text-muted-foreground sm:text-lg">
                 A web-standards component library for htmx v4 + Tailwind v4. One source of
-                truth — five flavours: Hono JSX, Jinja2, Go templates, Phoenix, and raw
+                truth — six flavours: Hono JSX, Jinja2, Go templates, Phoenix, Django-Cotton, and raw
                 HTML. Copy what you need, ship in any stack.
               </p>
               <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
@@ -485,9 +485,9 @@ app.get("/", (c) =>
                     <rect x="14" y="14" width="7" height="7" rx="1" />
                   </svg>
                 </div>
-                <h3 class="text-base font-semibold">Five flavours, one design</h3>
+                <h3 class="text-base font-semibold">Six flavours, one design</h3>
                 <p class="mt-1.5 text-sm text-muted-foreground">
-                  Hono JSX, Jinja2, Go templates, Phoenix function components, and a
+                  Hono JSX, Jinja2, Go templates, Phoenix function components, Django-Cotton tags, and a
                   raw HTML snippet — all generated from the same source of truth.
                 </p>
               </article>
@@ -572,8 +572,8 @@ app.get("/", (c) =>
               </h2>
               <p class="text-sm text-muted-foreground">
                 Each ships with the same install, live examples, and source view
-                across all five frameworks — Hono JSX, Jinja2, Go templates,
-                Phoenix, and raw HTML.
+                across all six frameworks — Hono JSX, Jinja2, Go templates,
+                Phoenix, Django-Cotton, and raw HTML.
               </p>
             </div>
             <div class="space-y-12">

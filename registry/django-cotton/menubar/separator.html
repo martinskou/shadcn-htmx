@@ -1,0 +1,7 @@
+{# menubar — Django Cotton. See registry/ui/menubar.tsx for platform references. #}
+<c-vars
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} role="separator" aria-orientation="horizontal" data-slot="menubar-separator" class="-mx-1 my-1 h-px bg-border"></div>
+{% endlocalize %}

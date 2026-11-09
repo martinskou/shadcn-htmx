@@ -37,6 +37,30 @@
       "type": "registry:file",
       "target": "snippets/figure.html",
       "content": "<!--\n  shadcn-htmx — raw HTML figure snippets.\n  Mirrors registry/ui/figure.tsx.\n\n  Self-contained captioned content (image, diagram, code, quote) in a native\n  <figure>; the <figcaption> gives the <figure> its accessible name. The\n  caption must be the figure's first or last child. Zero JavaScript —\n  Tailwind theme tokens only.\n\n    MDN figure:     repos/mdn/files/en-us/web/html/reference/elements/figure/index.md\n    MDN figcaption: repos/mdn/files/en-us/web/html/reference/elements/figcaption/index.md\n\n  ROOT:\n    flex flex-col gap-3 overflow-hidden rounded-lg border bg-card p-3 text-card-foreground\n  data-caption-side=\"top\" | \"bottom\" records where the figcaption sits.\n-->\n\n<!-- Image with a caption below (the common case) -->\n<figure data-slot=\"figure\" data-caption-side=\"bottom\"\n        class=\"flex flex-col gap-3 overflow-hidden rounded-lg border bg-card p-3 text-card-foreground\">\n  <img src=\"/elephant.jpg\" alt=\"An elephant at sunset\"\n       class=\"w-full rounded-md\">\n  <figcaption data-slot=\"figure-caption\"\n              class=\"px-1 text-sm leading-snug text-muted-foreground\">\n    An elephant at sunset\n    <span data-slot=\"figure-credit\" class=\"mt-1 block text-xs text-muted-foreground/80\">\n      Photo: J. Doe / CC BY 4.0\n    </span>\n  </figcaption>\n</figure>\n\n<!-- Code block with a legend on top -->\n<figure data-slot=\"figure\" data-caption-side=\"top\"\n        class=\"flex flex-col gap-3 overflow-hidden rounded-lg border bg-card p-3 text-card-foreground\">\n  <figcaption data-slot=\"figure-caption\"\n              class=\"px-1 text-sm leading-snug text-muted-foreground\">\n    Get browser details using <code>navigator</code>.\n  </figcaption>\n  <div data-slot=\"figure-content\"\n       class=\"overflow-hidden rounded-md bg-muted text-sm text-foreground\">\n    <pre class=\"overflow-x-auto p-4\"><code>console.log(navigator.userAgent);</code></pre>\n  </div>\n</figure>\n\n<!-- Quotation: blockquote content, attribution in the caption -->\n<figure data-slot=\"figure\" data-caption-side=\"bottom\"\n        class=\"flex flex-col gap-3 overflow-hidden rounded-lg border bg-card p-3 text-card-foreground\">\n  <div data-slot=\"figure-content\"\n       class=\"overflow-hidden rounded-md bg-muted text-sm text-foreground\">\n    <blockquote class=\"border-l-2 border-border px-4 py-3 italic\">\n      If debugging is the process of removing software bugs, then programming\n      must be the process of putting them in.\n    </blockquote>\n  </div>\n  <figcaption data-slot=\"figure-caption\"\n              class=\"px-1 text-sm leading-snug text-muted-foreground\">\n    — Edsger W. Dijkstra\n  </figcaption>\n</figure>\n"
+    },
+    {
+      "path": "registry/django-cotton/figure/caption.html",
+      "type": "registry:file",
+      "target": "templates/cotton/figure/caption.html",
+      "content": "{# figure — Django Cotton. See registry/ui/figure.tsx for platform references. #}\n<c-vars\n  :id=\"None\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<figcaption {{ attrs }} {% if id %}id=\"{{ id|default_if_none:\"\" }}\" {% endif %}data-slot=\"figure-caption\" class=\"px-1 text-sm leading-snug text-muted-foreground {{ class }}\">{{ slot }}</figcaption>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/figure/content.html",
+      "type": "registry:file",
+      "target": "templates/cotton/figure/content.html",
+      "content": "{# figure — Django Cotton. See registry/ui/figure.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} data-slot=\"figure-content\" class=\"overflow-hidden rounded-md bg-muted text-sm text-foreground {{ class }}\">{{ slot }}</div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/figure/credit.html",
+      "type": "registry:file",
+      "target": "templates/cotton/figure/credit.html",
+      "content": "{# figure — Django Cotton. See registry/ui/figure.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<span {{ attrs }} data-slot=\"figure-credit\" class=\"mt-1 block text-xs text-muted-foreground/80 {{ class }}\">{{ slot }}</span>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/figure/index.html",
+      "type": "registry:file",
+      "target": "templates/cotton/figure/index.html",
+      "content": "{# figure — Django Cotton. See registry/ui/figure.tsx for platform references. #}\n<c-vars\n  caption-side=\"bottom\"\n  :id=\"None\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<figure{% if id %} id=\"{{ id|default_if_none:\"\" }}\"{% endif %}\n  data-slot=\"figure\"\n  data-caption-side=\"{{ caption_side }}\"\n  class=\"flex flex-col gap-3 overflow-hidden rounded-lg border bg-card p-3 text-card-foreground {{ class }}\" {{ attrs }}>{{ slot }}</figure>\n{% endlocalize %}\n"
     }
   ]
 }

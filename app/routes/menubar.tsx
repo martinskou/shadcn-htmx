@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { MENUBAR_PROPS } from "@/app/data/api-rows"
 import {
@@ -132,6 +133,7 @@ menubarRoutes.get("/", async (c) => {
             <LangTabs
               id="install-menubar"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "menubar" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/menubar.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/menubar.html", source: jinjaSource, note: "Copy menubar.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/menubar.tmpl", source: goSource, note: "Add menubar.tmpl alongside your other templates." }) },

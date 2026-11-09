@@ -1,0 +1,34 @@
+{# treegrid — Django Cotton. See registry/ui/treegrid.tsx for platform references. #}
+<c-vars
+  :columns="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :id="None"
+  wrapper-class=""
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div class="relative w-full overflow-auto {{ wrapper_class }}">
+  <table role="treegrid" data-slot="treegrid"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}
+         class="w-full caption-bottom border-collapse text-sm {{ class }}" {{ attrs }}>
+    <thead>
+      <tr role="row" class="border-b">{% for col in columns %}{% if col.label %}
+        <th role="columnheader" scope="col"{% if col.sort %} aria-sort="{{ col.sort }}"{% endif %}
+            class="h-10 px-2 text-left align-middle font-medium text-muted-foreground">{{ col.label }}</th>{% else %}
+        <th role="columnheader" scope="col" class="h-10 px-2 text-left align-middle font-medium text-muted-foreground">{{ col }}</th>{% endif %}{% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+{{ slot }}
+    </tbody>
+  </table>
+  <script>(function(el){
+    var rows = el.querySelectorAll('tbody > tr[role="row"]');
+    rows.forEach(function(r, i){ r.setAttribute('tabindex', i === 0 ? '0' : '-1'); });
+    el.querySelectorAll('tbody a,tbody button,tbody input,tbody [tabindex]').forEach(function(f){
+      if (f.getAttribute('role') === 'row') return;
+      f.setAttribute('tabindex', '-1');
+    });
+    el.setAttribute('data-treegrid-ready', 'true');
+  })(document.currentScript.parentElement.querySelector('[data-slot="treegrid"]'));</script>
+{% endlocalize %}

@@ -1,0 +1,13 @@
+{# skeleton — Django Cotton. See registry/ui/skeleton.tsx for platform references. #}
+<c-vars
+  aria-label="Loading"
+  :aria-labelledby="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  role="status" aria-busy="true"{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% else %} aria-label="{{ aria_label }}"{% endif %}
+  data-slot="skeleton"
+  class="animate-pulse rounded-md bg-muted {{ class }}"></div>
+{% endlocalize %}

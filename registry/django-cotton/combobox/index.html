@@ -1,0 +1,33 @@
+{# combobox — Django Cotton. See registry/ui/combobox.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :name="None"
+  :options="[]"
+  type="text"
+  :placeholder="None"
+  :value="None"
+  :required="False"
+  :disabled="False"
+  :maxlength="None"
+  :minlength="None"
+  :pattern="None"
+  :title="None"
+  :readonly="False"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span data-slot="combobox" class="inline-block w-full {{ class }}">
+  <input
+    type="{{ type }}"
+    id="{{ id|default_if_none:"" }}"{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}
+    list="{{ id|default_if_none:"" }}-list"{% if value is not None %} value="{{ value|default_if_none:"" }}"{% endif %}{% if placeholder %} placeholder="{{ placeholder|default_if_none:"" }}"{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if maxlength is not None %} maxlength="{{ maxlength|default_if_none:"" }}"{% endif %}{% if minlength is not None %} minlength="{{ minlength|default_if_none:"" }}"{% endif %}{% if pattern %} pattern="{{ pattern|default_if_none:"" }}"{% endif %}{% if title %} title="{{ title|default_if_none:"" }}"{% endif %}{% if readonly %} readonly{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}
+    autocomplete="off"
+    class="flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" {{ attrs }}>
+  <datalist id="{{ id|default_if_none:"" }}-list" data-slot="combobox-list">
+    {% for opt in options %}<option value="{{ opt.value }}"{% if opt.label %} label="{{ opt.label }}"{% endif %}{% if opt.disabled %} disabled{% endif %}>{% endfor %}
+  </datalist>
+</span>
+{% endlocalize %}

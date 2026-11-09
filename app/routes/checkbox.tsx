@@ -10,6 +10,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { CHECKBOX_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Checkbox } from "@/registry/ui/checkbox"
 import { Label } from "@/registry/ui/label"
@@ -110,6 +111,7 @@ checkboxRoutes.get("/", async (c) => {
             <LangTabs
               id="install-checkbox"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "checkbox" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/checkbox.tsx", source: checkboxJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/checkbox.html", source: checkboxJinjaSource, note: "Copy checkbox.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/checkbox.tmpl", source: checkboxGoSource, note: "Add checkbox.tmpl alongside button.tmpl." }) },

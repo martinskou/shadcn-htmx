@@ -1,0 +1,15 @@
+{# sidebar — Django Cotton. See registry/ui/sidebar.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<nav {{ attrs }} id="{{ id|default_if_none:"" }}"
+     data-slot="sidebar"
+     tabindex="-1"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}
+     class="flex h-[var(--sidebar-h,100svh)] flex-col gap-2 border-r bg-card text-card-foreground max-sm:absolute max-sm:inset-y-0 max-sm:left-0 max-sm:z-50 max-sm:h-full max-sm:w-72 max-sm:max-w-[85vw] max-sm:shadow-lg sm:sticky sm:top-0 {{ class }}">
+  {{ slot }}
+</nav>
+{% endlocalize %}

@@ -1,0 +1,14 @@
+{# hover-card — Django Cotton. See registry/ui/hover-card.tsx for platform references. #}
+<c-vars
+  :id="None"
+  side="bottom"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div id="{{ id|default_if_none:"" }}"
+     popover="hint"
+     data-slot="hover-card" data-side="{{ side }}"
+     class="z-50 m-0 w-64 rounded-md border bg-popover p-4 text-sm text-popover-foreground shadow-md outline-none [&:not(:popover-open)]:hidden [&:popover-open]:animate-[scn-popover-in_120ms_ease-out] {% if side == "top" %}anchor-hovercard-top{% elif side == "bottom" %}anchor-hovercard-bottom{% elif side == "left" %}anchor-hovercard-left{% elif side == "right" %}anchor-hovercard-right{% endif %} {{ class }}"
+      {{ attrs }}>
+{{ slot }}</div>
+{% endlocalize %}

@@ -1,0 +1,8 @@
+{# cascading-select — Django Cotton. See registry/ui/cascading-select.tsx for platform references. #}
+<c-vars
+  :id="None"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} id="{{ id|default_if_none:"" }}-detail" data-slot="cascading-select-detail" hx-swap-oob="innerHTML" aria-live="polite" class="text-sm text-muted-foreground">{{ slot }}</div>
+{% endlocalize %}

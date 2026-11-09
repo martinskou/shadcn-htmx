@@ -1,0 +1,10 @@
+{# toolbar — Django Cotton. See registry/ui/toolbar.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} role="group"
+     data-slot="toolbar-group"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+     class="flex items-center gap-1 group-data-[orientation=vertical]/toolbar:flex-col group-data-[orientation=vertical]/toolbar:items-stretch {{ class }}">{{ slot }}</div>
+{% endlocalize %}

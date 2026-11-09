@@ -1,0 +1,8 @@
+{# selectable-table — Django Cotton. See registry/ui/selectable-table.tsx for platform references. #}
+<c-vars
+  message=""
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<output {{ attrs }} data-slot="selectable-table-count" class="block text-sm text-muted-foreground {{ class }}">{{ message }}</output>
+{% endlocalize %}

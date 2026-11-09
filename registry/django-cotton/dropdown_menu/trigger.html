@@ -1,0 +1,14 @@
+{# dropdown-menu — Django Cotton. See registry/ui/dropdown-menu.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :menu-for="None"
+  class=""
+  :id="None"
+/>
+{% load l10n %}{% localize off %}
+<button {{ attrs }} {% if id %}id="{{ id|default_if_none:"" }}"{% endif %} type="button"
+        popovertarget="{{ menu_for|default_if_none:"" }}" popovertargetaction="toggle"
+        data-slot="dropdown-menu-trigger" aria-haspopup="menu"
+        aria-controls="{{ menu_for|default_if_none:"" }}" aria-expanded="false"
+        class="{{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</button>
+{% endlocalize %}

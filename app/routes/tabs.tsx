@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { TABS_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/registry/ui/tabs"
 import { Label } from "@/registry/ui/label"
@@ -124,6 +125,7 @@ tabsRoutes.get("/", async (c) => {
             <LangTabs
               id="install-tabs"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "tabs" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/tabs.tsx", source: tabsJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/tabs.html", source: tabsJinjaSource, note: "Copy tabs.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/tabs.tmpl", source: tabsGoSource, note: "Add tabs.tmpl alongside button.tmpl." }) },

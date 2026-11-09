@@ -1,0 +1,15 @@
+{# hover-card — Django Cotton. See registry/ui/hover-card.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :card-for="None"
+  href="#"
+  class=""
+  :id="None"
+/>
+{% load l10n %}{% localize off %}
+<a {{ attrs }} {% if id %}id="{{ id|default_if_none:"" }}"{% endif %}
+   href="{{ href }}"
+   interestfor="{{ card_for|default_if_none:"" }}"
+   data-slot="hover-card-trigger"
+   class="{{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</a>
+{% endlocalize %}

@@ -1,0 +1,14 @@
+{# tabs — Django Cotton. See registry/ui/tabs.tsx for platform references. #}
+<c-vars
+  :value="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} role="tabpanel"
+     data-slot="tabs-content"
+     data-tab-panel="{{ value|default_if_none:"" }}"
+     tabindex="0"
+     class="flex-1 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 {{ class }}">
+  {{ slot }}
+</div>
+{% endlocalize %}

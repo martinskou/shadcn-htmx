@@ -1,0 +1,17 @@
+{# segmented-control — Django Cotton. See registry/ui/segmented-control.tsx for platform references. #}
+<c-vars
+  :name="None"
+  :default-value="None"
+  size="default"
+  :disabled="False"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<fieldset data-slot="segmented-control"
+     data-name="{{ name|default_if_none:"" }}"
+     data-size="{{ size }}"{% if default_value %} data-default-value="{{ default_value|default_if_none:"" }}"{% endif %}{% if disabled %} data-disabled="true" disabled{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}
+     class="group/segmented inline-flex w-fit items-center gap-1 rounded-lg bg-muted p-[3px] text-muted-foreground has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50 data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 {% if size == "sm" %}h-8 text-xs{% else %}h-9{% endif %} {{ class }}" {{ attrs }}>{% if aria_label %}<legend class="sr-only">{{ aria_label|default_if_none:"" }}</legend>{% endif %}{{ slot }}</fieldset>
+{% endlocalize %}

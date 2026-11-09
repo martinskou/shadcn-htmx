@@ -1,3 +1,4 @@
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 /** @jsxImportSource hono/jsx */
 import { Hono } from "hono"
 import { readFile } from "node:fs/promises"
@@ -97,6 +98,7 @@ inputRoutes.get("/", async (c) => {
             <LangTabs
               id="install-input"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "input" }) },
                 {
                   lang: "jsx",
                   node: (

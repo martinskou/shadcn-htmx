@@ -30,6 +30,7 @@ type Props = {
   // The "JSX" snippet is required because it doubles as the canonical form;
   // other languages are optional — if missing, that tab just isn't shown.
   jsx: string
+  cotton?: string
   jinja?: string
   go?: string
   phoenix?: string
@@ -62,13 +63,23 @@ export async function Example(props: Props) {
     snippets.push({ lang: "html", code: html })
   }
 
+  // Rendered HTML is also valid in a Django template. Each installation panel
+  // documents the Cotton tags; examples can supply a more specific Cotton call.
+  snippets.push({ lang: "cotton", code: props.cotton ?? formatHtml(String(props.preview).trim()) })
+
   const panels = await Promise.all(
     snippets.map(async (s) => ({
       lang: s.lang,
-      node: await CodeBlock({
-        code: s.code,
-        lang: LANG_SHIKI[s.lang] as any,
-      }),
+      node: (
+        <div class="space-y-2">
+          {s.lang === "cotton" && !props.cotton && (
+            <p class="text-xs text-muted-foreground">
+              Rendered HTML, ready for a Django template. See Installation above for Cotton component tags.
+            </p>
+          )}
+          {await CodeBlock({ code: s.code, lang: LANG_SHIKI[s.lang] as any })}
+        </div>
+      ),
     })),
   )
 

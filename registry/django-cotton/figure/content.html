@@ -1,0 +1,7 @@
+{# figure — Django Cotton. See registry/ui/figure.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="figure-content" class="overflow-hidden rounded-md bg-muted text-sm text-foreground {{ class }}">{{ slot }}</div>
+{% endlocalize %}

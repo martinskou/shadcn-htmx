@@ -1,0 +1,17 @@
+{# feed — Django Cotton. See registry/ui/feed.tsx for platform references. #}
+<c-vars
+  :posinset="None"
+  :setsize="None"
+  :labelledby="None"
+  :describedby="None"
+  :tabindex="0"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<article{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  role="article" data-slot="feed-article" tabindex="{{ tabindex }}"
+  aria-posinset="{{ posinset|default_if_none:"" }}" aria-setsize="{{ setsize|default_if_none:"" }}"
+  aria-labelledby="{{ labelledby|default_if_none:"" }}"{% if describedby %}aria-describedby="{{ describedby|default_if_none:"" }}"{% endif %}
+  class="rounded-xl border bg-card p-5 text-card-foreground shadow-sm focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none {{ class }}" {{ attrs }}>{{ slot }}</article>
+{% endlocalize %}

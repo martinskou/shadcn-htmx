@@ -1,0 +1,18 @@
+{# output — Django Cotton. See registry/ui/output.tsx for platform references. #}
+<c-vars
+  :for="None"
+  :form="None"
+  :name="None"
+  :id="None"
+  tone="default"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-atomic="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<output class="inline-flex min-h-9 w-fit items-center gap-2 rounded-md border px-3 py-1.5 text-sm font-medium tabular-nums transition-colors [&.htmx-request]:opacity-60 {% if tone == "default" %}border-border bg-card text-card-foreground{% elif tone == "muted" %}border-transparent bg-muted text-muted-foreground{% elif tone == "primary" %}border-transparent bg-primary text-primary-foreground{% elif tone == "destructive" %}border-destructive/30 bg-destructive/5 text-destructive dark:bg-destructive/10{% endif %} {{ class }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if for %} for="{{ for|default_if_none:"" }}"{% endif %}{% if form %} form="{{ form|default_if_none:"" }}"{% endif %}{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}
+       data-slot="output"
+       data-tone="{{ tone }}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_atomic is not None %} aria-atomic="{{ aria_atomic|lower }}"{% endif %} {{ attrs }}>{{ slot }}</output>
+{% endlocalize %}

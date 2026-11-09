@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { FEED_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Feed, FeedArticle, FeedSentinel } from "@/registry/ui/feed"
 
@@ -156,6 +157,7 @@ feedRoutes.get("/", async (c) => {
             <LangTabs
               id="install-feed"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "feed" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/feed.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/feed.html", source: jinjaSource, note: "Copy feed.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/feed.tmpl", source: goSource, note: "Add feed.tmpl alongside your other templates." }) },

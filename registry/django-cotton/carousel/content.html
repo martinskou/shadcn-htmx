@@ -1,0 +1,12 @@
+{# carousel — Django Cotton. See registry/ui/carousel.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="carousel-content"
+     aria-atomic="false"
+     aria-live="polite"
+     tabindex="0"
+     
+     class="flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain motion-safe:scroll-smooth scrollbar-none focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 rounded-lg {{ class }}">{{ slot }}</div>
+{% endlocalize %}

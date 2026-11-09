@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { BREADCRUMB_PROPS } from "@/app/data/api-rows"
 import {
@@ -129,6 +130,7 @@ breadcrumbRoutes.get("/", async (c) => {
             <LangTabs
               id="install-breadcrumb"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "breadcrumb" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/breadcrumb.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/breadcrumb.html", source: jinjaSource, note: "Copy breadcrumb.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/breadcrumb.tmpl", source: goSource, note: "Add breadcrumb.tmpl alongside your other templates." }) },

@@ -1,0 +1,23 @@
+{# form-field — Django Cotton. See registry/ui/form-field.tsx for platform references. #}
+<c-vars
+  :for="None"
+  :label="None"
+  :description="None"
+  :error="None"
+  :invalid="None"
+  :required="False"
+  class=""
+  label-class=""
+/>
+{% load l10n %}{% localize off %}
+<div class="grid gap-2 [&:has(:user-invalid)_[data-slot=form-field-label]]:text-destructive {{ class }}"
+     data-slot="form-field"{% if invalid is None %}{% if error is not None %} data-invalid="true"{% endif %}{% elif invalid %} data-invalid="true"{% endif %} {{ attrs }}>{% if label is not None %}
+  <label class="flex items-center gap-2 text-sm leading-none font-medium select-none data-[invalid=true]:text-destructive peer-disabled:cursor-not-allowed peer-disabled:opacity-50 {{ label_class }}"{% if for %} for="{{ for|default_if_none:"" }}"{% endif %}
+         data-slot="form-field-label"{% if invalid is None %}{% if error is not None %} data-invalid="true"{% endif %}{% elif invalid %} data-invalid="true"{% endif %}{% if required %} data-required="true"{% endif %}
+  >{{ label|default_if_none:"" }}{% if required %}<span class="text-destructive" aria-hidden="true">*</span>{% endif %}</label>{% endif %}
+  {{ slot }}{% if description is not None %}
+  <p {% if for %}id="{{ for|default_if_none:"" }}-description" {% endif %}class="text-sm text-muted-foreground" data-slot="form-field-description">{{ description|default_if_none:"" }}</p>{% endif %}{% if invalid is None %}{% if error is not None %}
+  <p {% if for %}id="{{ for|default_if_none:"" }}-error" {% endif %}role="alert" aria-live="assertive" class="text-sm font-medium text-destructive" data-slot="form-field-error">{{ error|default_if_none:"" }}</p>{% endif %}{% elif invalid %}{% if error is not None %}
+  <p {% if for %}id="{{ for|default_if_none:"" }}-error" {% endif %}role="alert" aria-live="assertive" class="text-sm font-medium text-destructive" data-slot="form-field-error">{{ error|default_if_none:"" }}</p>{% endif %}{% endif %}
+</div>
+{% endlocalize %}

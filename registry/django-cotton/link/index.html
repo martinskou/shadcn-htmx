@@ -1,0 +1,22 @@
+{# link — Django Cotton. See registry/ui/link.tsx for platform references. #}
+<c-vars
+  :text="None"
+  :href="None"
+  variant="default"
+  :external="False"
+  :target="None"
+  :rel="None"
+  as="a"
+  :id="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-current="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<{{ as }}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if as == "a" %}{% if href %} href="{{ href|default_if_none:"" }}"{% endif %}{% endif %}{% if as == "a" %}{% if target is None %}{% if external %} target="_blank"{% endif %}{% elif target %} target="{{ target|default_if_none:"" }}"{% endif %}{% endif %}{% if as == "a" %}{% if rel is None %}{% if external %} rel="noopener noreferrer"{% endif %}{% elif rel %} rel="{{ rel|default_if_none:"" }}"{% endif %}{% endif %}{% if not as == "a" %} role="link" tabindex="0"{% if href %} data-href="{{ href|default_if_none:"" }}"{% endif %}{% endif %}
+  data-slot="link"
+  data-variant="{{ variant }}"{% if external %} data-external="true"{% endif %}
+  class="inline-flex items-center gap-1 rounded-sm font-medium text-primary underline-offset-4 transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 [&[role=link]]:cursor-pointer [&>svg]:pointer-events-none [&>svg]:size-3.5 [&>svg]:shrink-0 {% if variant == "default" %}underline decoration-primary/40 hover:decoration-primary{% elif variant == "muted" %}text-muted-foreground underline decoration-muted-foreground/40 hover:text-foreground hover:decoration-foreground{% elif variant == "hover" %}no-underline hover:underline{% endif %} {{ class }}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_current %} aria-current="{{ aria_current|default_if_none:"" }}"{% endif %} {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}{% if external %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg><span class="sr-only"> (opens in new tab)</span>{% endif %}</{{ as }}>
+{% endlocalize %}

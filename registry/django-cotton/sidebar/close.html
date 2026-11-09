@@ -1,0 +1,14 @@
+{# sidebar — Django Cotton. See registry/ui/sidebar.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<a {{ attrs }} href="#"
+   data-slot="sidebar-close"
+   aria-label="Close navigation"
+   class="absolute top-3 right-3 inline-flex size-7 items-center justify-center rounded-md text-muted-foreground opacity-70 transition-opacity hover:bg-accent hover:text-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:hidden {{ class }}">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+  </svg>
+</a>
+{% endlocalize %}

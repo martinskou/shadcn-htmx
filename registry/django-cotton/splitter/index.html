@@ -1,0 +1,38 @@
+{# splitter — Django Cotton. See registry/ui/splitter.tsx for platform references. #}
+<c-vars
+  orientation="horizontal"
+  primary=""
+  secondary=""
+  :value="50"
+  :min="0"
+  :max="100"
+  :step="10"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-valuetext="None"
+  :primary-id="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+{% load shadcn_htmx %}
+{% scn_clamp value min max as split_value %}
+<div {% if id %}id="{{ id|default_if_none:"" }}"{% endif %}
+     data-slot="splitter"
+     data-orientation="{{ orientation }}"
+     style="--split:{{ split_value }}%"
+     class="grid w-full overflow-hidden rounded-md border bg-card data-[orientation=horizontal]:h-64 data-[orientation=horizontal]:grid-cols-[var(--split,50%)_auto_minmax(0,1fr)] data-[orientation=vertical]:h-96 data-[orientation=vertical]:grid-rows-[var(--split,50%)_auto_minmax(0,1fr)] {{ class }}" {{ attrs }}>
+  <div data-slot="splitter-panel" data-splitter-panel="primary" {% if primary_id %}id="{% if primary_id is None %}{% if id is not None %}{{ id|default_if_none:"" }}-primary{% endif %}{% else %}{{ primary_id|default_if_none:"" }}{% endif %}"{% elif id %}id="{% if primary_id is None %}{% if id is not None %}{{ id|default_if_none:"" }}-primary{% endif %}{% else %}{{ primary_id|default_if_none:"" }}{% endif %}"{% endif %} class="min-h-0 min-w-0 overflow-auto p-4 text-sm text-foreground">{{ primary }}</div>
+  <div role="separator" tabindex="0"
+       data-slot="splitter-handle"
+       data-orientation="{{ orientation }}"
+       data-min="{{ min }}" data-max="{{ max }}" data-step="{{ step }}" data-collapsed="false"
+       aria-orientation="{{ orientation }}"
+       {% if primary_id %} aria-controls="{% if primary_id is None %}{% if id is not None %}{{ id|default_if_none:"" }}-primary{% endif %}{% else %}{{ primary_id|default_if_none:"" }}{% endif %}"{% elif id %} aria-controls="{% if primary_id is None %}{% if id is not None %}{{ id|default_if_none:"" }}-primary{% endif %}{% else %}{{ primary_id|default_if_none:"" }}{% endif %}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% elif aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+       aria-valuenow="{{ split_value }}" aria-valuemin="{{ min }}" aria-valuemax="{{ max }}"{% if aria_valuetext %} aria-valuetext="{{ aria_valuetext|default_if_none:"" }}"{% endif %}
+       class="group/splitter relative flex shrink-0 touch-none items-center justify-center bg-border outline-none transition-colors select-none hover:bg-ring/40 focus-visible:bg-ring/40 focus-visible:ring-[3px] focus-visible:ring-ring/50 data-[orientation=horizontal]:w-1.5 data-[orientation=horizontal]:cursor-col-resize data-[orientation=horizontal]:h-full data-[orientation=vertical]:h-1.5 data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:w-full">
+    <span class="pointer-events-none rounded-full bg-muted-foreground/40 transition-colors group-hover/splitter:bg-muted-foreground/70 group-data-[orientation=horizontal]/splitter:h-6 group-data-[orientation=horizontal]/splitter:w-0.5 group-data-[orientation=vertical]/splitter:w-6 group-data-[orientation=vertical]/splitter:h-0.5" aria-hidden="true"></span>
+  </div>
+  <div data-slot="splitter-panel" data-splitter-panel="secondary" class="min-h-0 min-w-0 overflow-auto p-4 text-sm text-foreground">{{ secondary }}{% if slot %}{{ slot }}{% endif %}</div>
+</div>
+{% endlocalize %}

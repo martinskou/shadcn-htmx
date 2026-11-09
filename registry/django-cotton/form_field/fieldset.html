@@ -1,0 +1,24 @@
+{# form-field — Django Cotton. See registry/ui/form-field.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :legend="None"
+  :description="None"
+  :error="None"
+  :invalid="None"
+  :disabled="False"
+  :required="False"
+  class=""
+  legend-class=""
+/>
+{% load l10n %}{% localize off %}
+<fieldset class="grid gap-2 [&:has(:user-invalid)_[data-slot=form-field-label]]:text-destructive min-w-0 border-0 p-0 {{ class }}"
+          data-slot="form-field"{% if invalid is None %}{% if error is not None %} data-invalid="true"{% endif %}{% elif invalid %} data-invalid="true"{% endif %}{% if disabled %} disabled{% endif %}{% if id %}{% if description is not None or error is not None %} aria-describedby="{% if description is not None %}{{ id }}-description{% endif %}{% if error is not None and invalid is not False %} {{ id }}-error{% endif %}"{% endif %}{% endif %}{% if invalid is None %}{% if error is not None %} aria-invalid="true"{% endif %}{% elif invalid %} aria-invalid="true"{% endif %}{% if required %} aria-required="true"{% endif %} {{ attrs }}>{% if legend is not None %}
+  <legend class="text-sm leading-none font-medium select-none float-none mb-1 data-[invalid=true]:text-destructive {{ legend_class }}"
+          data-slot="form-field-legend"{% if invalid is None %}{% if error is not None %} data-invalid="true"{% endif %}{% elif invalid %} data-invalid="true"{% endif %}{% if required %} data-required="true"{% endif %}
+  >{{ legend|default_if_none:"" }}{% if required %}<span class="text-destructive" aria-hidden="true"> *</span>{% endif %}</legend>{% endif %}
+  {{ slot }}{% if description is not None %}
+  <p {% if id %}id="{{ id|default_if_none:"" }}-description" {% endif %}class="text-sm text-muted-foreground" data-slot="form-field-description">{{ description|default_if_none:"" }}</p>{% endif %}{% if invalid is None %}{% if error is not None %}
+  <p {% if id %}id="{{ id|default_if_none:"" }}-error" {% endif %}role="alert" aria-live="assertive" class="text-sm font-medium text-destructive" data-slot="form-field-error">{{ error|default_if_none:"" }}</p>{% endif %}{% elif invalid %}{% if error is not None %}
+  <p {% if id %}id="{{ id|default_if_none:"" }}-error" {% endif %}role="alert" aria-live="assertive" class="text-sm font-medium text-destructive" data-slot="form-field-error">{{ error|default_if_none:"" }}</p>{% endif %}{% endif %}
+</fieldset>
+{% endlocalize %}

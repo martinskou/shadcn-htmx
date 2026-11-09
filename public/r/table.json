@@ -34,6 +34,42 @@
       "type": "registry:file",
       "target": "snippets/table.html",
       "content": "<!--\n  shadcn-htmx — raw HTML table snippet.\n  Semantic <table> with <thead>/<tbody>; sortable column has aria-sort\n  and a clickable button inside the <th>.\n\n  Native <th>/<td> attributes you can add as needed (no extra markup required):\n    - colspan / rowspan : span cells across columns/rows for grouped or merged\n      headers and merged data cells (MDN web/html/reference/elements/th & td).\n    - id + headers      : for complex tables where scope alone is insufficient,\n      give each header an id and list them (space-separated) in each cell's\n      headers attribute to explicitly associate data cells with their headers\n      (MDN: \"Associate data cells with header cells\").\n    - abbr (on <th>)    : a short label assistive tech announces in place of a\n      verbose column title (non-deprecated on <th>; do not use on <td>).\n-->\n\n<div class=\"relative w-full overflow-auto\">\n  <table data-slot=\"table\" class=\"w-full caption-bottom text-sm\">\n    <thead data-slot=\"table-header\" class=\"[&_tr]:border-b\">\n      <tr data-slot=\"table-row\" class=\"border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted\">\n        <th scope=\"col\" data-slot=\"table-head\" data-sortable=\"true\" aria-sort=\"ascending\"\n            class=\"h-10 px-2 text-left align-middle font-medium text-muted-foreground\">\n          <button type=\"button\" class=\"inline-flex h-7 items-center gap-1.5 rounded-md px-2 -ml-2 hover:bg-muted hover:text-foreground\"\n                  hx-get=\"/articles?sort=name&dir=desc\" hx-target=\"closest table\" hx-swap=\"outerHTML\">\n            Name\n            <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" class=\"size-3.5\" aria-hidden=\"true\">\n              <polyline points=\"18 15 12 9 6 15\" />\n            </svg>\n          </button>\n        </th>\n        <th scope=\"col\" data-slot=\"table-head\" class=\"h-10 px-2 text-left align-middle font-medium text-muted-foreground\">Role</th>\n      </tr>\n    </thead>\n    <tbody data-slot=\"table-body\" class=\"[&_tr:last-child]:border-0\">\n      <tr data-slot=\"table-row\" class=\"border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted\">\n        <td data-slot=\"table-cell\" class=\"p-2 align-middle\">Ada Lovelace</td>\n        <td data-slot=\"table-cell\" class=\"p-2 align-middle\">Owner</td>\n      </tr>\n      <tr data-slot=\"table-row\" class=\"border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted\">\n        <td data-slot=\"table-cell\" class=\"p-2 align-middle\">Grace Hopper</td>\n        <td data-slot=\"table-cell\" class=\"p-2 align-middle\">Admin</td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+    },
+    {
+      "path": "registry/django-cotton/table/body.html",
+      "type": "registry:file",
+      "target": "templates/cotton/table/body.html",
+      "content": "{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}\n<c-vars\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<tbody {{ attrs }} data-slot=\"table-body\" class=\"[&_tr:last-child]:border-0\">{{ slot }}</tbody>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/table/cell.html",
+      "type": "registry:file",
+      "target": "templates/cotton/table/cell.html",
+      "content": "{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}\n<c-vars\n  :content=\"None\"\n  :colspan=\"None\"\n  :rowspan=\"None\"\n  :id=\"None\"\n  :headers=\"None\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<td {{ attrs }} {% if colspan %}colspan=\"{{ colspan|default_if_none:\"\" }}\"{% endif %}{% if rowspan %} rowspan=\"{{ rowspan|default_if_none:\"\" }}\"{% endif %}{% if id %} id=\"{{ id|default_if_none:\"\" }}\"{% endif %}{% if headers %} headers=\"{{ headers|default_if_none:\"\" }}\"{% endif %} data-slot=\"table-cell\" class=\"p-2 align-middle {{ class }}\">{% if slot %}{{ slot }}{% else %}{{ content|default_if_none:\"\" }}{% endif %}</td>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/table/head.html",
+      "type": "registry:file",
+      "target": "templates/cotton/table/head.html",
+      "content": "{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}\n<c-vars\n  :label=\"None\"\n  scope=\"col\"\n  :sort=\"None\"\n  class=\"\"\n  :colspan=\"None\"\n  :rowspan=\"None\"\n  :id=\"None\"\n  :headers=\"None\"\n  :abbr=\"None\"\n/>\n{% load l10n %}{% localize off %}\n{% if sort is None %}\n<th scope=\"{{ scope }}\"{% if colspan %} colspan=\"{{ colspan|default_if_none:\"\" }}\"{% endif %}{% if rowspan %} rowspan=\"{{ rowspan|default_if_none:\"\" }}\"{% endif %}{% if id %} id=\"{{ id|default_if_none:\"\" }}\"{% endif %}{% if headers %} headers=\"{{ headers|default_if_none:\"\" }}\"{% endif %}{% if abbr %} abbr=\"{{ abbr|default_if_none:\"\" }}\"{% endif %} data-slot=\"table-head\" class=\"h-10 px-2 text-left align-middle font-medium text-muted-foreground {{ class }}\">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:\"\" }}{% endif %}</th>\n{% else %}\n<th scope=\"{{ scope }}\"{% if colspan %} colspan=\"{{ colspan|default_if_none:\"\" }}\"{% endif %}{% if rowspan %} rowspan=\"{{ rowspan|default_if_none:\"\" }}\"{% endif %}{% if id %} id=\"{{ id|default_if_none:\"\" }}\"{% endif %}{% if headers %} headers=\"{{ headers|default_if_none:\"\" }}\"{% endif %}{% if abbr %} abbr=\"{{ abbr|default_if_none:\"\" }}\"{% endif %} data-slot=\"table-head\" data-sortable=\"true\" aria-sort=\"{{ sort|default_if_none:\"\" }}\" class=\"h-10 px-2 text-left align-middle font-medium text-muted-foreground {{ class }}\">\n  <button type=\"button\" class=\"inline-flex h-7 items-center gap-1.5 rounded-md px-2 -ml-2 hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none\" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:\"\" }}{% endif %}{% if sort == \"ascending\" %}<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-3.5\" aria-hidden=\"true\"><polyline points=\"18 15 12 9 6 15\" /></svg>{% elif sort == \"descending\" %}<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-3.5\" aria-hidden=\"true\"><polyline points=\"6 9 12 15 18 9\" /></svg>{% elif sort == \"none\" %}<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-3.5 opacity-30\" aria-hidden=\"true\"><polyline points=\"6 9 12 15 18 9\" /></svg>{% endif %}</button>\n</th>\n{% endif %}\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/table/header.html",
+      "type": "registry:file",
+      "target": "templates/cotton/table/header.html",
+      "content": "{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}\n<c-vars\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<thead {{ attrs }} data-slot=\"table-header\" class=\"[&_tr]:border-b\">{{ slot }}</thead>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/table/index.html",
+      "type": "registry:file",
+      "target": "templates/cotton/table/index.html",
+      "content": "{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }} class=\"relative w-full overflow-auto\">\n  <table data-slot=\"table\" class=\"w-full caption-bottom text-sm {{ class }}\">\n{{ slot }}</table></div>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/table/row.html",
+      "type": "registry:file",
+      "target": "templates/cotton/table/row.html",
+      "content": "{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}\n<c-vars\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<tr {{ attrs }} data-slot=\"table-row\" class=\"border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted {{ class }}\">{{ slot }}</tr>\n{% endlocalize %}\n"
     }
   ]
 }

@@ -1,0 +1,11 @@
+{# select — Django Cotton. See registry/ui/select.tsx for platform references. #}
+<c-vars
+  :value="None"
+  :text="None"
+  :selected="False"
+  :disabled="False"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<option {{ attrs }} value="{{ value|default_if_none:"" }}"{% if selected %} selected{% endif %}{% if disabled %} disabled{% endif %}>{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</option>
+{% endlocalize %}

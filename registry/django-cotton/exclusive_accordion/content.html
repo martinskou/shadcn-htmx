@@ -1,0 +1,7 @@
+{# exclusive-accordion — Django Cotton. See registry/ui/exclusive-accordion.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="exclusive-accordion-content" class="overflow-hidden pt-0 pb-4 text-sm {{ class }}">{{ slot }}</div>
+{% endlocalize %}

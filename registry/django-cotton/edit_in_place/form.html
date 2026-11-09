@@ -1,0 +1,28 @@
+{# edit-in-place — Django Cotton. See registry/ui/edit-in-place.tsx for platform references. #}
+<c-vars
+  :put-href="None"
+  :cancel-href="None"
+  :fields="None"
+  save-label="Save"
+  cancel-label="Cancel"
+  :id="None"
+  class=""
+  :caller="None"
+/>
+{% load l10n %}{% localize off %}
+<form {{ attrs }} data-slot="edit-in-place" data-mode="edit"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+      hx-put="{{ put_href|default_if_none:"" }}" hx-target="this" hx-swap="outerHTML"
+      class="flex w-full max-w-sm flex-col gap-4 rounded-xl border bg-card p-5 text-card-foreground shadow-sm {{ class }}">{% if fields %}
+  <div class="flex flex-col gap-3" data-slot="edit-in-place-fields">{% for f in fields %}
+    <div class="grid gap-1.5">
+      <label for="{% if id %}{{ id|default_if_none:"" }}{% else %}field{% endif %}-{% if f.name %}{{ f.name }}{% else %}{{ f.label|lower }}{% endif %}" class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 text-xs font-medium tracking-wide text-muted-foreground uppercase">{{ f.label }}</label>
+      <input id="{% if id %}{{ id|default_if_none:"" }}{% else %}field{% endif %}-{% if f.name %}{{ f.name }}{% else %}{{ f.label|lower }}{% endif %}" name="{% if f.name %}{{ f.name }}{% else %}{{ f.label|lower }}{% endif %}" type="{% if f.type %}{{ f.type }}{% else %}text{% endif %}"{% if f.value is not None %} value="{{ f.value }}"{% endif %}{% if f.required %} required{% endif %}
+             data-slot="input" class="flex h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&.htmx-request]:opacity-70">
+    </div>{% endfor %}
+  </div>{% elif slot %}{{ slot }}{% endif %}
+  <div class="flex gap-2">
+    <button type="submit" data-slot="edit-in-place-save" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&.htmx-request]:pointer-events-none [&.htmx-request]:opacity-70 bg-primary text-primary-foreground hover:bg-primary/90 h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5">{{ save_label }}</button>
+    <button type="button" data-slot="edit-in-place-cancel" hx-get="{{ cancel_href|default_if_none:"" }}" hx-target="closest [data-slot='edit-in-place']" hx-swap="outerHTML" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&.htmx-request]:pointer-events-none [&.htmx-request]:opacity-70 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5">{{ cancel_label }}</button>
+  </div>
+</form>
+{% endlocalize %}

@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { MEDIA_PLAYER_PROPS } from "@/app/data/api-rows"
 import { MediaPlayer } from "@/registry/ui/media-player"
@@ -145,6 +146,7 @@ mediaPlayerRoutes.get("/", async (c) => {
             <LangTabs
               id="install-media-player"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "media-player" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/media-player.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/media-player.html", source: jinjaSource, note: "Copy media-player.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/media-player.tmpl", source: goSource, note: "Add media-player.tmpl alongside your templates." }) },

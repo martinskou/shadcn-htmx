@@ -1,0 +1,10 @@
+{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :href="None"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<a {% if href %}href="{{ href|default_if_none:"" }}"{% endif %} data-slot="breadcrumb-link"
+   class="transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</a>
+{% endlocalize %}

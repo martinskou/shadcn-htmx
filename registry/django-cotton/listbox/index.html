@@ -1,0 +1,40 @@
+{# listbox — Django Cotton. See registry/ui/listbox.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  :aria-labelledby="None"
+  :multiple="False"
+  :disabled="False"
+  :required="False"
+  :aria-invalid="None"
+  :aria-errormessage="None"
+  :aria-readonly="False"
+  orientation="vertical"
+  :name="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span class="relative inline-flex w-full flex-col">
+<ul role="listbox"
+    data-slot="listbox"
+    data-orientation="{{ orientation }}"
+    aria-orientation="{{ orientation }}"{% if multiple %} aria-multiselectable="true"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if disabled %} aria-disabled="true"{% endif %}{% if required %} aria-required="true"{% endif %}{% if aria_invalid is not None %} aria-invalid="{% if aria_invalid %}true{% else %}false{% endif %}"{% endif %}{% if aria_errormessage %} aria-errormessage="{{ aria_errormessage|default_if_none:"" }}"{% endif %}{% if aria_readonly %} aria-readonly="true"{% endif %}
+    tabindex="-1" {{ attrs }}
+    class="max-h-60 w-full overflow-y-auto overflow-x-hidden rounded-md border bg-background p-1 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 data-[orientation=horizontal]:flex data-[orientation=horizontal]:max-h-none data-[orientation=horizontal]:overflow-x-auto data-[orientation=horizontal]:overflow-y-hidden {{ class }}">{{ slot }}</ul>{% if name %}
+<input type="hidden" name="{{ name|default_if_none:"" }}" data-listbox-value="">{% endif %}
+<script>(function(el){
+  var opts = el.querySelectorAll('[role="option"]');
+  var sel = el.querySelector('[role="option"][aria-selected="true"]:not([aria-disabled="true"])');
+  var active = sel || el.querySelector('[role="option"]:not([aria-disabled="true"])');
+  opts.forEach(function(o){ o.setAttribute('tabindex', o === active ? '0' : '-1'); });
+  var hidden = el.parentNode && el.parentNode.querySelector('[data-listbox-value]');
+  if (hidden) {
+    var vals = [];
+    el.querySelectorAll('[role="option"][aria-selected="true"]').forEach(function(o){
+      vals.push(o.getAttribute('data-value') || (o.textContent || '').trim());
+    });
+    hidden.value = vals.join(',');
+  }
+  el.setAttribute('data-listbox-ready','true');
+})(document.currentScript.parentNode.querySelector('[data-slot="listbox"]'));</script>
+</span>
+{% endlocalize %}

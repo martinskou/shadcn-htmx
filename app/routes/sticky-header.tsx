@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { STICKY_HEADER_PROPS } from "@/app/data/api-rows"
 import { StickyHeader, StickyHeaderBar } from "@/registry/ui/sticky-header"
@@ -144,6 +145,7 @@ stickyHeaderRoutes.get("/", async (c) => {
             <LangTabs
               id="install-sticky-header"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "sticky-header" }) },
                 {
                   lang: "jsx",
                   node: await InstallPanel({

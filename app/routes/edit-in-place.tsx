@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { EDIT_IN_PLACE_PROPS } from "@/app/data/api-rows"
 import { EditInPlace, EditInPlaceForm, type EditInPlaceField } from "@/registry/ui/edit-in-place"
@@ -141,6 +142,7 @@ editInPlaceRoutes.get("/", async (c) => {
             <LangTabs
               id="install-edit-in-place"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "edit-in-place" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/edit-in-place.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/edit-in-place.html", source: jinjaSource, note: "Copy edit-in-place.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/edit-in-place.tmpl", source: goSource, note: "Add edit-in-place.tmpl alongside your templates." }) },

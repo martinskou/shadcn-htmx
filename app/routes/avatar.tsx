@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { AVATAR_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Avatar, AvatarBadge, AvatarGroup, AvatarGroupCount } from "@/registry/ui/avatar"
 
@@ -83,6 +84,7 @@ avatarRoutes.get("/", async (c) => {
             <LangTabs
               id="install-avatar"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "avatar" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/avatar.tsx", source: avJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/avatar.html", source: avJinja, note: "Copy avatar.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/avatar.tmpl", source: avGo, note: "Add avatar.tmpl alongside button.tmpl." }) },

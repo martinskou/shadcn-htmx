@@ -1,0 +1,7 @@
+{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<tr {{ attrs }} data-slot="table-row" class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted {{ class }}">{{ slot }}</tr>
+{% endlocalize %}

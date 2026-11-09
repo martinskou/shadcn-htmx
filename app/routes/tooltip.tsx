@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { TOOLTIP_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Tooltip } from "@/registry/ui/tooltip"
 import { Button } from "@/registry/ui/button"
@@ -98,6 +99,7 @@ tooltipRoutes.get("/", async (c) => {
             <LangTabs
               id="install-tooltip"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "tooltip" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/tooltip.tsx", source: ttJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/tooltip.html", source: ttJinjaSource, note: "Copy tooltip.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/tooltip.tmpl", source: ttGoSource, note: "Add tooltip.tmpl alongside button.tmpl." }) },

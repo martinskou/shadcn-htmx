@@ -1,0 +1,12 @@
+{# Native mark for search relevance: repos/mdn/files/en-us/web/html/reference/elements/mark/index.md:40. #}
+<c-vars
+  text=""
+  query=""
+  :words="False"
+  :case-sensitive="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+{% load shadcn_htmx %}
+{% if slot %}<mark data-slot="highlight" class="rounded-sm bg-primary/15 px-0.5 font-medium text-foreground [box-decoration-break:clone] {{ class }}" {{ attrs }}>{{ slot }}</mark>{% else %}{% scn_split_matches text query words case_sensitive as segments %}<span data-slot="highlight" {{ attrs }}>{% for segment in segments %}{% if segment.match %}<mark class="rounded-sm bg-primary/15 px-0.5 font-medium text-foreground [box-decoration-break:clone] {{ class }}">{{ segment.text }}</mark>{% else %}{{ segment.text }}{% endif %}{% endfor %}</span>{% endif %}
+{% endlocalize %}

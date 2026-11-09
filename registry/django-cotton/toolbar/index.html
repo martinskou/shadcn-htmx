@@ -1,0 +1,27 @@
+{# toolbar — Django Cotton. See registry/ui/toolbar.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-controls="None"
+  orientation="horizontal"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div role="toolbar"
+     data-slot="toolbar"
+     data-orientation="{{ orientation }}"
+     aria-orientation="{{ orientation }}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}
+     {% if aria_controls %} aria-controls="{{ aria_controls|default_if_none:"" }}"{% endif %} {{ attrs }}
+     class="group/toolbar flex w-fit items-center gap-1 rounded-md border bg-card p-1 shadow-xs data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch {{ class }}">{{ slot }}</div>
+<script>(function(el){
+  var items = el.querySelectorAll('[data-toolbar-item]');
+  var set = false;
+  items.forEach(function(it){
+    var off = it.hasAttribute('disabled') || it.getAttribute('aria-disabled') === 'true';
+    if (!set && !off) { it.setAttribute('tabindex','0'); set = true; }
+    else { it.setAttribute('tabindex','-1'); }
+  });
+  if (!set && items.length) items[0].setAttribute('tabindex','0');
+  el.setAttribute('data-toolbar-ready','true');
+})(document.currentScript.previousElementSibling);</script>
+{% endlocalize %}

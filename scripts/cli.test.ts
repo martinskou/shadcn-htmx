@@ -12,10 +12,9 @@ const CLI = join(ROOT, "scripts", "cli.mjs")
 const REG = join(ROOT, "public", "r")
 
 beforeAll(() => {
-  if (!existsSync(join(REG, "button.json"))) {
-    // Ensure the registry is built before testing.
-    spawnSync("bun", ["run", "build:registry"], { cwd: ROOT })
-  }
+  // Rebuild even when artifacts exist: flavour coverage can change on disk.
+  const result = spawnSync("bun", ["run", "build:registry"], { cwd: ROOT, stdio: "inherit" })
+  expect(result.status).toBe(0)
 })
 
 function run(args: string[], out: string) {
@@ -120,4 +119,58 @@ test("unknown component exits non-zero", () => {
   const r = run(["add", "does-not-exist", "-f", "jinja"], out)
   expect(r.code).not.toBe(0)
   rmSync(out, { recursive: true, force: true })
+})
+
+test("cotton init persists the flavour and add installs all compound parts", () => {
+  const out = tmp()
+  try {
+    expect(run(["init", "--cwd", out, "--flavour", "cotton"], out).code).toBe(0)
+    const config = JSON.parse(readFileSync(join(out, "shadcn-htmx.json"), "utf8"))
+    expect(config.flavour).toBe("cotton")
+    expect(run(["add", "button", "card", "--cwd", out], out).code).toBe(0)
+    expect(readFileSync(join(out, "templates/cotton/button/index.html"), "utf8")).toContain("<c-vars")
+    for (const part of ["index", "header", "title", "description", "action", "content", "footer"]) {
+      expect(existsSync(join(out, `templates/cotton/card/${part}.html`))).toBe(true)
+    }
+    expect(existsSync(join(out, "templates/components"))).toBe(false)
+    expect(existsSync(join(out, "components"))).toBe(false)
+    expect(existsSync(join(out, "lib"))).toBe(false)
+    expect(existsSync(join(out, "shadcn_htmx.py"))).toBe(false)
+  } finally {
+    rmSync(out, { recursive: true, force: true })
+  }
+})
+
+test("cotton installs every family, including shared Python helpers", () => {
+  const out = tmp()
+  try {
+    const manifest = JSON.parse(readFileSync(join(ROOT, "registry.json"), "utf8"))
+    const items = manifest.items.filter((item: { type: string }) => item.type === "registry:ui")
+    expect(run(["add", ...items.map((item: { name: string }) => item.name), "-f", "cotton"], out).code).toBe(0)
+    for (const item of items) {
+      const files = item.files.filter((file: { path: string }) => file.path.startsWith("registry/django-cotton/"))
+      expect(files.length).toBeGreaterThan(0)
+      for (const file of files) {
+        expect(readFileSync(join(out, file.target), "utf8")).toBe(readFileSync(join(ROOT, file.path), "utf8"))
+      }
+    }
+    expect(existsSync(join(out, "shadcn_htmx.py"))).toBe(true)
+    expect(existsSync(join(out, "templates/components"))).toBe(false)
+    expect(existsSync(join(out, "snippets"))).toBe(false)
+  } finally {
+    rmSync(out, { recursive: true, force: true })
+  }
+})
+
+test("cotton dry-run leaves compound templates and helpers unwritten", () => {
+  const out = tmp()
+  try {
+    const r = run(["add", "card", "rating", "-f", "cotton", "--dry"], out)
+    expect(r.code).toBe(0)
+    expect(r.stdout).toContain("templates/cotton/card/header.html")
+    expect(existsSync(join(out, "templates"))).toBe(false)
+    expect(existsSync(join(out, "shadcn_htmx.py"))).toBe(false)
+  } finally {
+    rmSync(out, { recursive: true, force: true })
+  }
 })

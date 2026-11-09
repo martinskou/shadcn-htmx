@@ -1,0 +1,35 @@
+{# tree — Django Cotton. See registry/ui/tree.tsx for platform references. #}
+<c-vars
+  label=""
+  value=""
+  :parent="False"
+  :expanded="None"
+  :selected="False"
+  :current="None"
+  :level="None"
+  :posinset="None"
+  :setsize="None"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<li role="treeitem" data-slot="tree-item"{% if value %} data-value="{{ value }}"{% endif %}
+    tabindex="-1"{% if parent %} aria-expanded="{% if expanded %}true{% else %}false{% endif %}"{% elif expanded is not None %} aria-expanded="{% if expanded %}true{% else %}false{% endif %}"{% endif %}
+    aria-selected="{% if selected %}true{% else %}false{% endif %}"{% if current is True %} aria-current="page"{% elif current is not False %}{% if current is not None %} aria-current="{{ current|default_if_none:"" }}"{% endif %}{% endif %}{% if level is not None %} aria-level="{{ level|default_if_none:"" }}"{% endif %}{% if posinset is not None %} aria-posinset="{{ posinset|default_if_none:"" }}"{% endif %}{% if setsize is not None %} aria-setsize="{{ setsize|default_if_none:"" }}"{% endif %}{% if disabled %} aria-disabled="true"{% endif %} {{ attrs }}
+    class="{{ class }}">
+  <span data-slot="tree-label"
+        class="flex cursor-pointer items-center gap-1.5 rounded-sm px-2 py-1.5 outline-none">{% if parent %}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         data-slot="tree-chevron"
+         class="pointer-events-none size-4 shrink-0 text-muted-foreground transition-transform duration-200" aria-hidden="true">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>{% elif expanded is None %}
+    <span aria-hidden="true" class="size-4 shrink-0"></span>{% else %}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         data-slot="tree-chevron"
+         class="pointer-events-none size-4 shrink-0 text-muted-foreground transition-transform duration-200" aria-hidden="true">
+      <polyline points="9 18 15 12 9 6" />
+    </svg>{% endif %}
+    {{ label }}
+  </span>{{ slot }}</li>
+{% endlocalize %}

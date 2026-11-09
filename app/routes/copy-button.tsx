@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { COPY_BUTTON_PROPS } from "@/app/data/api-rows"
 import { CopyButton } from "@/registry/ui/copy-button"
@@ -100,6 +101,7 @@ copyButtonRoutes.get("/", async (c) => {
             <LangTabs
               id="install-copy-button"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "copy-button" }) },
                 {
                   lang: "jsx",
                   node: await InstallPanel({

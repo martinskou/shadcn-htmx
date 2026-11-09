@@ -1,0 +1,21 @@
+{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}
+<c-vars
+  :label="None"
+  scope="col"
+  :sort="None"
+  class=""
+  :colspan="None"
+  :rowspan="None"
+  :id="None"
+  :headers="None"
+  :abbr="None"
+/>
+{% load l10n %}{% localize off %}
+{% if sort is None %}
+<th scope="{{ scope }}"{% if colspan %} colspan="{{ colspan|default_if_none:"" }}"{% endif %}{% if rowspan %} rowspan="{{ rowspan|default_if_none:"" }}"{% endif %}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if headers %} headers="{{ headers|default_if_none:"" }}"{% endif %}{% if abbr %} abbr="{{ abbr|default_if_none:"" }}"{% endif %} data-slot="table-head" class="h-10 px-2 text-left align-middle font-medium text-muted-foreground {{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</th>
+{% else %}
+<th scope="{{ scope }}"{% if colspan %} colspan="{{ colspan|default_if_none:"" }}"{% endif %}{% if rowspan %} rowspan="{{ rowspan|default_if_none:"" }}"{% endif %}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if headers %} headers="{{ headers|default_if_none:"" }}"{% endif %}{% if abbr %} abbr="{{ abbr|default_if_none:"" }}"{% endif %} data-slot="table-head" data-sortable="true" aria-sort="{{ sort|default_if_none:"" }}" class="h-10 px-2 text-left align-middle font-medium text-muted-foreground {{ class }}">
+  <button type="button" class="inline-flex h-7 items-center gap-1.5 rounded-md px-2 -ml-2 hover:bg-muted hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}{% if sort == "ascending" %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5" aria-hidden="true"><polyline points="18 15 12 9 6 15" /></svg>{% elif sort == "descending" %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>{% elif sort == "none" %}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 opacity-30" aria-hidden="true"><polyline points="6 9 12 15 18 9" /></svg>{% endif %}</button>
+</th>
+{% endif %}
+{% endlocalize %}

@@ -1,0 +1,36 @@
+{# autosize-textarea — Django Cotton. See registry/ui/autosize-textarea.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :name="None"
+  :value="None"
+  :placeholder="None"
+  :required="False"
+  :disabled="False"
+  :readonly="False"
+  :autosize="True"
+  minheight="min-h-16"
+  maxheight="max-h-80"
+  :rows="None"
+  :cols="None"
+  :minlength="None"
+  :maxlength="None"
+  :autocomplete="None"
+  :autocapitalize="None"
+  :autocorrect="None"
+  :autofocus="False"
+  :spellcheck="None"
+  :dirname="None"
+  :wrap="None"
+  :form="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-invalid="None"
+  :aria-required="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<textarea class="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 md:text-sm dark:bg-input/30 [&.htmx-request]:opacity-70 {% if autosize %}field-sizing-content resize-none{% else %}field-sizing-fixed resize-y{% endif %} {{ minheight }} {{ maxheight }} overflow-auto {{ class }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}{% if placeholder %} placeholder="{{ placeholder|default_if_none:"" }}"{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if readonly %} readonly{% endif %}{% if rows is not None %} rows="{{ rows|default_if_none:"" }}"{% endif %}{% if cols is not None %} cols="{{ cols|default_if_none:"" }}"{% endif %}{% if minlength is not None %} minlength="{{ minlength|default_if_none:"" }}"{% endif %}{% if maxlength is not None %} maxlength="{{ maxlength|default_if_none:"" }}"{% endif %}{% if autocomplete %} autocomplete="{{ autocomplete|default_if_none:"" }}"{% endif %}{% if autocapitalize %} autocapitalize="{{ autocapitalize|default_if_none:"" }}"{% endif %}{% if autocorrect %} autocorrect="{{ autocorrect|default_if_none:"" }}"{% endif %}{% if autofocus %} autofocus{% endif %}{% if spellcheck is not None %} spellcheck="{% if spellcheck %}true{% else %}false{% endif %}"{% endif %}{% if dirname %} dirname="{{ dirname|default_if_none:"" }}"{% endif %}{% if wrap %} wrap="{{ wrap|default_if_none:"" }}"{% endif %}{% if form %} form="{{ form|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %}{% if aria_required is not None %} aria-required="{{ aria_required|lower }}"{% endif %}
+          data-slot="autosize-textarea"
+          data-autosize="{% if autosize %}true{% else %}false{% endif %}" {{ attrs }}>{% if value is not None %}{{ value|default_if_none:"" }}{% endif %}</textarea>
+{% endlocalize %}

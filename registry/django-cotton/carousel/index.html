@@ -1,0 +1,34 @@
+{# carousel — Django Cotton. See registry/ui/carousel.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<section id="{{ id|default_if_none:"" }}"
+         data-slot="carousel"
+         data-carousel
+         role="group"
+         aria-roledescription="carousel"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}
+         class="group/carousel relative {{ class }}" {{ attrs }}>
+  {{ slot }}
+</section>
+<script>(function(el){
+  var content = el.querySelector('[data-slot="carousel-content"]');
+  if (content){
+    if (!content.id) content.id = el.id + '-content';
+    var items = content.querySelectorAll('[data-slot="carousel-item"]');
+    var total = items.length;
+    items.forEach(function(it, i){
+      if (!it.getAttribute('aria-label')) it.setAttribute('aria-label', (i+1)+' of '+total);
+    });
+    el.querySelectorAll('[data-carousel-prev],[data-carousel-next]').forEach(function(b){
+      b.setAttribute('aria-controls', content.id);
+    });
+    var prev = el.querySelector('[data-carousel-prev]');
+    if (prev) prev.disabled = content.scrollLeft <= 0;
+  }
+  el.setAttribute('data-carousel-ready','true');
+})(document.currentScript.previousElementSibling);</script>
+{% endlocalize %}

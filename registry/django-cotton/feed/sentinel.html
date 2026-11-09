@@ -1,0 +1,16 @@
+{# feed — Django Cotton. See registry/ui/feed.tsx for platform references. #}
+<c-vars
+  :href="None"
+  trigger="revealed"
+  :busy="False"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="feed-sentinel"{% if href %}hx-get="{{ href|default_if_none:"" }}"{% endif %}
+  hx-trigger="{{ trigger }}" hx-swap="outerHTML"{% if busy %}aria-busy="true"{% endif %}
+  class="flex items-center justify-center gap-2 py-4 text-sm text-muted-foreground {{ class }}">
+  {% if slot %}{{ slot }}{% else %}<span aria-hidden="true" class="size-4 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground"></span>Loading more…{% endif %}
+</div>
+{% endlocalize %}

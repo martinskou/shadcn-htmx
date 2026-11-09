@@ -10,6 +10,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { LABEL_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Label } from "@/registry/ui/label"
 import { Input } from "@/registry/ui/input"
@@ -104,6 +105,7 @@ labelRoutes.get("/", async (c) => {
             <LangTabs
               id="install-label"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "label" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/label.tsx", source: labelJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/label.html", source: labelJinjaSource, note: "Copy label.html into your templates/components/ folder." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/label.tmpl", source: labelGoSource, note: "Add label.tmpl alongside button.tmpl in your templates tree." }) },

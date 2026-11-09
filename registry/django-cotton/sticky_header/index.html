@@ -1,0 +1,12 @@
+{# sticky-header — Django Cotton. See registry/ui/sticky-header.tsx for platform references. #}
+<c-vars
+  as="header"
+  top="0"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<{{ as }} data-slot="sticky-header"
+  class="sticky z-30 bg-background/95 supports-[backdrop-filter]:bg-background/80 [container-type:scroll-state] {{ class }}"
+  style="top:{{ top }}" {{ attrs }}>
+{{ slot }}</{{ as }}>
+{% endlocalize %}

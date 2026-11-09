@@ -1,0 +1,12 @@
+{# selectable-table — Django Cotton. See registry/ui/selectable-table.tsx for platform references. #}
+<c-vars
+  :label="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="selectable-table-actions"
+  class="hidden items-center gap-2 rounded-md border bg-muted px-3 py-2 group-has-[input[name=selected]:checked]/selectable-table:flex {{ class }}">
+  {% if label %}<span class="mr-1 text-xs font-medium text-muted-foreground">{{ label|default_if_none:"" }}</span>{% endif %}
+  {{ slot }}
+</div>
+{% endlocalize %}

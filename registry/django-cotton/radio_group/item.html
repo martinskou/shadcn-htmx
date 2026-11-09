@@ -1,0 +1,25 @@
+{# radio-group — Django Cotton. See registry/ui/radio-group.tsx for platform references. #}
+<c-vars
+  :value="None"
+  :name="None"
+  :id="None"
+  :checked="False"
+  :disabled="False"
+  :required="False"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-invalid="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span class="relative inline-flex size-4 shrink-0 align-middle">
+  <input type="radio"
+         class="peer aspect-square size-4 shrink-0 cursor-pointer appearance-none rounded-full border border-input bg-background shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 checked:border-primary aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:bg-input/30 {{ class }}"
+         value="{{ value|default_if_none:"" }}"
+         name="{{ name|default_if_none:"" }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %}{% if required %} required{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %}
+         data-slot="radio-group-item" {{ attrs }}>
+  <span class="pointer-events-none absolute inset-0 m-auto size-2 hidden rounded-full bg-primary peer-checked:block"
+        data-slot="radio-group-indicator" aria-hidden="true"></span>
+</span>
+{% endlocalize %}

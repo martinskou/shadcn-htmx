@@ -1,0 +1,47 @@
+{# file-upload — Django Cotton. See registry/ui/file-upload.tsx for platform references. #}
+<c-vars
+  :name="None"
+  :id="None"
+  :accept="None"
+  :multiple="False"
+  :required="False"
+  :disabled="False"
+  :capture="None"
+  :form="None"
+  :preserve="False"
+  label="Drop files here, or click to upload"
+  :hint="None"
+  :show-progress="False"
+  :progress="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-invalid="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+{% load shadcn_htmx %}
+{% scn_progress progress 0 100 as progress_data %}
+<div data-slot="file-upload" class="group/file-upload grid w-full gap-3 [&.htmx-request]:opacity-70 {{ class }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}>
+  <label data-slot="file-upload-zone"{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %}
+         class="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-dashed border-input bg-transparent px-6 py-8 text-center text-sm text-muted-foreground shadow-xs transition-[color,box-shadow] outline-none dark:bg-input/30 focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50 hover:border-ring/60 hover:text-foreground data-[dragover=true]:border-ring data-[dragover=true]:bg-accent data-[dragover=true]:text-foreground has-[input:disabled]:pointer-events-none has-[input:disabled]:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-6 shrink-0 opacity-70" aria-hidden="true">
+      <path d="M12 13v8" />
+      <path d="m8 17 4-4 4 4" />
+      <path d="M20 16.7A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25" />
+    </svg>
+    <span class="font-medium text-foreground">{% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}</span>{% if hint %}<span class="text-xs">{{ hint|default_if_none:"" }}</span>{% endif %}
+    <input type="file" data-slot="file-upload-input" class="absolute size-px overflow-hidden border-0 p-0 whitespace-nowrap [clip:rect(0,0,0,0)]"{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}{% if accept %} accept="{{ accept|default_if_none:"" }}"{% endif %}{% if multiple %} multiple{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if capture is not None and capture is not False %} capture{% if capture != True %}="{{ capture }}"{% endif %}{% endif %}{% if form %} form="{{ form|default_if_none:"" }}"{% endif %}{% if preserve %} hx-preserve="true"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% elif not aria_labelledby %} aria-label="{% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %} {{ attrs }}>
+  </label>
+
+  <ul data-slot="file-upload-list" class="m-0 grid list-none gap-2 p-0 empty:hidden" aria-live="polite"></ul>{% if show_progress %}
+  <div data-slot="file-upload-progress" role="progressbar" aria-label="Upload progress"
+       aria-valuemin="0" aria-valuemax="100"{% if progress is not None %} aria-valuenow="{{ progress_data.value }}"{% endif %}
+       data-state="{% if progress is None %}indeterminate{% else %}determinate{% endif %}"
+       class="relative h-2 w-full overflow-hidden rounded-full bg-primary/20">
+    <div data-slot="file-upload-progress-indicator"
+         class="h-full bg-primary transition-all{% if progress is None %} absolute inset-y-0 -left-1/3 w-1/3 animate-[scn-progress-indeterminate_1.2s_ease-in-out_infinite]{% endif %}"{% if progress is not None %} style="width: {{ progress_data.value }}%"{% endif %}></div>
+  </div>{% endif %}
+</div>
+<script>(function(el){el.setAttribute('data-file-upload-ready','true');})(document.currentScript.previousElementSibling);</script>
+{% endlocalize %}

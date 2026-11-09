@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { METER_PROPS } from "@/app/data/api-rows"
 import { Meter } from "@/registry/ui/meter"
@@ -96,6 +97,7 @@ meterRoutes.get("/", async (c) => {
           <section class="space-y-4">
             <h2 id="installation" class="scroll-mt-20 text-xl font-semibold tracking-tight">Installation</h2>
             <LangTabs id="install-meter" panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "meter" }) },
               { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/meter.tsx", source: jsxSource }) },
               { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/meter.html", source: jinjaSource, note: "Copy meter.html into templates/components/." }) },
               { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/meter.tmpl", source: goSource, note: "Add meter.tmpl alongside your other templates." }) },

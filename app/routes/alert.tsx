@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { ALERT_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Alert, AlertTitle, AlertDescription } from "@/registry/ui/alert"
 import { Button } from "@/registry/ui/button"
@@ -113,6 +114,7 @@ alertRoutes.get("/", async (c) => {
             <LangTabs
               id="install-alert"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "alert" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/alert.tsx", source: alertJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/alert.html", source: alertJinjaSource, note: "Copy alert.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/alert.tmpl", source: alertGoSource, note: "Add alert.tmpl alongside button.tmpl." }) },

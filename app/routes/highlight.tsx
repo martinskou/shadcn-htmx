@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { HIGHLIGHT_PROPS } from "@/app/data/api-rows"
 import { Highlight } from "@/registry/ui/highlight"
@@ -170,6 +171,7 @@ highlightRoutes.get("/", async (c) => {
             <LangTabs
               id="install-highlight"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "highlight" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/highlight.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/highlight.html", source: jinjaSource, note: "Copy highlight.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/highlight.tmpl", source: goSource, note: "Add highlight.tmpl alongside your templates." }) },

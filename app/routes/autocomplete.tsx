@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { AUTOCOMPLETE_PROPS } from "@/app/data/api-rows"
 import { Autocomplete, AutocompleteOption } from "@/registry/ui/autocomplete"
@@ -169,6 +170,7 @@ autocompleteRoutes.get("/", async (c) => {
             <LangTabs
               id="install-autocomplete"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "autocomplete" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/autocomplete.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/autocomplete.html", source: jinjaSource, note: "Copy autocomplete.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/autocomplete.tmpl", source: goSource, note: "Add autocomplete.tmpl alongside your templates." }) },

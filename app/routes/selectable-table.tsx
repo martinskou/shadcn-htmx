@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { SELECTABLE_TABLE_PROPS } from "@/app/data/api-rows"
 import {
@@ -242,6 +243,7 @@ selectableTableRoutes.get("/", async (c) => {
             <LangTabs
               id="install-selectable-table"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "selectable-table" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/selectable-table.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/selectable-table.html", source: jinjaSource, note: "Copy selectable-table.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/selectable-table.tmpl", source: goSource, note: "Add selectable-table.tmpl alongside your templates." }) },

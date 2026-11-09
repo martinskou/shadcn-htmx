@@ -7,6 +7,7 @@ import { Example } from "@/app/components/example"
 import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { ApiTable, type ApiRow } from "@/app/components/api-table"
 import { Combobox, ComboboxOption } from "@/registry/ui/combobox"
@@ -204,6 +205,7 @@ comboboxRoutes.get("/", async (c) => {
             <LangTabs
               id="install-combobox"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "combobox" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/combobox.tsx", source: cJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/combobox.html", source: cJinja, note: "Copy combobox.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/combobox.tmpl", source: cGo, note: "Add combobox.tmpl alongside button.tmpl." }) },

@@ -1,0 +1,11 @@
+{# label — Django Cotton. See registry/ui/label.tsx for platform references. #}
+<c-vars
+  :text="None"
+  :for="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<label class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 {{ class }}"{% if for %} for="{{ for|default_if_none:"" }}"{% endif %}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+       data-slot="label" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</label>
+{% endlocalize %}

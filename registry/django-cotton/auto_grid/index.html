@@ -1,0 +1,18 @@
+{# auto-grid — Django Cotton. See registry/ui/auto-grid.tsx for platform references. #}
+<c-vars
+  min="16rem"
+  gap="gap-4"
+  :fill="False"
+  tag="div"
+  :aria-label="None"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<{{ tag }}
+  data-slot="auto-grid"{% if fill %} data-fill="true"{% endif %}
+  style="--auto-grid-min:{{ min }}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %} {{ attrs }}
+  class="grid [grid-template-columns:{% if fill %}repeat(auto-fill,minmax(min(var(--auto-grid-min,16rem),100%),1fr)){% else %}repeat(auto-fit,minmax(min(var(--auto-grid-min,16rem),100%),1fr)){% endif %}] {{ gap }} {{ class }}">
+  {{ slot }}
+</{{ tag }}>
+{% endlocalize %}

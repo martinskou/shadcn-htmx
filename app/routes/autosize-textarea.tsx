@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { AUTOSIZE_TEXTAREA_PROPS } from "@/app/data/api-rows"
 import { AutosizeTextarea } from "@/registry/ui/autosize-textarea"
@@ -88,6 +89,7 @@ autosizeTextareaRoutes.get("/", async (c) => {
             <LangTabs
               id="install-autosize-textarea"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "autosize-textarea" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/autosize-textarea.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/autosize-textarea.html", source: jinjaSource, note: "Copy autosize-textarea.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/autosize-textarea.tmpl", source: goSource, note: "Add autosize-textarea.tmpl alongside your templates." }) },

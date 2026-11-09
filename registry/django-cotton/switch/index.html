@@ -1,0 +1,26 @@
+{# switch — Django Cotton. See registry/ui/switch.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :name="None"
+  :value="None"
+  :checked="False"
+  :required="False"
+  :disabled="False"
+  :readonly="False"
+  :autofocus="False"
+  size="default"
+  :form="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span data-slot="switch" data-size="{{ size }}"
+      class="relative inline-flex shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all align-middle {% if size == "default" %}h-[1.15rem] w-8{% elif size == "sm" %}h-3.5 w-6{% endif %} {{ class }}">
+  <input type="checkbox" role="switch"
+         class="peer absolute inset-0 size-full cursor-pointer appearance-none rounded-full outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 bg-input dark:bg-input/80 checked:bg-primary"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}{% if value is not None %} value="{{ value|default_if_none:"" }}"{% endif %}{% if checked %} checked{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if readonly %} readonly{% endif %}
+         {% if autofocus %} autofocus{% endif %}{% if form %} form="{{ form|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %} {{ attrs }}>
+  <span class="pointer-events-none absolute top-1/2 left-px -translate-y-1/2 rounded-full bg-background transition-transform peer-checked:translate-x-[calc(100%-2px)] dark:peer-checked:bg-primary-foreground dark:bg-foreground {% if size == "default" %}size-4{% elif size == "sm" %}size-3{% endif %}" data-slot="switch-thumb" aria-hidden="true"></span>
+</span>
+{% endlocalize %}

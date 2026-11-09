@@ -1,0 +1,19 @@
+{# status — Django Cotton. See registry/ui/status.tsx for platform references. #}
+<c-vars
+  as="status"
+  tone="muted"
+  :aria-atomic="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="status"
+  data-role="{{ as }}"
+  role="{{ as }}"
+  aria-live="polite"
+  aria-atomic="{% if aria_atomic is None %}{% if as == "status" %}true{% elif as == "log" %}false{% endif %}{% elif aria_atomic %}true{% else %}false{% endif %}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %} {{ attrs }}
+  class="block min-h-5 text-sm {% if tone == "default" %}text-foreground{% elif tone == "muted" %}text-muted-foreground{% elif tone == "success" %}text-emerald-700 dark:text-emerald-300{% elif tone == "destructive" %}text-destructive{% endif %} {{ class }}">{{ slot }}</div>
+{% endlocalize %}

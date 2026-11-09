@@ -1,0 +1,10 @@
+{# collapsible — Django Cotton. See registry/ui/collapsible.tsx for platform references. #}
+<c-vars
+  :open="False"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<details data-slot="collapsible"{% if disabled %} data-disabled="true"{% endif %}{% if open %} open{% endif %}
+         class="w-full {% if disabled %}pointer-events-none opacity-50{% endif %} {{ class }}" {{ attrs }}>{{ slot }}</details>
+{% endlocalize %}

@@ -1,0 +1,10 @@
+{# sticky-header — Django Cotton. See registry/ui/sticky-header.tsx for platform references. #}
+<c-vars
+  as="div"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<{{ as }} data-slot="sticky-header-bar" data-sticky-revealed=""
+  class="transition-shadow transition-colors duration-200 {{ class }}" {{ attrs }}>
+{{ slot }}</{{ as }}>
+{% endlocalize %}

@@ -1,0 +1,12 @@
+{# figure — Django Cotton. See registry/ui/figure.tsx for platform references. #}
+<c-vars
+  caption-side="bottom"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<figure{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="figure"
+  data-caption-side="{{ caption_side }}"
+  class="flex flex-col gap-3 overflow-hidden rounded-lg border bg-card p-3 text-card-foreground {{ class }}" {{ attrs }}>{{ slot }}</figure>
+{% endlocalize %}

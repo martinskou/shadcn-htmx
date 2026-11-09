@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { SPLITTER_PROPS } from "@/app/data/api-rows"
 import { Splitter } from "@/registry/ui/splitter"
@@ -89,6 +90,7 @@ splitterRoutes.get("/", async (c) => {
           <section class="space-y-4">
             <h2 id="installation" class="scroll-mt-20 text-xl font-semibold tracking-tight">Installation</h2>
             <LangTabs id="install-splitter" panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "splitter" }) },
               { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/splitter.tsx", source: jsxSource }) },
               { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/splitter.html", source: jinjaSource, note: "Copy splitter.html into templates/components/." }) },
               { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/splitter.tmpl", source: goSource, note: "Add splitter.tmpl alongside your other templates." }) },

@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { RATING_PROPS } from "@/app/data/api-rows"
 import { Rating } from "@/registry/ui/rating"
@@ -96,6 +97,7 @@ ratingRoutes.get("/", async (c) => {
             <LangTabs
               id="install-rating"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "rating" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/rating.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/rating.html", source: jinjaSource, note: "Copy rating.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/rating.tmpl", source: goSource, note: "Add rating.tmpl alongside your templates." }) },

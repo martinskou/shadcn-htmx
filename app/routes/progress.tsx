@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { PROGRESS_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Progress } from "@/registry/ui/progress"
 
@@ -87,6 +88,7 @@ progressRoutes.get("/", async (c) => {
             <LangTabs
               id="install-progress"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "progress" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/progress.tsx", source: pgJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/progress.html", source: pgJinja, note: "Copy progress.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/progress.tmpl", source: pgGo, note: "Add progress.tmpl alongside button.tmpl." }) },

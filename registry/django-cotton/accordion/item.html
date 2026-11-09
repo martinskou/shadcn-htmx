@@ -1,0 +1,11 @@
+{# accordion — Django Cotton. See registry/ui/accordion.tsx for platform references. #}
+<c-vars
+  :value="None"
+  :open="False"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<details data-slot="accordion-item" data-value="{{ value|default_if_none:"" }}"{% if disabled %} data-disabled="true"{% endif %}{% if open %} open{% endif %}
+         class="border-b last:border-b-0 {% if disabled %}pointer-events-none opacity-50{% endif %} {{ class }}" {{ attrs }}>{{ slot }}</details>
+{% endlocalize %}

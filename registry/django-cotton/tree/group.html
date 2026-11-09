@@ -1,0 +1,7 @@
+{# tree — Django Cotton. See registry/ui/tree.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<ul {{ attrs }} role="group" data-slot="tree-group" class="ml-3.5 border-l border-border pl-1.5 {{ class }}">{{ slot }}</ul>
+{% endlocalize %}

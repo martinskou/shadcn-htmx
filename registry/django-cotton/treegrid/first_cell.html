@@ -1,0 +1,15 @@
+{# treegrid — Django Cotton. See registry/ui/treegrid.tsx for platform references. #}
+<c-vars
+  :content="None"
+  :level="1"
+  :expandable="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<td role="gridcell" data-slot="treegrid-cell"
+    class="px-2 py-1.5 align-middle outline-none focus-visible:bg-accent focus-visible:text-accent-foreground {{ class }}" {{ attrs }}><span class="flex items-center gap-1.5" style="padding-left:{{ level|add:"-1" }}rem">{% if expandable %}
+  <svg data-slot="treegrid-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5 shrink-0 text-muted-foreground transition-transform" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>{% else %}
+  <span class="size-3.5 shrink-0" aria-hidden="true"></span>{% endif %}
+  <span>{% if slot %}{{ slot }}{% else %}{{ content|default_if_none:"" }}{% endif %}</span>
+</span></td>
+{% endlocalize %}

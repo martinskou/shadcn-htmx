@@ -1,0 +1,36 @@
+{# sheet — Django Cotton. See registry/ui/sheet.tsx for platform references. #}
+<c-vars
+  :id="None"
+  side="right"
+  :title="None"
+  :description="None"
+  :show-close-button="True"
+  :open="False"
+  closedby="any"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<dialog {{ attrs }} id="{{ id|default_if_none:"" }}"{% if open %} open{% endif %}
+        closedby="{{ closedby }}"
+        class="fixed z-50 m-0 flex flex-col gap-4 bg-background p-6 text-foreground shadow-lg outline-none hidden open:flex backdrop:bg-black/60 backdrop:backdrop-blur-sm {% if side == "right" %}inset-y-0 right-0 left-auto h-full w-3/4 max-w-sm border-l{% elif side == "left" %}inset-y-0 left-0 right-auto h-full w-3/4 max-w-sm border-r{% elif side == "top" %}inset-x-0 top-0 bottom-auto w-full border-b{% elif side == "bottom" %}inset-x-0 bottom-0 top-auto w-full border-t{% endif %} {{ class }}"
+        data-slot="sheet"
+        data-side="{{ side }}"{% if closedby != "any" %} data-close-on-backdrop="true"{% endif %}
+        {% if title %}aria-labelledby="{{ id|default_if_none:"" }}-title"{% endif %}
+        {% if description %}aria-describedby="{{ id|default_if_none:"" }}-description"{% endif %}>{% if title %}
+  <div data-slot="sheet-header" class="flex flex-col gap-1.5 text-left">
+    <h2 id="{{ id|default_if_none:"" }}-title" data-slot="sheet-title" class="text-lg leading-none font-semibold">{{ title|default_if_none:"" }}</h2>
+    {% if description %}<p id="{{ id|default_if_none:"" }}-description" data-slot="sheet-description" class="text-sm text-muted-foreground">{{ description|default_if_none:"" }}</p>{% endif %}
+  </div>{% elif description %}
+  <div data-slot="sheet-header" class="flex flex-col gap-1.5 text-left">
+    
+    <p id="{{ id|default_if_none:"" }}-description" data-slot="sheet-description" class="text-sm text-muted-foreground">{{ description|default_if_none:"" }}</p>
+  </div>{% endif %}
+  {{ slot }}{% if show_close_button %}
+  <button type="button" data-dialog-close="true" aria-label="Close"
+          class="absolute top-4 right-4 inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground opacity-70 transition-opacity hover:bg-accent hover:text-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+      <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+    </svg>
+  </button>{% endif %}
+</dialog>
+{% endlocalize %}

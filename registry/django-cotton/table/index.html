@@ -1,0 +1,9 @@
+{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} class="relative w-full overflow-auto">
+  <table data-slot="table" class="w-full caption-bottom text-sm {{ class }}">
+{{ slot }}</table></div>
+{% endlocalize %}

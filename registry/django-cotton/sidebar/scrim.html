@@ -1,0 +1,13 @@
+{# sidebar — Django Cotton. See registry/ui/sidebar.tsx for platform references. #}
+<c-vars
+  :sidebar-for="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<a {{ attrs }} href="#"
+   data-slot="sidebar-scrim"
+   data-sidebar-scrim-for="{{ sidebar_for|default_if_none:"" }}"
+   aria-label="Close navigation"
+   tabindex="-1"
+   class="absolute inset-0 z-40 bg-black/60 backdrop-blur-sm sm:hidden {{ class }}"></a>
+{% endlocalize %}

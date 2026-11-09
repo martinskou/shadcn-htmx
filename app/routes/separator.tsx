@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { SEPARATOR_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Separator } from "@/registry/ui/separator"
 
@@ -107,6 +108,7 @@ separatorRoutes.get("/", async (c) => {
             <LangTabs
               id="install-separator"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "separator" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/separator.tsx", source: sepJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/separator.html", source: sepJinjaSource, note: "Copy separator.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/separator.tmpl", source: sepGoSource, note: "Add separator.tmpl alongside button.tmpl." }) },

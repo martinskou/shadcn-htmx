@@ -1,0 +1,29 @@
+{# select — Django Cotton. See registry/ui/select.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :name="None"
+  :required="False"
+  :disabled="False"
+  :multiple="False"
+  :size="None"
+  :form="None"
+  :autocomplete="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-invalid="None"
+  :aria-errormessage="None"
+  :aria-required="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span class="relative inline-flex w-full">
+  <select class="peer flex h-9 w-full min-w-0 cursor-pointer appearance-none items-center rounded-md border border-input bg-background px-3 pr-8 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 md:text-sm dark:bg-input/30 [&.htmx-request]:opacity-70 {{ class }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if multiple %} multiple{% endif %}{% if size is not None %} size="{{ size|default_if_none:"" }}"{% endif %}{% if form %} form="{{ form|default_if_none:"" }}"{% endif %}{% if autocomplete %} autocomplete="{{ autocomplete|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %}{% if aria_errormessage %} aria-errormessage="{{ aria_errormessage|default_if_none:"" }}"{% endif %}{% if aria_required is not None %} aria-required="{{ aria_required|lower }}"{% endif %}
+          data-slot="select" {{ attrs }}>{{ slot }}
+  </select>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+       class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground peer-disabled:opacity-50" aria-hidden="true">
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+</span>
+{% endlocalize %}

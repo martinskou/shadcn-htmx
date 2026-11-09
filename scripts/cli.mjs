@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // shadcn-htmx — flavour-aware component installer.
 //
-// Unlike `npx shadcn add`, which copies EVERY file in a registry item (all five
+// Unlike `npx shadcn add`, which copies EVERY file in a registry item (all six
 // flavours), this CLI copies only the file(s) for YOUR chosen framework, to the
 // path the registry item declares for that flavour.
 //
@@ -15,7 +15,7 @@
 //   shadcn-htmx list                       # list available components
 //
 // Flags:
-//   -f, --flavour  jsx | jinja | go | phoenix | html
+//   -f, --flavour  jsx | jinja | go | phoenix | cotton | html
 //   -r, --registry <url-or-dir>            registry base (…/r URL, or a local dir)
 //   -o, --out <dir>                        base directory to write into (default: cwd)
 //       --cwd <dir>                        run as if from this directory
@@ -32,6 +32,7 @@ const FLAVOURS = {
   jinja: { label: "Jinja2", dir: "registry/jinja2/" },
   go: { label: "Go html/template", dir: "registry/go-templates/" },
   phoenix: { label: "Phoenix", dir: "registry/phoenix/" },
+  cotton: { label: "Django-Cotton", dir: "registry/django-cotton/" },
   html: { label: "Raw HTML", dir: "registry/html/" },
 }
 const CONFIG_FILE = "shadcn-htmx.json"
@@ -159,7 +160,7 @@ ${c.bold("Usage")}
   shadcn-htmx list
 
 ${c.bold("Options")}
-  -f, --flavour   jsx | jinja | go | phoenix | html
+  -f, --flavour   jsx | jinja | go | phoenix | cotton | html
   -r, --registry  registry base URL (…/r) or local directory
   -o, --out       base directory to write into (default: current dir)
       --cwd       run as if from this directory

@@ -1,0 +1,16 @@
+{# snap-list — Django Cotton. See registry/ui/snap-list.tsx for platform references. #}
+<c-vars
+  orientation="horizontal"
+  snap="mandatory"
+  :aria-label="None"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<ul data-slot="snap-list"
+    data-orientation="{{ orientation }}"
+    data-snap="{{ snap }}"
+    role="list"
+    tabindex="0"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}
+    class="flex list-none scroll-smooth scrollbar-none rounded-lg outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 {% if orientation == "horizontal" %}snap-x flex-row overflow-x-auto{% else %}snap-y flex-col overflow-y-auto{% endif %} {% if snap == "mandatory" %}snap-mandatory{% else %}snap-proximity{% endif %} {{ class }}" {{ attrs }}>{{ slot }}</ul>
+{% endlocalize %}

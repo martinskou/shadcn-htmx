@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { DATE_TIME_PICKER_PROPS } from "@/app/data/api-rows"
 import { DateTimePicker } from "@/registry/ui/date-time-picker"
@@ -85,6 +86,7 @@ dateTimePickerRoutes.get("/", async (c) => {
             <LangTabs
               id="install-date-time-picker"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "date-time-picker" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/date-time-picker.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/date-time-picker.html", source: jinjaSource, note: "Copy date-time-picker.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/date-time-picker.tmpl", source: goSource, note: "Add date-time-picker.tmpl alongside your templates." }) },

@@ -1,0 +1,49 @@
+{# active-search — Django Cotton. See registry/ui/active-search.tsx for platform references. #}
+<c-vars
+  :id="None"
+  name="q"
+  placeholder="Search…"
+  :value="None"
+  :action="None"
+  method="get"
+  :delay="300"
+  :required="False"
+  :disabled="False"
+  :autofocus="False"
+  loading-label="Searching…"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  class=""
+  input-class=""
+/>
+{% load l10n %}{% localize off %}
+<form data-slot="active-search" role="search" class="relative w-full {{ class }}"{% if action %} action="{{ action|default_if_none:"" }}"{% endif %} method="{{ method }}">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+       class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+       aria-hidden="true">
+    <circle cx="11" cy="11" r="8"></circle>
+    <path d="m21 21-4.3-4.3"></path>
+  </svg>
+  <input
+    type="search"
+    id="{{ id|default_if_none:"" }}"
+    name="{{ name }}"{% if value is not None %} value="{{ value|default_if_none:"" }}"{% endif %}{% if placeholder %} placeholder="{{ placeholder }}"{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if autofocus %} autofocus{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}
+    autocomplete="off"
+    enterkeyhint="search"
+    inputmode="search"
+    data-slot="active-search-input"{% if "hx-get" not in attrs %}{% if action %} hx-get="{{ action|default_if_none:"" }}"{% endif %}{% endif %}{% if "hx-trigger" not in attrs %} hx-trigger="input changed delay:{{ delay }}ms, search"{% endif %}{% if "hx-sync" not in attrs %} hx-sync="this:replace"{% endif %}{% if "hx-indicator" not in attrs %} hx-indicator="#{{ id|default_if_none:"" }}-indicator"{% endif %}
+    class="flex h-9 w-full min-w-0 rounded-md border border-input bg-transparent py-1 pr-9 pl-9 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&::-webkit-search-cancel-button]:hidden {{ input_class }}" {{ attrs }}>
+  <span id="{{ id|default_if_none:"" }}-indicator" data-slot="active-search-indicator" role="status" aria-live="polite"
+        class="htmx-indicator pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         class="size-4 animate-spin" aria-hidden="true">
+      <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+    </svg>
+    <span class="sr-only">{{ loading_label }}</span>
+  </span>
+  {% if slot %}{{ slot }}{% endif %}
+</form>
+{% endlocalize %}

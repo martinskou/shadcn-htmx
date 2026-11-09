@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { BADGE_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Badge } from "@/registry/ui/badge"
 
@@ -98,6 +99,7 @@ badgeRoutes.get("/", async (c) => {
             <LangTabs
               id="install-badge"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "badge" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/badge.tsx", source: badgeJsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/badge.html", source: badgeJinjaSource, note: "Copy badge.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/badge.tmpl", source: badgeGoSource, note: "Add badge.tmpl alongside button.tmpl." }) },

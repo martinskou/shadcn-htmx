@@ -1,0 +1,8 @@
+{# dropdown-menu — Django Cotton. See registry/ui/dropdown-menu.tsx for platform references. #}
+<c-vars
+  :text="None"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="dropdown-menu-label" class="px-2 py-1.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</div>
+{% endlocalize %}

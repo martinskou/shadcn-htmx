@@ -1,0 +1,26 @@
+{# avatar — Django Cotton. See registry/ui/avatar.tsx for platform references. #}
+<c-vars
+  :src="None"
+  :alt="None"
+  :fallback="None"
+  size="default"
+  :aria-label="None"
+  :loading="None"
+  :referrerpolicy="None"
+  :srcset="None"
+  :sizes="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span {{ attrs }} data-slot="avatar" data-size="{{ size }}"{% if not src %}{% if fallback %} role="img" aria-label="{% if aria_label %}{{ aria_label|default_if_none:"" }}{% else %}{{ fallback|default_if_none:"" }}{% endif %}"{% elif aria_label %} role="img" aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% endif %}
+      class="group/avatar relative inline-flex shrink-0 overflow-hidden rounded-full select-none {% if size == "sm" %}size-6 [&_[data-slot=avatar-fallback]]:text-xs{% elif size == "default" %}size-8{% elif size == "lg" %}size-10{% endif %} {{ class }}">
+  <span data-slot="avatar-fallback"
+    class="flex size-full items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">{% if fallback %}{{ fallback|default_if_none:"" }}{% endif %}</span>
+  {% if src %}
+  
+  <img src="{{ src|default_if_none:"" }}" alt="{% if alt %}{{ alt|default_if_none:"" }}{% endif %}" data-slot="avatar-image"{% if srcset %} srcset="{{ srcset|default_if_none:"" }}"{% endif %}{% if sizes %} sizes="{{ sizes|default_if_none:"" }}"{% endif %}{% if loading %} loading="{{ loading|default_if_none:"" }}"{% endif %}{% if referrerpolicy %} referrerpolicy="{{ referrerpolicy|default_if_none:"" }}"{% endif %}
+       onerror="this.style.display='none'"
+       class="absolute inset-0 aspect-square size-full object-cover">
+  {% endif %}
+</span>
+{% endlocalize %}

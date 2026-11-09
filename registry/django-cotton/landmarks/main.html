@@ -1,0 +1,9 @@
+{# landmarks — Django Cotton. See registry/ui/landmarks.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<main data-slot="landmark-main"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %} class="min-w-0 flex-1 {{ class }}" {{ attrs }}>{{ slot }}</main>
+{% endlocalize %}

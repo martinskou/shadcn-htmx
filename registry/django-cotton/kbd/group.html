@@ -1,0 +1,13 @@
+{# kbd — Django Cotton. See registry/ui/kbd.tsx for platform references. #}
+<c-vars
+  :keys="None"
+  separator="+"
+  :id="None"
+  :aria-label="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<kbd{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="kbd-group"
+  class="inline-flex w-fit items-center gap-1 align-middle {{ class }}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %} {{ attrs }}>{% if keys %}{% for key in keys %}{% if not forloop.first %}{% if separator %}<span aria-hidden="true" class="text-muted-foreground/70">{{ separator }}</span>{% endif %}{% endif %}<kbd data-slot="kbd" class="pointer-events-none inline-flex h-5 w-fit min-w-5 shrink-0 select-none items-center justify-center gap-1 rounded-sm border bg-muted px-1 font-sans text-xs font-medium text-muted-foreground [&_svg:not([class*='size-'])]:size-3">{{ key }}</kbd>{% endfor %}{% else %}{{ slot }}{% endif %}</kbd>
+{% endlocalize %}

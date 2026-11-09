@@ -1,0 +1,7 @@
+{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}
+<c-vars
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<tbody {{ attrs }} data-slot="table-body" class="[&_tr:last-child]:border-0">{{ slot }}</tbody>
+{% endlocalize %}

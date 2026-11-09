@@ -1,0 +1,10 @@
+{# sidebar — Django Cotton. See registry/ui/sidebar.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="sidebar-layout"
+     class="relative grid w-full grid-cols-1 [--sidebar-h:100svh] [min-height:var(--sidebar-h)] sm:grid-cols-[minmax(var(--sidebar-w,16rem),20rem)_minmax(0,1fr)] {{ class }}">
+  {{ slot }}
+</div>
+{% endlocalize %}

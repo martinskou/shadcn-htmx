@@ -1,0 +1,12 @@
+{# tree — Django Cotton. See registry/ui/tree.tsx for platform references. #}
+<c-vars
+  aria-label=""
+  aria-labelledby=""
+  id=""
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<ul role="tree" data-slot="tree"{% if id %} id="{{ id }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby }}"{% endif %} {{ attrs }}
+    class="w-fit min-w-56 select-none text-sm text-foreground {{ class }}">
+<script>(function(el){var items=el.querySelectorAll('[role="treeitem"]');items.forEach(function(it,i){it.setAttribute('tabindex',i===0?'0':'-1');});el.setAttribute('data-tree-ready','true');})(document.currentScript.previousElementSibling);</script>{{ slot }}</ul>
+{% endlocalize %}

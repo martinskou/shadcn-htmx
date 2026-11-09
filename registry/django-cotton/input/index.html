@@ -1,0 +1,43 @@
+{# input — Django Cotton. See registry/ui/input.tsx for platform references. #}
+<c-vars
+  type="text"
+  :id="None"
+  :name="None"
+  :value="None"
+  :placeholder="None"
+  :required="False"
+  :disabled="False"
+  :readonly="False"
+  :minlength="None"
+  :maxlength="None"
+  :min="None"
+  :max="None"
+  :step="None"
+  :pattern="None"
+  :inputmode="None"
+  :enterkeyhint="None"
+  :autocomplete="None"
+  :autocapitalize="None"
+  :spellcheck="None"
+  :autocorrect="None"
+  :autofocus="False"
+  :list="None"
+  :accept="None"
+  :capture="None"
+  :multiple="False"
+  :size="None"
+  :dirname="None"
+  :form="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-invalid="None"
+  :aria-required="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<input type="{{ type }}"
+       class="flex h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&.htmx-request]:opacity-70 {{ class }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}{% if value is not None %} value="{{ value|default_if_none:"" }}"{% endif %}{% if placeholder %} placeholder="{{ placeholder|default_if_none:"" }}"{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if readonly %} readonly{% endif %}{% if minlength is not None %} minlength="{{ minlength|default_if_none:"" }}"{% endif %}{% if maxlength is not None %} maxlength="{{ maxlength|default_if_none:"" }}"{% endif %}{% if min is not None %} min="{{ min|default_if_none:"" }}"{% endif %}{% if max is not None %} max="{{ max|default_if_none:"" }}"{% endif %}{% if step is not None %} step="{{ step|default_if_none:"" }}"{% endif %}{% if pattern %} pattern="{{ pattern|default_if_none:"" }}"{% endif %}{% if inputmode %} inputmode="{{ inputmode|default_if_none:"" }}"{% endif %}{% if enterkeyhint %} enterkeyhint="{{ enterkeyhint|default_if_none:"" }}"{% endif %}{% if autocomplete %} autocomplete="{{ autocomplete|default_if_none:"" }}"{% endif %}{% if autocapitalize %} autocapitalize="{{ autocapitalize|default_if_none:"" }}"{% endif %}
+       {% if spellcheck is not None %} spellcheck="{% if spellcheck %}true{% else %}false{% endif %}"{% endif %}{% if autocorrect %} autocorrect="{{ autocorrect|default_if_none:"" }}"{% endif %}{% if autofocus %} autofocus{% endif %}{% if list %} list="{{ list|default_if_none:"" }}"{% endif %}{% if accept %} accept="{{ accept|default_if_none:"" }}"{% endif %}{% if capture is not None and capture is not False %} capture{% if capture != True %}="{{ capture }}"{% endif %}{% endif %}{% if multiple %} multiple{% endif %}{% if size is not None %} size="{{ size|default_if_none:"" }}"{% endif %}{% if dirname %} dirname="{{ dirname|default_if_none:"" }}"{% endif %}{% if form %} form="{{ form|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %}{% if aria_required is not None %} aria-required="{{ aria_required|lower }}"{% endif %}
+       data-slot="input" {{ attrs }}>
+{% endlocalize %}

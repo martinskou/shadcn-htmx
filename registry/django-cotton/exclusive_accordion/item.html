@@ -1,0 +1,13 @@
+{# exclusive-accordion — Django Cotton. See registry/ui/exclusive-accordion.tsx for platform references. #}
+<c-vars
+  :name="None"
+  value=""
+  :open="False"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<details {{ attrs }} data-slot="exclusive-accordion-item"{% if value %} data-value="{{ value }}"{% endif %}{% if disabled %} data-disabled="true"{% endif %}
+         name="{{ name|default_if_none:"" }}"{% if open %} open{% endif %}
+         class="border-b last:border-b-0 {% if disabled %}pointer-events-none opacity-50{% endif %} {{ class }}">{{ slot }}</details>
+{% endlocalize %}

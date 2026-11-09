@@ -1,0 +1,9 @@
+<c-vars
+  aria-label="Pagination"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<nav data-slot="pagination" aria-label="{{ aria_label }}" class="mx-auto flex w-full justify-center {{ class }}" {{ attrs }}>
+  <ul class="flex flex-row items-center gap-1">{{ slot }}</ul>
+</nav>
+{% endlocalize %}

@@ -1,0 +1,19 @@
+{# sidebar — Django Cotton. See registry/ui/sidebar.tsx for platform references. #}
+<c-vars
+  :sidebar-for="None"
+  label="Menu"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<a {{ attrs }} href="#{{ sidebar_for|default_if_none:"" }}"
+   data-slot="sidebar-trigger"
+   data-sidebar-open="{{ sidebar_for|default_if_none:"" }}"
+   aria-label="Open {% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}"
+   aria-controls="{{ sidebar_for|default_if_none:"" }}"
+   class="inline-flex h-9 items-center gap-2 rounded-md border bg-background px-3 text-sm font-medium shadow-xs hover:bg-accent hover:text-accent-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:hidden {{ class }}">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+    <line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="18" y2="18" />
+  </svg>
+  {% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}
+</a>
+{% endlocalize %}

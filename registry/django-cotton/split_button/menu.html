@@ -1,0 +1,12 @@
+{# split-button — Django Cotton. See registry/ui/split-button.tsx for platform references. #}
+<c-vars
+  :id="None"
+  side="bottom"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<ul {{ attrs }} id="{{ id|default_if_none:"" }}" popover="auto" role="menu"
+    data-slot="dropdown-menu" data-side="{{ side }}"
+    class="z-50 m-0 min-w-[12rem] list-none rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none [&:not(:popover-open)]:hidden [&:popover-open]:animate-[scn-popover-in_120ms_ease-out] {{ class }}">
+{{ slot }}</ul>
+{% endlocalize %}

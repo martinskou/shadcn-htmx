@@ -1,0 +1,10 @@
+{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}
+<c-vars
+  :text="None"
+  class=""
+  as="div"
+  id=""
+/>
+{% load l10n %}{% localize off %}
+<{{ as }} {{ attrs }} data-slot="card-title"{% if id %} id="{{ id }}"{% endif %} class="leading-none font-semibold {{ class }}">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</{{ as }}>
+{% endlocalize %}

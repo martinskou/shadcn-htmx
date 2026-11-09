@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { RANGE_SLIDER_PROPS } from "@/app/data/api-rows"
 import { RangeSlider } from "@/registry/ui/range-slider"
@@ -87,6 +88,7 @@ rangeSliderRoutes.get("/", async (c) => {
             <LangTabs
               id="install-range-slider"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "range-slider" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/range-slider.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/range-slider.html", source: jinjaSource, note: "Copy range-slider.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/range-slider.tmpl", source: goSource, note: "Add range-slider.tmpl alongside your other templates." }) },

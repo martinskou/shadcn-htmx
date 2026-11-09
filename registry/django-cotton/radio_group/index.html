@@ -1,0 +1,18 @@
+{# radio-group — Django Cotton. See registry/ui/radio-group.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-errormessage="None"
+  :aria-invalid="None"
+  :aria-controls="None"
+  :orientation="None"
+  :required="False"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} role="radiogroup"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_errormessage %} aria-errormessage="{{ aria_errormessage|default_if_none:"" }}"{% endif %}{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %}{% if aria_controls %} aria-controls="{{ aria_controls|default_if_none:"" }}"{% endif %}{% if orientation %} aria-orientation="{{ orientation|default_if_none:"" }}" data-orientation="{{ orientation|default_if_none:"" }}"{% endif %}{% if required %} aria-required="true"{% endif %}{% if disabled %} aria-disabled="true"{% endif %}
+     data-slot="radio-group"
+     class="grid gap-3 data-[orientation=horizontal]:grid-flow-col data-[orientation=horizontal]:auto-cols-max {{ class }}">{{ slot }}</div>
+{% endlocalize %}

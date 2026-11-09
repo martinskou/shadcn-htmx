@@ -64,6 +64,7 @@ function SiteHeader() {
               <option value="jinja">Jinja2</option>
               <option value="go">Go template</option>
               <option value="phoenix">Phoenix</option>
+              <option value="cotton">Django-Cotton</option>
               <option value="html">HTML</option>
             </select>
             <svg

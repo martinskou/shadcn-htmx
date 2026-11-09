@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { RESPONSIVE_IMAGE_PROPS } from "@/app/data/api-rows"
 import { ResponsiveImage } from "@/registry/ui/responsive-image"
@@ -125,6 +126,7 @@ responsiveImageRoutes.get("/", async (c) => {
             <LangTabs
               id="install-responsive-image"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "responsive-image" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/responsive-image.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/responsive-image.html", source: jinjaSource, note: "Copy responsive-image.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/responsive-image.tmpl", source: goSource, note: "Add responsive-image.tmpl alongside your templates." }) },

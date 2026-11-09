@@ -1,0 +1,14 @@
+{# listbox — Django Cotton. See registry/ui/listbox.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :value="None"
+  :selected="False"
+  :disabled="False"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<li role="option"
+    data-slot="listbox-option"{% if value is not None %} data-value="{{ value|default_if_none:"" }}"{% endif %}{% if disabled %} aria-disabled="true"{% else %} aria-selected="{% if selected %}true{% else %}false{% endif %}"{% endif %}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %} {{ attrs }}
+    class="relative flex cursor-pointer scroll-my-1 items-center gap-2 rounded-sm px-2 py-1.5 text-foreground outline-none select-none hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground aria-selected:bg-primary aria-selected:text-primary-foreground aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 {{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</li>
+{% endlocalize %}

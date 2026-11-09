@@ -1,0 +1,12 @@
+{# sidebar — Django Cotton. See registry/ui/sidebar.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :href="None"
+  :current="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<a {{ attrs }} href="{{ href|default_if_none:"" }}"
+   data-slot="sidebar-item"{% if current %} aria-current="page"{% endif %}
+   class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none aria-[current=page]:bg-primary aria-[current=page]:text-primary-foreground aria-[current=page]:hover:bg-primary {{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</a>
+{% endlocalize %}

@@ -1,0 +1,22 @@
+{# meter — Django Cotton. See registry/ui/meter.tsx for platform references. #}
+<c-vars
+  :value="0"
+  :min="0"
+  :max="1"
+  :low="None"
+  :high="None"
+  :optimum="None"
+  :id="None"
+  :title="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :value-text="None"
+  :text="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<meter class="block h-2 w-full overflow-hidden rounded-full bg-primary/20 align-middle {{ class }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if title %} title="{{ title|default_if_none:"" }}"{% endif %}
+       value="{{ value }}" min="{{ min }}" max="{{ max }}"{% if low is not None %} low="{{ low|default_if_none:"" }}"{% endif %}{% if high is not None %} high="{{ high|default_if_none:"" }}"{% endif %}{% if optimum is not None %} optimum="{{ optimum|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if value_text %} aria-valuetext="{{ value_text|default_if_none:"" }}"{% endif %}
+       data-slot="meter" {{ attrs }}>{% if text is None %}{{ value }} / {{ max }}{% else %}{{ text|default_if_none:"" }}{% endif %}</meter>
+{% endlocalize %}

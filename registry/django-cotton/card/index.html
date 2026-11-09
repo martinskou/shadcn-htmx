@@ -1,0 +1,7 @@
+{# card — Django Cotton. See registry/ui/card.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="card" class="flex flex-col gap-6 rounded-xl border bg-card py-6 text-card-foreground shadow-sm {{ class }}">{{ slot }}</div>
+{% endlocalize %}

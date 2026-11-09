@@ -1,0 +1,10 @@
+{# sidebar — Django Cotton. See registry/ui/sidebar.tsx for platform references. #}
+<c-vars
+  :text="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} {% if id %}id="{{ id|default_if_none:"" }}"{% endif %} data-slot="sidebar-group-label"
+     class="px-3 py-1.5 text-xs font-medium tracking-wider text-muted-foreground uppercase {{ class }}">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</div>
+{% endlocalize %}

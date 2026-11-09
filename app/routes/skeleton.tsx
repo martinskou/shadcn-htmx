@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { SKELETON_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { Skeleton } from "@/registry/ui/skeleton"
 import { Card, CardContent, CardHeader, CardTitle } from "@/registry/ui/card"
@@ -83,6 +84,7 @@ skeletonRoutes.get("/", async (c) => {
             <LangTabs
               id="install-skeleton"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "skeleton" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/skeleton.tsx", source: skJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/skeleton.html", source: skJinja, note: "Copy skeleton.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/skeleton.tmpl", source: skGo, note: "Add skeleton.tmpl alongside button.tmpl." }) },

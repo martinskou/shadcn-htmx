@@ -12,6 +12,7 @@ const FLAVOURS: { flavour: string; label: string; file: string; target: string }
   { flavour: "jinja", label: "Jinja2", file: "registry/jinja2/<name>.html", target: "templates/components/<name>.html" },
   { flavour: "go", label: "Go template", file: "registry/go-templates/<name>.tmpl", target: "components/<name>.tmpl" },
   { flavour: "phoenix", label: "Phoenix", file: "registry/phoenix/<name>.ex", target: "lib/my_app_web/components/<name>.ex" },
+  { flavour: "cotton", label: "Django-Cotton", file: "registry/django-cotton/<name>/*.html", target: "templates/cotton/<name>/*.html" },
   { flavour: "html", label: "Raw HTML", file: "registry/html/<name>.html", target: "snippets/<name>.html" },
 ]
 
@@ -21,6 +22,7 @@ const tocItems = [
   { href: "#add", label: "Add components" },
   { href: "#flavours", label: "Flavours & targets", nested: true },
   { href: "#config", label: "Config file" },
+  { href: "#django-cotton", label: "Django-Cotton" },
   { href: "#vs-shadcn", label: "vs. the shadcn CLI" },
 ]
 
@@ -33,7 +35,7 @@ function H2(props: { id: string; children: any }) {
 }
 
 cliRoutes.get("/", async (c) => {
-  const initSnippet = `# pick your stack once (jsx | jinja | go | phoenix | html)
+  const initSnippet = `# pick your stack once (jsx | jinja | go | phoenix | cotton | html)
 npx shadcn-htmx init --flavour jinja --registry https://shadcn-htmx.productdevbook.com/r`
   const addSnippet = `# add one or many — only the Jinja2 files land in your project
 npx shadcn-htmx add button input dialog
@@ -169,16 +171,61 @@ npx shadcn-htmx add accordion --dry`
             </p>
           </section>
 
+          <section class="space-y-4">
+            <H2 id="django-cotton">Django-Cotton setup</H2>
+            <p class="text-sm text-muted-foreground">
+              Run these commands beside manage.py. Add django_cotton to INSTALLED_APPS,
+              add BASE_DIR / "templates" to your DjangoTemplates backend’s DIRS, and
+              enable APP_DIRS. Cotton configures its loader automatically; custom loaders
+              can use the <a class="underline" href="https://django-cotton.com/docs/quickstart">Cotton setup instructions</a>.
+            </p>
+            {await CodeBlock({ code: `python -m pip install "django-cotton>=2.9,<3"
+npx shadcn-htmx init --flavour cotton
+npx shadcn-htmx add button card dialog`, lang: "bash" })}
+            <p class="text-sm text-muted-foreground">
+              Families install under templates/cotton/ with underscore filenames.
+              Use kebab-case tags and props, class for extra classes, :prop for dynamic
+              values, and :disabled="False" for false booleans. Rich HTML belongs in slots.
+            </p>
+            {await CodeBlock({ code: `<c-card>
+  <c-card.header><c-card.title as="h2">Account</c-card.title></c-card.header>
+  <c-card.content>
+    <c-button hx-post="/save/" hx-target="#result">Save {{ user.first_name }}</c-button>
+  </c-card.content>
+</c-card>
+<div id="result"></div>`, lang: "html" })}
+            <p class="text-sm text-muted-foreground">
+              Progress, range slider, splitter, file upload, rating, and highlight also
+              install shadcn_htmx.py. After installing one of those components, register
+              the helper in your existing DjangoTemplates options and restart Django.
+              An app-level installation uses its qualified module path, such as myapp.shadcn_htmx.
+            </p>
+            {await CodeBlock({ code: `TEMPLATES[0]["OPTIONS"].setdefault("libraries", {})["shadcn_htmx"] = "shadcn_htmx"`, lang: "python" })}
+            <p class="text-sm text-muted-foreground">
+              Include the shared theme CSS, htmx v4, and site.js through Django static
+              files. Tailwind v4 must scan templates/cotton/**/*.html. For unsafe htmx
+              requests, set the CSRF header on your base template with v4’s explicit inheritance.
+            </p>
+            {await CodeBlock({ code: `<body hx-headers:inherited='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  <!-- page content -->
+</body>`, lang: "html" })}
+            <p class="text-sm text-muted-foreground">
+              Ordinary POST forms also need the csrf_token template tag. The{" "}
+              <a class="underline" href="https://github.com/productdevbook/shadcn-htmx#django-cotton">README</a>{" "}
+              includes static asset setup and commands for a local registry.
+            </p>
+          </section>
+
           <section class="space-y-4 border-t pt-10">
             <H2 id="vs-shadcn">vs. the shadcn CLI</H2>
             <p class="text-sm leading-relaxed text-muted-foreground">
               The registry items follow the shadcn{" "}
               <code class="rounded bg-muted px-1 py-0.5 text-xs">registry-item</code> schema,
               so <code class="rounded bg-muted px-1 py-0.5 text-xs">npx shadcn@latest add https://shadcn-htmx.productdevbook.com/r/button.json</code>{" "}
-              works too — but it copies <em>all five</em> flavours' files into your
-              project, leaving you to delete the four you don't use. The{" "}
+              works too — but it copies <em>all six</em> flavours' files into your
+              project, leaving you to delete the five you don't use. The{" "}
               <code class="rounded bg-muted px-1 py-0.5 text-xs">shadcn-htmx</code> CLI is
-              flavour-aware: it copies exactly one. Use whichever you prefer; both
+              flavour-aware: it copies only the selected flavour’s files. Use whichever you prefer; both
               read the same registry.
             </p>
           </section>

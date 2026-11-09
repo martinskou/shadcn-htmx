@@ -1,0 +1,27 @@
+{# container-card — Django Cotton. See registry/ui/container-card.tsx for platform references. #}
+<c-vars
+  tag="article"
+  :title="None"
+  :title-id="None"
+  :description="None"
+  :media="None"
+  break-at="28rem"
+  :aria-label="None"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<{{ tag }}
+  data-slot="container-card"
+  style="--container-card-break:{{ break_at }}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %} {{ attrs }}
+  class="@container/container-card overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm {{ class }}">
+  <div data-slot="container-card-layout" class="flex flex-col @min-[28rem]/container-card:grid @min-[28rem]/container-card:grid-cols-[40%_1fr] @min-[28rem]/container-card:items-stretch">{% if media %}
+    <div data-slot="container-card-media" class="bg-muted aspect-video w-full @min-[28rem]/container-card:aspect-auto @min-[28rem]/container-card:h-full">{{ media|default_if_none:"" }}</div>{% endif %}
+    <div data-slot="container-card-body" class="flex flex-col gap-2 p-6 text-center @min-[28rem]/container-card:text-left">{% if title %}
+      <div data-slot="container-card-title"{% if title_id %} id="{{ title_id|default_if_none:"" }}"{% endif %} class="leading-none font-semibold">{{ title|default_if_none:"" }}</div>{% endif %}{% if description %}
+      <p data-slot="container-card-description" class="text-sm text-muted-foreground">{{ description|default_if_none:"" }}</p>{% endif %}
+      <div data-slot="container-card-footer" class="mt-2 flex items-center justify-center gap-2 @min-[28rem]/container-card:justify-start">{{ slot }}</div>
+    </div>
+  </div>
+</{{ tag }}>
+{% endlocalize %}

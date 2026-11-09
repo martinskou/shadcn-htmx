@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { PAGINATION_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import {
   Pagination,
@@ -159,6 +160,7 @@ paginationRoutes.get("/", async (c) => {
             <LangTabs
               id="install-pagination"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "pagination" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/pagination.tsx", source: pJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/pagination.html", source: pJinja, note: "Copy pagination.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/pagination.tmpl", source: pGo, note: "Add pagination.tmpl alongside button.tmpl." }) },

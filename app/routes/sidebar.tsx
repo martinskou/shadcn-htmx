@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { SIDEBAR_PROPS } from "@/app/data/api-rows"
 import {
@@ -160,6 +161,7 @@ sidebarRoutes.get("/", async (c) => {
             <LangTabs
               id="install-sidebar"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "sidebar" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/sidebar.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/sidebar.html", source: jinjaSource, note: "Copy sidebar.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/sidebar.tmpl", source: goSource, note: "Add sidebar.tmpl alongside your templates." }) },

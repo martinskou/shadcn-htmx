@@ -9,6 +9,7 @@ import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
 import { DROPDOWN_MENU_PROPS } from "@/app/data/api-rows"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import {
   DropdownMenu,
@@ -115,6 +116,7 @@ dropdownMenuRoutes.get("/", async (c) => {
             <LangTabs
               id="install-ddm"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "dropdown-menu" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/dropdown-menu.tsx", source: ddJsx }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/dropdown-menu.html", source: ddJinja, note: "Copy dropdown-menu.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "templates/components/dropdown-menu.tmpl", source: ddGo, note: "Add dropdown-menu.tmpl alongside button.tmpl." }) },

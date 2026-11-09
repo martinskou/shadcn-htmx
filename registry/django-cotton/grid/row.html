@@ -1,0 +1,11 @@
+{# grid — Django Cotton. See registry/ui/grid.tsx for platform references. #}
+<c-vars
+  :aria-rowindex="None"
+  :aria-colindex="None"
+  :selected="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<tr data-slot="grid-row"{% if aria_rowindex is not None %} aria-rowindex="{{ aria_rowindex|default_if_none:"" }}"{% endif %}{% if aria_colindex is not None %} aria-colindex="{{ aria_colindex|default_if_none:"" }}"{% endif %}{% if selected %} aria-selected="true"{% endif %} {{ attrs }}
+    class="transition-colors {{ class }}">{{ slot }}</tr>
+{% endlocalize %}

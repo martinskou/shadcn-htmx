@@ -8,14 +8,14 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 ![Components: 82](https://img.shields.io/badge/components-82-8b5cf6)
-![Flavours: 5](https://img.shields.io/badge/flavours-5-1f2937)
+![Flavours: 6](https://img.shields.io/badge/flavours-6-1f2937)
 ![htmx v4](https://img.shields.io/badge/htmx-v4-3366cc)
 ![Tailwind CSS v4](https://img.shields.io/badge/Tailwind%20CSS-v4-38bdf8)
 ![a11y: WAI-ARIA APG](https://img.shields.io/badge/a11y-WAI--ARIA%20APG-22c55e)
 
 ### [📖 Documentation & live previews → shadcn-htmx.productdevbook.com](https://shadcn-htmx.productdevbook.com)
 
-One design. **82 components.** Five backends — **Hono JSX, Jinja2, Go templates, Phoenix, and raw HTML** — generated from a single source of truth. Copy what you need, ship it in any stack.
+One design. **82 components.** Six backends — **Hono JSX, Jinja2, Go templates, Phoenix, Django-Cotton, and raw HTML** — generated from a single source of truth. Copy what you need, ship it in any stack.
 
 </div>
 
@@ -30,7 +30,7 @@ a tiny, shared keyboard layer for the composite ARIA widgets the platform *doesn
 cover (menus, listboxes, trees…).
 
 - **Web standards first.** Every component is justified against the WAI-ARIA APG, MDN, the htmx v4 source, and the Tailwind v4 source before it ships. No polyfills, no emulation, no "browsers will support this eventually."
-- **Five flavours, one design.** Each component exists as a typed Hono JSX component, a Jinja2 macro, a Go `html/template`, a Phoenix function component, and a copy-paste HTML snippet — all rendering identical, accessible markup.
+- **Six flavours, one design.** Each component exists as a typed Hono JSX component, a Jinja2 macro, a Go `html/template`, a Phoenix function component, Django-Cotton templates, and a copy-paste HTML snippet — all rendering identical, accessible markup.
 - **Server-rendered + htmx-native.** Components are built for server rendering and wired for the htmx v4 attribute set (live search, infinite scroll, inline edit, optimistic toggles…).
 - **Accessible by construction.** Keyboard interaction, focus management, and ARIA roles are checked against the spec — and against an axe-core + APG keyboard test suite.
 - **Your code, your repo.** Copy a component in and it's yours. No runtime dependency, no version lock-in.
@@ -43,16 +43,17 @@ cover (menus, listboxes, trees…).
 | **Jinja2**   | Python templates (`.html`) | A `{% macro %}` you call          |
 | **Go**       | `html/template` (`.tmpl`)  | A `{{ define }}` template         |
 | **Phoenix**  | Elixir (`.ex`)             | A `~H` function component         |
+| **Django-Cotton** | Django templates (`.html`) | `<c-button>` tags and slots |
 | **HTML**     | Raw markup (`.html`)       | A copy-paste snippet              |
 
-The Hono JSX file is the canonical source; the other four mirror its semantics exactly — same elements, roles, ARIA, and Tailwind classes. Only the templating syntax differs.
+The Hono JSX file is the canonical source; the other five mirror its semantics exactly — same elements, roles, ARIA, and Tailwind classes. Only the templating syntax differs.
 
 ## Quick start
 
 The fastest path is the **flavour-aware CLI**. Pick your stack once, then add components — only *your* framework's file lands in your project.
 
 ```sh
-npx shadcn-htmx init --flavour jinja        # jsx | jinja | go | phoenix | html
+npx shadcn-htmx init --flavour jinja        # jsx | jinja | go | phoenix | cotton | html
 npx shadcn-htmx add button dialog combobox  # writes only the Jinja2 files
 npx shadcn-htmx list                         # browse every component
 ```
@@ -65,7 +66,7 @@ override it with the `registry` field or `--registry` to self-host.
 <summary><b>Other ways to install</b></summary>
 
 **shadcn CLI** — the registry follows the shadcn `registry-item` schema, so the
-stock CLI works too (but it copies *all five* flavours' files; delete the ones you
+stock CLI works too (but it copies *all six* flavours' files; delete the ones you
 don't need):
 
 ```sh
@@ -83,6 +84,94 @@ curl -o templates/components/button.html \
 your stack, and copy the source.
 
 </details>
+
+## Django-Cotton
+
+Requires Django 4.2+ and Django-Cotton 2.9+.
+Install [Django-Cotton](https://django-cotton.com/docs/quickstart) and select the
+`cotton` flavour from your Django project root (beside `manage.py`):
+
+```sh
+python -m pip install "django-cotton>=2.9,<3"
+npx shadcn-htmx init --flavour cotton
+npx shadcn-htmx add button card dialog
+```
+
+Add `"django_cotton"` to `INSTALLED_APPS`. In your existing **DjangoTemplates**
+backend, include `BASE_DIR / "templates"` in `DIRS` and keep `APP_DIRS = True`.
+Cotton configures its loader automatically; projects with custom loaders should
+follow its [manual configuration](https://django-cotton.com/docs/quickstart).
+Django-Cotton uses Django's template engine, not Jinja2.
+
+The installer writes each family to `templates/cotton/<name>/`. Cotton's default
+filename convention uses underscores (`radio_group/`); call sites use kebab case
+(`<c-radio-group>`). Compound components install together:
+
+```html
+<c-card>
+  <c-card.header>
+    <c-card.title as="h2">Account</c-card.title>
+    <c-card.description>Update your settings.</c-card.description>
+  </c-card.header>
+  <c-card.content>
+    <c-button variant="outline" hx-post="/save/" hx-target="#result">
+      Save {{ user.first_name }}
+    </c-button>
+  </c-card.content>
+</c-card>
+<div id="result"></div>
+```
+
+Use `class` for additional classes, literal HTML names for `hx-*`, `aria-*`, and
+`data-*`, and `:prop="context_variable"` for dynamic values. Bare boolean props
+are true; use `:disabled="False"` to pass false. Text is escaped by Django;
+put rich markup in the default body or a named `<c-slot>`, rather than marking
+untrusted strings safe. See [Cotton's component API](https://django-cotton.com/docs/components).
+
+Progress, range slider, splitter, file upload, rating, and highlight also install
+`shadcn_htmx.py` beside `manage.py`. It contains server-side numeric and search
+helpers. After adding one of these components, register the module in your
+existing DjangoTemplates backend (preserve your other options):
+
+```python
+TEMPLATES[0]["OPTIONS"].setdefault("libraries", {})["shadcn_htmx"] = "shadcn_htmx"
+```
+
+If you install under an app with `--out myapp`, use the import path
+`"myapp.shadcn_htmx"` instead. Restart Django after registering the library.
+This is Django's standard [template library registration](https://docs.djangoproject.com/en/5.2/howto/custom-template-tags/#code-layout);
+no additional Python package or client runtime is required by the helper.
+
+As with the other flavours, include the shared theme CSS, htmx v4, and
+`public/site.js` for components with behavior hooks. Copy these to your Django
+static directory and load them using `{% static %}`. In a custom Tailwind v4
+stylesheet, include the library theme tokens and scan the installed templates,
+e.g. `@source "../../templates/**/*.html";` (relative to your stylesheet).
+For unsafe requests, send Django's CSRF header from a base template:
+
+```html
+{% load static %}
+<body hx-headers:inherited='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  <!-- page content -->
+  <script src="{% static 'htmx.min.js' %}" defer></script>
+  <script src="{% static 'site.js' %}" defer></script>
+</body>
+```
+
+Use `{% csrf_token %}` inside ordinary POST forms as well. The explicit
+`:inherited` modifier follows htmx v4's attribute rules
+([vendored guidance](repos/htmx/src/skills/htmx-guidance.md)). Native buttons and
+dialog commands retain the contracts in the
+[APG button pattern](repos/aria-practices/content/patterns/button/button-pattern.html)
+and [MDN button reference](repos/mdn/files/en-us/web/html/reference/elements/button/index.md).
+
+To try these changes before a CLI/registry release, use this checkout directly:
+
+```sh
+bun run build:registry
+node scripts/cli.mjs init --flavour cotton --cwd /path/to/django-project --registry "$PWD/public/r"
+node scripts/cli.mjs add button card dialog --cwd /path/to/django-project
+```
 
 ## Components
 
@@ -109,8 +198,8 @@ console-error sweep.
 
 ## How it works
 
-`registry.json` is the manifest — one entry per component, listing its five flavour
-files. `scripts/build-registry.ts` reads it and emits `public/r/<name>.json` (the
+`registry.json` is the manifest — one entry per component, listing files for all six
+flavours. `scripts/build-registry.ts` reads it and emits `public/r/<name>.json` (the
 shadcn `registry-item` schema, with each file's contents inlined) plus an
 `index.json`. The docs app serves `/r/*`, so the CLI — or any HTTP consumer — pulls
 items straight over the wire. The `shadcn-htmx` CLI reads that same JSON and writes
@@ -135,6 +224,15 @@ bun run build:css        # compile app/styles/input.css -> public/styles.css
 
 ### Tests
 
+Cotton templates are tested with the real Django template engine and Cotton loader:
+
+```sh
+python -m pip install -r tests/cotton/requirements.txt
+python -m unittest discover -s tests/cotton -v
+bun run test:cli
+```
+
+
 End-to-end tests run on Playwright (Chromium). The config does **not** start the
 server — run the app on port **3010** in one terminal and the tests in another:
 
@@ -155,6 +253,7 @@ registry/
   jinja2/        *.html    Jinja2 macros
   go-templates/  *.tmpl    Go html/template
   phoenix/       *.ex      Phoenix function components
+  django-cotton/ */*.html Django-Cotton components and a Python template helper
   html/          *.html    raw HTML snippets
   lib/           cn.ts     class-name joiner
 app/             Hono docs site (routes, layout, shared components, demo endpoints)

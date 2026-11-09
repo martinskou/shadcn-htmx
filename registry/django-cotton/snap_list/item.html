@@ -1,0 +1,13 @@
+{# snap-list — Django Cotton. See registry/ui/snap-list.tsx for platform references. #}
+<c-vars
+  align="start"
+  :stop="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<li {{ attrs }} data-slot="snap-list-item"
+    data-align="{{ align }}"
+    class="min-w-0 shrink-0 grow-0 {% if align == "start" %}snap-start{% elif align == "center" %}snap-center{% else %}snap-end{% endif %}{% if stop %} snap-always{% endif %} {{ class }}">
+  {{ slot }}
+</li>
+{% endlocalize %}

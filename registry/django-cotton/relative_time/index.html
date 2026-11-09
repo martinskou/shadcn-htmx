@@ -1,0 +1,16 @@
+{# relative-time — Django Cotton. See registry/ui/relative-time.tsx for platform references. #}
+<c-vars
+  :datetime="None"
+  format="relative"
+  tone="muted"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<time{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  datetime="{{ datetime|default_if_none:"" }}"
+  data-slot="relative-time"
+  data-relative-time=""
+  data-format="{{ format }}"
+  class="tabular-nums {% if tone == "default" %}text-foreground{% elif tone == "muted" %}text-muted-foreground{% endif %} {{ class }}" {{ attrs }}>{{ slot }}</time>
+{% endlocalize %}

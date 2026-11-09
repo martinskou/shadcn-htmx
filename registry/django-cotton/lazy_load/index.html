@@ -1,0 +1,17 @@
+{# lazy-load — Django Cotton. See registry/ui/lazy-load.tsx for platform references. #}
+<c-vars
+  :src="None"
+  trigger="load"
+  swap="innerHTML"
+  :reserve="None"
+  aria-label="Loading"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="lazy-load" data-trigger="{{ trigger }}"
+  role="status" aria-busy="true" aria-label="{{ aria_label }}"{% if src %}hx-get="{{ src|default_if_none:"" }}"{% endif %}
+  hx-trigger="{% if trigger == "intersect" %}intersect once{% elif trigger == "revealed" %}revealed{% else %}load{% endif %}" hx-swap="{{ swap }}"{% if reserve %}style="min-height:{{ reserve|default_if_none:"" }}"{% endif %}
+  class="flex w-full items-center justify-center text-sm text-muted-foreground {{ class }}" {{ attrs }}>{% if slot %}{{ slot }}{% else %}<span class="flex items-center gap-2"><span class="size-4 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground" aria-hidden="true"></span>Loading…</span>{% endif %}</div>
+{% endlocalize %}

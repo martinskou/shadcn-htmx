@@ -1,0 +1,30 @@
+{# toast — Django Cotton. See registry/ui/toast.tsx for platform references. #}
+<c-vars
+  :title="None"
+  :description="None"
+  variant="default"
+  :duration="5000"
+  live="polite"
+  :show-close="True"
+  :close-hx="{}"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<li {{ attrs }} {% if id %}id="{{ id|default_if_none:"" }}"{% endif %}
+    data-slot="toast" data-variant="{{ variant }}" data-state="open" data-duration="{{ duration }}"
+    role="{% if live == "assertive" %}alert{% else %}status{% endif %}" aria-live="{{ live }}" aria-atomic="true"
+    class="pointer-events-auto relative grid w-full grid-cols-[0_1fr_auto] items-start gap-y-0.5 rounded-lg border bg-card px-4 py-3 text-sm text-card-foreground shadow-lg has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr_auto] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current animate-[scn-toast-in_180ms_ease-out] data-[state=closed]:animate-[scn-toast-out_140ms_ease-in] {% if not variant == "default" %}{% if variant == "destructive" %}border-destructive/30 bg-destructive/5 text-destructive *:data-[slot=toast-description]:text-destructive/90{% elif variant == "success" %}border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 *:data-[slot=toast-description]:text-emerald-700/90 dark:*:data-[slot=toast-description]:text-emerald-300/90{% elif variant == "warning" %}border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-200 *:data-[slot=toast-description]:text-amber-800/90 dark:*:data-[slot=toast-description]:text-amber-200/90{% elif variant == "info" %}border-sky-500/30 bg-sky-500/5 text-sky-800 dark:text-sky-200 *:data-[slot=toast-description]:text-sky-800/90 dark:*:data-[slot=toast-description]:text-sky-200/90{% endif %}{% endif %} {{ class }}">
+  <div data-slot="toast-title" class="col-start-2 line-clamp-1 font-medium tracking-tight">{{ title|default_if_none:"" }}</div>
+  {% if description %}<div data-slot="toast-description" class="col-start-2 text-sm text-muted-foreground">{{ description|default_if_none:"" }}</div>{% endif %}
+  {% if show_close %}
+  
+  <button type="button" data-toast-close="true" aria-label="Dismiss notification"{% for name, value in close_hx.items %} {{ name }}="{{ value }}"{% endfor %}
+    class="col-start-3 row-span-2 row-start-1 inline-flex size-6 -translate-y-0.5 items-center justify-center self-start rounded-md text-current opacity-60 transition-opacity hover:bg-current/10 hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5" aria-hidden="true">
+      <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+    </svg>
+  </button>
+  {% endif %}
+</li>
+{% endlocalize %}

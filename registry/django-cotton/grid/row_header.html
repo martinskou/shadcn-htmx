@@ -1,0 +1,12 @@
+{# grid — Django Cotton. See registry/ui/grid.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :aria-colindex="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<th scope="row"
+    data-slot="grid-rowheader"
+    data-grid-cell=""{% if aria_colindex is not None %} aria-colindex="{{ aria_colindex|default_if_none:"" }}"{% endif %} {{ attrs }}
+    class="border-b border-r px-3 py-2 align-middle outline-none focus-visible:relative focus-visible:z-10 focus-visible:ring-[2px] focus-visible:ring-ring/50 data-[grid-active=true]:bg-muted/50 border-t bg-muted/50 text-left font-medium text-muted-foreground first:rounded-tl-md last:rounded-tr-md font-medium text-foreground {{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</th>
+{% endlocalize %}

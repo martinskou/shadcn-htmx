@@ -1,0 +1,6 @@
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<mark data-slot="highlight" class="rounded-sm bg-primary/15 px-0.5 font-medium text-foreground [box-decoration-break:clone] {{ class }}" {{ attrs }}>{{ slot }}</mark>
+{% endlocalize %}

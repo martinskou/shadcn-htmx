@@ -1,0 +1,8 @@
+{# menubar — Django Cotton. See registry/ui/menubar.tsx for platform references. #}
+<c-vars
+  :text="None"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="menubar-label" class="px-2 py-1.5 text-xs font-semibold tracking-wider text-muted-foreground uppercase">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</div>
+{% endlocalize %}

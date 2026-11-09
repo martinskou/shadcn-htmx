@@ -1,0 +1,14 @@
+{# dropdown-menu — Django Cotton. See registry/ui/dropdown-menu.tsx for platform references. #}
+<c-vars
+  :id="None"
+  side="bottom"
+  class=""
+  :aria-labelledby="None"
+  :aria-label="None"
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} id="{{ id|default_if_none:"" }}" popover="auto" role="menu"{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+     data-slot="dropdown-menu" data-side="{{ side }}"
+     class="z-50 m-0 min-w-[12rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md outline-none [&:not(:popover-open)]:hidden [&:popover-open]:animate-[scn-popover-in_120ms_ease-out] {% if side == "top" %}anchor-popover-top{% elif side == "bottom" %}anchor-popover-bottom{% elif side == "left" %}anchor-popover-left{% elif side == "right" %}anchor-popover-right{% endif %} {{ class }}">
+{{ slot }}</div>
+{% endlocalize %}

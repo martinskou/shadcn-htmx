@@ -1,0 +1,7 @@
+{# collapsible — Django Cotton. See registry/ui/collapsible.tsx for platform references. #}
+<c-vars
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="collapsible-content" class="overflow-hidden pt-2 pb-1 text-sm {{ class }}">{{ slot }}</div>
+{% endlocalize %}

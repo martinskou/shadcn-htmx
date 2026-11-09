@@ -1,0 +1,11 @@
+{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}
+<c-vars
+  aria-label="Breadcrumb"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<nav data-slot="breadcrumb"{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% else %} aria-label="{{ aria_label }}"{% endif %} class="{{ class }}" {{ attrs }}>
+{{ slot }}
+</nav>
+{% endlocalize %}

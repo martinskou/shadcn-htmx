@@ -1,0 +1,2 @@
+Django>=4.2,<6.0
+django-cotton>=2.9,<3.0

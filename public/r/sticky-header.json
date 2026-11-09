@@ -37,6 +37,18 @@
       "type": "registry:file",
       "target": "snippets/sticky-header.html",
       "content": "<!--\n  shadcn-htmx — raw Sticky Header snippet. Mirrors registry/ui/sticky-header.tsx.\n\n  Pins on scroll via `position: sticky; top: 0` and reacts the moment it\n  becomes STUCK via `@container scroll-state(stuck: top)`: the root is BOTH\n  the sticky element AND the scroll-state container ([container-type:scroll-state]).\n  The descendant reveal styling (shadow + solid background) lives in the\n  [data-slot=\"sticky-header\"] block in app/styles/input.css and is opted into\n  with data-sticky-revealed. Zero JS — the browser drives the stuck state.\n\n  Needs a SCROLL CONTAINER ancestor (here the .overflow-auto wrapper). Where\n  scroll-state() is unsupported the header still pins; it just won't gain the\n  extra stuck shadow (progressive enhancement).\n    repos/mdn/files/en-us/web/css/reference/properties/position/index.md\n    repos/mdn/.../web/css/guides/conditional_rules/container_scroll-state_queries/index.md\n-->\n\n<div class=\"relative h-72 overflow-auto rounded-lg border\">\n  <header data-slot=\"sticky-header\"\n          class=\"sticky z-30 bg-background/95 supports-[backdrop-filter]:bg-background/80 [container-type:scroll-state]\"\n          style=\"top:0\">\n    <div data-slot=\"sticky-header-bar\" data-sticky-revealed=\"\"\n         class=\"flex h-14 items-center justify-between px-4 transition-shadow transition-colors duration-200\">\n      <span class=\"font-semibold\">Documents</span>\n      <span class=\"text-sm text-muted-foreground\">128 files</span>\n    </div>\n  </header>\n\n  <div class=\"space-y-2 p-4 text-sm text-muted-foreground\">\n    <p>Scroll this panel — the header pins to the top and gains a shadow once stuck.</p>\n    <p>Row 1</p><p>Row 2</p><p>Row 3</p><p>Row 4</p><p>Row 5</p>\n    <p>Row 6</p><p>Row 7</p><p>Row 8</p><p>Row 9</p><p>Row 10</p>\n    <p>Row 11</p><p>Row 12</p><p>Row 13</p><p>Row 14</p><p>Row 15</p>\n  </div>\n</div>\n"
+    },
+    {
+      "path": "registry/django-cotton/sticky_header/bar.html",
+      "type": "registry:file",
+      "target": "templates/cotton/sticky_header/bar.html",
+      "content": "{# sticky-header — Django Cotton. See registry/ui/sticky-header.tsx for platform references. #}\n<c-vars\n  as=\"div\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<{{ as }} data-slot=\"sticky-header-bar\" data-sticky-revealed=\"\"\n  class=\"transition-shadow transition-colors duration-200 {{ class }}\" {{ attrs }}>\n{{ slot }}</{{ as }}>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/sticky_header/index.html",
+      "type": "registry:file",
+      "target": "templates/cotton/sticky_header/index.html",
+      "content": "{# sticky-header — Django Cotton. See registry/ui/sticky-header.tsx for platform references. #}\n<c-vars\n  as=\"header\"\n  top=\"0\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<{{ as }} data-slot=\"sticky-header\"\n  class=\"sticky z-30 bg-background/95 supports-[backdrop-filter]:bg-background/80 [container-type:scroll-state] {{ class }}\"\n  style=\"top:{{ top }}\" {{ attrs }}>\n{{ slot }}</{{ as }}>\n{% endlocalize %}\n"
     }
   ]
 }

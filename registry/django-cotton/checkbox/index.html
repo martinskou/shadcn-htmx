@@ -1,0 +1,32 @@
+{# checkbox — Django Cotton. See registry/ui/checkbox.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :name="None"
+  :value="None"
+  :checked="False"
+  :indeterminate="False"
+  :required="False"
+  :disabled="False"
+  :readonly="False"
+  :form="None"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  :aria-invalid="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span class="relative inline-flex size-4 shrink-0 align-middle">
+  <input type="checkbox"
+         class="peer size-4 shrink-0 appearance-none rounded-[4px] border border-input bg-background shadow-xs transition-shadow outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 checked:border-primary checked:bg-primary indeterminate:border-primary indeterminate:bg-primary aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 dark:bg-input/30 {{ class }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if name %} name="{{ name|default_if_none:"" }}"{% endif %}{% if value is not None %} value="{{ value|default_if_none:"" }}"{% endif %}{% if checked %} checked{% endif %}{% if indeterminate %} data-initial-indeterminate="true"{% endif %}{% if required %} required{% endif %}{% if disabled %} disabled{% endif %}{% if readonly %} readonly{% endif %}{% if form %} form="{{ form|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}{% if aria_invalid is not None %} aria-invalid="{{ aria_invalid|lower }}"{% endif %}
+         data-slot="checkbox" {{ attrs }}>
+  <svg class="pointer-events-none absolute inset-0 m-auto hidden size-3 text-primary-foreground peer-checked:block"
+       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+  <svg class="pointer-events-none absolute inset-0 m-auto hidden size-3 text-primary-foreground peer-indeterminate:block"
+       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+</span>
+{% endlocalize %}

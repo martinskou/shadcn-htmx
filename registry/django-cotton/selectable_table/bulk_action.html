@@ -1,0 +1,18 @@
+{# selectable-table — Django Cotton. See registry/ui/selectable-table.tsx for platform references. #}
+<c-vars
+  label=""
+  :hx-post="None"
+  hx-target="closest [data-slot=&#x27;selectable-table&#x27;]"
+  hx-swap="outerHTML"
+  :confirm="None"
+  variant="default"
+  type="button"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<button type="{{ type }}" data-slot="selectable-table-action"{% if hx_post %}hx-post="{{ hx_post|default_if_none:"" }}"{% endif %}
+  hx-target="{{ hx_target }}" hx-swap="{{ hx_swap }}"{% if confirm %}hx-confirm="{{ confirm|default_if_none:"" }}"{% endif %}
+  {% if disabled %}disabled{% endif %}
+  class="inline-flex h-8 items-center justify-center gap-1.5 rounded-md border px-3 text-xs font-medium whitespace-nowrap outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&.htmx-request]:pointer-events-none [&.htmx-request]:opacity-70 {% if variant == "default" %}bg-background text-foreground hover:bg-accent hover:text-accent-foreground{% elif variant == "destructive" %}border-destructive/40 text-destructive hover:bg-destructive/10{% endif %} {{ class }}" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}</button>
+{% endlocalize %}

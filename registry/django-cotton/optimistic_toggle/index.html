@@ -1,0 +1,72 @@
+{# optimistic-toggle — Django Cotton. See registry/ui/optimistic-toggle.tsx for platform references. #}
+<c-vars
+  optimistic=""
+  :id="None"
+  :pressed="False"
+  variant="default"
+  size="default"
+  :disabled="False"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :aria-describedby="None"
+  hx-target="this"
+  hx-swap="outerHTML"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<span data-slot="optimistic-toggle" class="contents">
+  <button type="button" id="{{ id|default_if_none:"" }}"
+          class="inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&.htmx-request]:opacity-80 {% if variant == "default" %}border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary/90{% elif variant == "outline" %}border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground aria-pressed:border-primary aria-pressed:text-primary aria-pressed:bg-primary/10 aria-pressed:hover:bg-primary/15{% elif variant == "ghost" %}hover:bg-accent hover:text-accent-foreground aria-pressed:bg-secondary aria-pressed:text-secondary-foreground aria-pressed:hover:bg-secondary/80{% endif %} {% if size == "default" %}h-9 px-4 py-2 has-[>svg]:px-3{% elif size == "sm" %}h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5{% elif size == "lg" %}h-10 rounded-md px-6 has-[>svg]:px-4{% elif size == "icon" %}size-9{% endif %}{% if class %} {{ class }}{% endif %}"{% if disabled %} disabled{% endif %}
+          aria-pressed="{% if pressed %}true{% else %}false{% endif %}"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_describedby %} aria-describedby="{{ aria_describedby|default_if_none:"" }}"{% endif %}
+          data-variant="{{ variant }}" data-size="{{ size }}"
+          hx-target="{{ hx_target }}" hx-swap="{{ hx_swap }}"
+          data-optimistic="#{{ id|default_if_none:"" }}-optimistic" {{ attrs }}>{{ slot }}</button>
+  <template id="{{ id|default_if_none:"" }}-optimistic">
+    <span data-slot="optimistic-toggle-state" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&.htmx-request]:opacity-80 {% if variant == "default" %}border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground aria-pressed:border-primary aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:hover:bg-primary/90{% elif variant == "outline" %}border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground aria-pressed:border-primary aria-pressed:text-primary aria-pressed:bg-primary/10 aria-pressed:hover:bg-primary/15{% elif variant == "ghost" %}hover:bg-accent hover:text-accent-foreground aria-pressed:bg-secondary aria-pressed:text-secondary-foreground aria-pressed:hover:bg-secondary/80{% endif %} {% if size == "default" %}h-9 px-4 py-2 has-[>svg]:px-3{% elif size == "sm" %}h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5{% elif size == "lg" %}h-10 rounded-md px-6 has-[>svg]:px-4{% elif size == "icon" %}size-9{% endif %}{% if class %} {{ class }}{% endif %} pointer-events-none" aria-pressed="true">{{ optimistic }}</span>
+  </template>
+</span>
+
+<script>
+(function(){
+  if (window.__shadcnOptimisticToggle) return;
+  window.__shadcnOptimisticToggle = true;
+  function toggleFor(detail){
+    var ctx = detail && detail.ctx;
+    var src = ctx && ctx.sourceElement;
+    if (!src || !src.closest) return null;
+    var btn = src.closest('[data-slot="optimistic-toggle"] > button[aria-pressed]');
+    return btn || (src.matches && src.matches('button[aria-pressed]') &&
+      src.closest('[data-slot="optimistic-toggle"]') ? src : null);
+  }
+  document.body.addEventListener('htmx:before:request', function(e){
+    var btn = toggleFor(e.detail);
+    if (!btn) return;
+    btn.__optHTML = btn.innerHTML;
+    btn.__optPressed = btn.getAttribute('aria-pressed');
+    var sel = btn.getAttribute('data-optimistic');
+    var tmpl = sel && document.querySelector(sel);
+    var inner = tmpl && tmpl.content ? tmpl.content.querySelector('[data-slot="optimistic-toggle-state"]') : null;
+    if (inner) btn.innerHTML = inner.innerHTML;
+    btn.setAttribute('aria-pressed', btn.__optPressed === 'true' ? 'false' : 'true');
+  }, true);
+  document.body.addEventListener('htmx:before:swap', function(e){
+    var btn = toggleFor(e.detail);
+    if (!btn || btn.__optHTML == null) return;
+    var status = e.detail && e.detail.ctx && e.detail.ctx.response && e.detail.ctx.response.status;
+    if (status >= 400){
+      e.preventDefault();
+      btn.innerHTML = btn.__optHTML;
+      btn.setAttribute('aria-pressed', btn.__optPressed);
+    }
+    btn.__optHTML = null;
+  }, true);
+  document.body.addEventListener('htmx:error', function(e){
+    var btn = toggleFor(e.detail);
+    if (!btn || btn.__optHTML == null) return;
+    btn.innerHTML = btn.__optHTML;
+    btn.setAttribute('aria-pressed', btn.__optPressed);
+    btn.__optHTML = null;
+  }, true);
+})();
+</script>
+{% endlocalize %}

@@ -1,0 +1,14 @@
+{# carousel — Django Cotton. See registry/ui/carousel.tsx for platform references. #}
+<c-vars
+  :aria-label="None"
+  :aria-labelledby="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="carousel-item"
+     role="group"
+     aria-roledescription="slide"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}
+     class="min-w-0 shrink-0 grow-0 basis-full snap-center {{ class }}">
+  {{ slot }}
+</div>
+{% endlocalize %}

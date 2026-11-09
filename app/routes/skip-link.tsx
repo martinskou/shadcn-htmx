@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { SKIP_LINK_PROPS } from "@/app/data/api-rows"
 import { SkipLink } from "@/registry/ui/skip-link"
@@ -110,6 +111,7 @@ skipLinkRoutes.get("/", async (c) => {
             <LangTabs
               id="install-skip-link"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "skip-link" }) },
                 {
                   lang: "jsx",
                   node: await InstallPanel({

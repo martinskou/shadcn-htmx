@@ -1,0 +1,12 @@
+{# table — Django Cotton. See registry/ui/table.tsx for platform references. #}
+<c-vars
+  :content="None"
+  :colspan="None"
+  :rowspan="None"
+  :id="None"
+  :headers="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<td {{ attrs }} {% if colspan %}colspan="{{ colspan|default_if_none:"" }}"{% endif %}{% if rowspan %} rowspan="{{ rowspan|default_if_none:"" }}"{% endif %}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if headers %} headers="{{ headers|default_if_none:"" }}"{% endif %} data-slot="table-cell" class="p-2 align-middle {{ class }}">{% if slot %}{{ slot }}{% else %}{{ content|default_if_none:"" }}{% endif %}</td>
+{% endlocalize %}

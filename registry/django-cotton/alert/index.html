@@ -1,0 +1,17 @@
+{# alert — Django Cotton. See registry/ui/alert.tsx for platform references. #}
+<c-vars
+  variant="default"
+  live="polite"
+  :role="None"
+  :aria-atomic="True"
+  :aria-labelledby="None"
+  :aria-label="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="alert"
+  data-variant="{{ variant }}"{% if role %} role="{{ role|default_if_none:"" }}"{% elif live == "assertive" %} role="alert"{% elif live == "polite" %} role="status"{% endif %}{% if live != "off" %} aria-live="{{ live }}"{% endif %}{% if aria_atomic %} aria-atomic="true"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+  class="relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current {% if variant == "default" %}bg-card text-card-foreground{% elif variant == "destructive" %}border-destructive/30 bg-destructive/5 text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current{% elif variant == "success" %}border-emerald-500/30 bg-emerald-500/5 text-emerald-700 *:data-[slot=alert-description]:text-emerald-700/90 dark:text-emerald-300 dark:*:data-[slot=alert-description]:text-emerald-300/90 [&>svg]:text-current{% elif variant == "warning" %}border-amber-500/30 bg-amber-500/10 text-amber-800 *:data-[slot=alert-description]:text-amber-800/90 dark:text-amber-200 dark:*:data-[slot=alert-description]:text-amber-200/90 [&>svg]:text-current{% elif variant == "info" %}border-sky-500/30 bg-sky-500/5 text-sky-800 *:data-[slot=alert-description]:text-sky-800/90 dark:text-sky-200 dark:*:data-[slot=alert-description]:text-sky-200/90 [&>svg]:text-current{% endif %} {{ class }}">{{ slot }}</div>
+{% endlocalize %}

@@ -1,0 +1,38 @@
+{# media-player — Django Cotton. See registry/ui/media-player.tsx for platform references. #}
+<c-vars
+  kind="video"
+  :src="None"
+  :sources="[]"
+  :tracks="[]"
+  :poster="None"
+  ratio="16/9"
+  :controls="True"
+  :preload="None"
+  :loop="False"
+  :muted="False"
+  :autoplay="False"
+  :playsinline="False"
+  :crossorigin="None"
+  :aria-label="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="media-player"
+  data-kind="{{ kind }}"
+  class="group/media-player relative block w-full overflow-hidden rounded-lg border bg-card {% if kind == "video" %}{% if ratio == "1/1" %}aspect-square{% elif ratio == "16/9" %}aspect-video{% else %}aspect-[{{ ratio|cut:" " }}]{% endif %}{% else %}p-2{% endif %} {{ class }}" {{ attrs }}>{% if kind == "video" %}
+  <video data-slot="media-player-media"{% if src %} src="{{ src|default_if_none:"" }}"{% endif %}{% if controls %} controls{% endif %}{% if poster %} poster="{{ poster|default_if_none:"" }}"{% endif %}{% if preload %} preload="{{ preload|default_if_none:"" }}"{% endif %}{% if forloop %} loop{% endif %}{% if muted %} muted{% endif %}{% if autoplay %} autoplay{% endif %}{% if playsinline %} playsinline{% endif %}{% if crossorigin %} crossorigin="{{ crossorigin|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+         class="block size-full bg-black object-contain">{% for s in sources %}
+    <source data-slot="media-player-source" src="{{ s.src }}"{% if s.type %} type="{{ s.type }}"{% endif %}>{% endfor %}{% for t in tracks %}
+    <track data-slot="media-player-track" kind="{{ t.kind|default:"subtitles" }}" src="{{ t.src }}"{% if t.srclang %} srclang="{{ t.srclang }}"{% endif %}{% if t.label %} label="{{ t.label }}"{% endif %}{% if t.default %} default{% endif %}>{% endfor %}
+    {{ slot }}
+  </video>{% else %}
+  <audio data-slot="media-player-media"{% if src %} src="{{ src|default_if_none:"" }}"{% endif %}{% if controls %} controls{% endif %}{% if preload %} preload="{{ preload|default_if_none:"" }}"{% endif %}{% if forloop %} loop{% endif %}{% if muted %} muted{% endif %}{% if autoplay %} autoplay{% endif %}{% if crossorigin %} crossorigin="{{ crossorigin|default_if_none:"" }}"{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+         class="block w-full">{% for s in sources %}
+    <source data-slot="media-player-source" src="{{ s.src }}"{% if s.type %} type="{{ s.type }}"{% endif %}>{% endfor %}{% for t in tracks %}
+    <track data-slot="media-player-track" kind="{{ t.kind|default:"subtitles" }}" src="{{ t.src }}"{% if t.srclang %} srclang="{{ t.srclang }}"{% endif %}{% if t.label %} label="{{ t.label }}"{% endif %}{% if t.default %} default{% endif %}>{% endfor %}
+    {{ slot }}
+  </audio>{% endif %}
+</div>
+{% endlocalize %}

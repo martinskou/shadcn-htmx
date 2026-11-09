@@ -1,0 +1,8 @@
+{# menubar — Django Cotton. See registry/ui/menubar.tsx for platform references. #}
+<c-vars
+  :text="None"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<span {{ attrs }} aria-hidden="true" data-slot="menubar-shortcut" class="ml-auto text-xs tracking-widest text-muted-foreground">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</span>
+{% endlocalize %}

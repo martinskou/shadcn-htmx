@@ -1,0 +1,8 @@
+{# alert — Django Cotton. See registry/ui/alert.tsx for platform references. #}
+<c-vars
+  :text="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} data-slot="alert-title" class="col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight {{ class }}">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</div>
+{% endlocalize %}

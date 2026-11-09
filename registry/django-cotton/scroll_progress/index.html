@@ -1,0 +1,18 @@
+{# scroll-progress — Django Cotton. See registry/ui/scroll-progress.tsx for platform references. #}
+<c-vars
+  position="top"
+  :timeline="None"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {% if id %}id="{{ id|default_if_none:"" }}"{% endif %}
+     data-slot="scroll-progress"
+     data-position="{{ position }}"
+     aria-hidden="true"
+     class="pointer-events-none fixed inset-x-0 z-50 h-1 w-full overflow-hidden bg-primary/15 {% if position == "top" %}top-0{% else %}bottom-0{% endif %} {{ class }}" {{ attrs }}>
+  <div data-slot="scroll-progress-indicator"
+       {% if timeline %}style="animation-timeline: {{ timeline|default_if_none:"" }}"{% endif %}
+       class="h-full w-full origin-left bg-primary"></div>
+</div>
+{% endlocalize %}

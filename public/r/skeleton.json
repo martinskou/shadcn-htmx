@@ -34,6 +34,12 @@
       "type": "registry:file",
       "target": "snippets/skeleton.html",
       "content": "<!--\n  shadcn-htmx — raw HTML skeleton snippet.\n  Loading placeholder with role=\"status\" + aria-busy + pulse animation.\n\n  Naming: use aria-label for a standalone string. If a visible label\n  already exists (e.g. a heading), reference it with aria-labelledby\n  instead — it supersedes aria-label. Per the status role spec:\n  \"If a name is visible, reference it using aria-labelledby.\"\n  repos/mdn/files/en-us/web/accessibility/aria/reference/roles/status_role/index.md\n\n    <h2 id=\"activity-heading\">Recent activity</h2>\n    <div role=\"status\" aria-busy=\"true\" aria-labelledby=\"activity-heading\"\n         data-slot=\"skeleton\"\n         class=\"animate-pulse rounded-md bg-muted h-4 w-64\"></div>\n-->\n\n<div role=\"status\" aria-busy=\"true\" aria-label=\"Loading user profile\"\n     data-slot=\"skeleton\"\n     class=\"animate-pulse rounded-md bg-muted h-4 w-64\"></div>\n"
+    },
+    {
+      "path": "registry/django-cotton/skeleton/index.html",
+      "type": "registry:file",
+      "target": "templates/cotton/skeleton/index.html",
+      "content": "{# skeleton — Django Cotton. See registry/ui/skeleton.tsx for platform references. #}\n<c-vars\n  aria-label=\"Loading\"\n  :aria-labelledby=\"None\"\n  :id=\"None\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<div {{ attrs }}{% if id %} id=\"{{ id|default_if_none:\"\" }}\"{% endif %}\n  role=\"status\" aria-busy=\"true\"{% if aria_labelledby %} aria-labelledby=\"{{ aria_labelledby|default_if_none:\"\" }}\"{% else %} aria-label=\"{{ aria_label }}\"{% endif %}\n  data-slot=\"skeleton\"\n  class=\"animate-pulse rounded-md bg-muted {{ class }}\"></div>\n{% endlocalize %}\n"
     }
   ]
 }

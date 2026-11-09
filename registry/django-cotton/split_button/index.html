@@ -1,0 +1,24 @@
+{# split-button — Django Cotton. See registry/ui/split-button.tsx for platform references. #}
+<c-vars
+  :label="None"
+  :menu-id="None"
+  variant="default"
+  size="default"
+  toggle-label="More actions"
+  :disabled="False"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div data-slot="split-button" class="inline-flex items-stretch rounded-md shadow-xs outline-none isolate {{ class }}">
+  <button type="button"{% if disabled %} disabled{% endif %}
+          data-slot="split-button-action"
+          class="inline-flex items-center justify-center font-medium whitespace-nowrap outline-none transition-colors focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&.htmx-request]:pointer-events-none [&.htmx-request]:opacity-70 {% if variant == "default" %}bg-primary text-primary-foreground hover:bg-primary/90{% elif variant == "secondary" %}bg-secondary text-secondary-foreground hover:bg-secondary/80{% elif variant == "destructive" %}bg-destructive text-white hover:bg-destructive/90{% elif variant == "outline" %}border bg-background text-foreground hover:bg-accent hover:text-accent-foreground{% endif %} {% if size == "sm" %}h-8 gap-1.5 px-3 text-xs has-[>svg]:px-2.5{% elif size == "default" %}h-9 gap-2 px-4 text-sm has-[>svg]:px-3{% elif size == "lg" %}h-10 gap-2 px-6 text-sm has-[>svg]:px-4{% endif %} rounded-l-md rounded-r-none" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</button>
+  <button type="button"{% if disabled %} disabled{% endif %}
+          popovertarget="{{ menu_id|default_if_none:"" }}" popovertargetaction="toggle"
+          aria-haspopup="menu" aria-expanded="false" aria-label="{{ toggle_label }}"
+          data-slot="split-button-toggle"
+          class="inline-flex items-center justify-center font-medium whitespace-nowrap outline-none transition-colors focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&.htmx-request]:pointer-events-none [&.htmx-request]:opacity-70 {% if variant == "default" %}bg-primary text-primary-foreground hover:bg-primary/90{% elif variant == "secondary" %}bg-secondary text-secondary-foreground hover:bg-secondary/80{% elif variant == "destructive" %}bg-destructive text-white hover:bg-destructive/90{% elif variant == "outline" %}border bg-background text-foreground hover:bg-accent hover:text-accent-foreground{% endif %} {% if size == "sm" %}w-8{% elif size == "default" %}w-9{% elif size == "lg" %}w-10{% endif %} {% if variant == "default" %}border-l border-primary-foreground/20{% elif variant == "secondary" %}border-l border-foreground/15{% elif variant == "destructive" %}border-l border-white/25{% elif variant == "outline" %}border-l-0{% endif %} rounded-r-md rounded-l-none">
+    <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="size-4"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
+  </button>
+</div>
+{% endlocalize %}

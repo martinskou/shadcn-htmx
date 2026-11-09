@@ -1,0 +1,20 @@
+{# separator — Django Cotton. See registry/ui/separator.tsx for platform references. #}
+<c-vars
+  orientation="horizontal"
+  :decorative="True"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+{% if decorative %}<div {{ attrs }} {{ attrs }}{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="separator"
+  data-orientation="{{ orientation }}"
+  class="shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px {{ class }}"></div>{% elif orientation == "horizontal" %}<hr{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="separator"
+  data-orientation="horizontal"
+  aria-orientation="horizontal"
+  class="shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px border-0 {{ class }}">{% else %}<div{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="separator"
+  data-orientation="{{ orientation }}" role="separator" aria-orientation="{{ orientation }}"
+  class="shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px {{ class }}"></div>{% endif %}
+{% endlocalize %}

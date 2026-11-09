@@ -1,0 +1,15 @@
+{# delete-row — Django Cotton. See registry/ui/delete-row.tsx for platform references. #}
+<c-vars
+  confirm="Are you sure you want to delete this?"
+  target="closest tr"
+  :swap-ms="300"
+  as="tbody"
+  class=""
+  :caller="None"
+/>
+{% load l10n %}{% localize off %}
+<{{ as }} {{ attrs }} data-slot="delete-row"{% if confirm is not None %} hx-confirm:inherited="{{ confirm }}"{% endif %}
+   hx-target:inherited="{{ target }}" hx-swap:inherited="outerHTML swap:{{ swap_ms }}ms"
+   class="{{ class }}">{% if slot %}{{ slot }}{% endif %}
+</{{ as }}>
+{% endlocalize %}

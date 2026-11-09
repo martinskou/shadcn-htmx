@@ -1,0 +1,10 @@
+{# listbox — Django Cotton. See registry/ui/listbox.tsx for platform references. #}
+<c-vars
+  :label="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<li {{ attrs }} role="presentation" data-slot="listbox-group-wrapper" class="py-1 {{ class }}">
+  <span aria-hidden="true" class="px-2 py-1 text-xs font-medium text-muted-foreground">{{ label|default_if_none:"" }}</span>
+  <ul role="group" data-slot="listbox-group" aria-label="{{ label|default_if_none:"" }}" class="contents">{{ slot }}</ul></li>
+{% endlocalize %}

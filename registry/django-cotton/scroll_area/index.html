@@ -1,0 +1,23 @@
+{# scroll-area — Django Cotton. See registry/ui/scroll-area.tsx for platform references. #}
+<c-vars
+  orientation="vertical"
+  :fade="True"
+  :aria-label="None"
+  :aria-labelledby="None"
+  :id="None"
+  viewport-class=""
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="scroll-area"
+  data-orientation="{{ orientation }}"
+  class="relative overflow-hidden rounded-md {{ class }}" {{ attrs }}>
+  <div
+    data-slot="scroll-area-viewport"
+    data-scroll-area-viewport{% if fade %} data-fade="true"{% endif %}
+    role="region"{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}{% if aria_labelledby %} aria-labelledby="{{ aria_labelledby|default_if_none:"" }}"{% endif %}
+    tabindex="0"
+    class="size-full scroll-smooth scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 rounded-[inherit] {% if orientation == "vertical" %}overflow-y-auto overflow-x-hidden{% elif orientation == "horizontal" %}overflow-x-auto overflow-y-hidden{% elif orientation == "both" %}overflow-auto{% endif %} {{ viewport_class }}">{% if fade %}<div data-slot="scroll-area-fade" data-edge="start" aria-hidden="true" class="pointer-events-none sticky z-[1] opacity-0 transition-opacity duration-200"></div>{% endif %}{{ slot }}{% if fade %}<div data-slot="scroll-area-fade" data-edge="end" aria-hidden="true" class="pointer-events-none sticky z-[1] opacity-0 transition-opacity duration-200"></div>{% endif %}</div>
+</div>
+{% endlocalize %}

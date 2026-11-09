@@ -1,0 +1,16 @@
+{# tooltip — Django Cotton. See registry/ui/tooltip.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :content="None"
+  side="top"
+  class=""
+  content-class=""
+/>
+{% load l10n %}{% localize off %}
+<span {{ attrs }} data-slot="tooltip" data-side="{{ side }}" data-tooltip-trigger
+      class="relative inline-block w-fit group/tooltip align-middle [&:hover>[data-slot=tooltip-content]]:opacity-100 [&:focus-within>[data-slot=tooltip-content]]:opacity-100 [&[data-suppress=true]>[data-slot=tooltip-content]]:opacity-0! {{ class }}">
+  {{ slot }}
+  <span id="{{ id|default_if_none:"" }}" role="tooltip" data-slot="tooltip-content" data-side="{{ side }}"
+        class="pointer-events-none absolute z-50 w-max max-w-xs rounded-md bg-foreground px-2 py-1 text-xs font-medium text-background shadow-md opacity-0 transition-opacity duration-150 dark:bg-foreground dark:text-background {% if side == "top" %}left-1/2 -translate-x-1/2 bottom-[calc(100%+0.5rem)]{% elif side == "bottom" %}left-1/2 -translate-x-1/2 top-[calc(100%+0.5rem)]{% elif side == "left" %}top-1/2 -translate-y-1/2 right-[calc(100%+0.5rem)]{% elif side == "right" %}top-1/2 -translate-y-1/2 left-[calc(100%+0.5rem)]{% endif %} {{ content_class }}">{{ content|default_if_none:"" }}</span>
+</span>
+{% endlocalize %}

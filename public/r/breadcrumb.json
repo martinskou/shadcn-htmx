@@ -3,7 +3,7 @@
   "name": "breadcrumb",
   "type": "registry:ui",
   "title": "Breadcrumb",
-  "description": "A native <nav> landmark wrapping an <ol> of links that shows the path to the current page; the current page is a plain <span aria-current=\"page\">, separators are aria-hidden. Zero JS. Ships in five flavours and follows the WAI-ARIA APG breadcrumb pattern.",
+  "description": "A native <nav> landmark wrapping an <ol> of links that shows the path to the current page; the current page is a plain <span aria-current=\"page\">, separators are aria-hidden. Zero JS. Ships in six flavours and follows the WAI-ARIA APG breadcrumb pattern.",
   "registryDependencies": [
     "utils"
   ],
@@ -37,6 +37,48 @@
       "type": "registry:file",
       "target": "snippets/breadcrumb.html",
       "content": "<!--\n  shadcn-htmx — raw HTML breadcrumb snippet.\n  A <nav> landmark with aria-label wrapping an <ol> of links. The current\n  page is a plain <span aria-current=\"page\"> (not a link). Separators are\n  decorative <li aria-hidden=\"true\">. Zero JS — relies only on theme tokens\n  in styles.css.\n\n  Labelling: the landmark is named via aria-label OR aria-labelledby — both\n  are first-class per the APG. To point the <nav> at an existing visible\n  heading instead, drop aria-label and use aria-labelledby=\"heading-id\" (do\n  not set both, or the <nav> carries two competing names).\n\n  Separators / ellipsis are decorative and accept any global attribute\n  (e.g. a data-* hook for CSS/JS) directly on the <li>/<span>.\n\n  APG: https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/\n-->\n\n<nav data-slot=\"breadcrumb\" aria-label=\"Breadcrumb\">\n  <ol data-slot=\"breadcrumb-list\"\n      class=\"flex flex-wrap items-center gap-1.5 text-sm break-words text-muted-foreground sm:gap-2.5\">\n    <li data-slot=\"breadcrumb-item\" class=\"inline-flex items-center gap-1.5\">\n      <a href=\"/\" data-slot=\"breadcrumb-link\"\n         class=\"transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none\">Home</a>\n    </li>\n    <li data-slot=\"breadcrumb-separator\" aria-hidden=\"true\" class=\"[&>svg]:size-3.5\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polyline points=\"9 18 15 12 9 6\" /></svg>\n    </li>\n    <li data-slot=\"breadcrumb-item\" class=\"inline-flex items-center gap-1.5\">\n      <a href=\"/components\" data-slot=\"breadcrumb-link\"\n         class=\"transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none\">Components</a>\n    </li>\n    <li data-slot=\"breadcrumb-separator\" aria-hidden=\"true\" class=\"[&>svg]:size-3.5\">\n      <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polyline points=\"9 18 15 12 9 6\" /></svg>\n    </li>\n    <li data-slot=\"breadcrumb-item\" class=\"inline-flex items-center gap-1.5\">\n      <span data-slot=\"breadcrumb-page\" aria-current=\"page\" class=\"font-normal text-foreground\">Breadcrumb</span>\n    </li>\n  </ol>\n</nav>\n"
+    },
+    {
+      "path": "registry/django-cotton/breadcrumb/ellipsis.html",
+      "type": "registry:file",
+      "target": "templates/cotton/breadcrumb/ellipsis.html",
+      "content": "{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}\n<c-vars\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<span data-slot=\"breadcrumb-ellipsis\" aria-hidden=\"true\" class=\"flex size-9 items-center justify-center\" {{ attrs }}><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"size-4\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"1\" /><circle cx=\"19\" cy=\"12\" r=\"1\" /><circle cx=\"5\" cy=\"12\" r=\"1\" /></svg><span class=\"sr-only\">More</span></span>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/breadcrumb/index.html",
+      "type": "registry:file",
+      "target": "templates/cotton/breadcrumb/index.html",
+      "content": "{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}\n<c-vars\n  aria-label=\"Breadcrumb\"\n  :aria-labelledby=\"None\"\n  class=\"\"\n/>\n{% load l10n %}{% localize off %}\n<nav data-slot=\"breadcrumb\"{% if aria_labelledby %} aria-labelledby=\"{{ aria_labelledby|default_if_none:\"\" }}\"{% else %} aria-label=\"{{ aria_label }}\"{% endif %} class=\"{{ class }}\" {{ attrs }}>\n{{ slot }}\n</nav>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/breadcrumb/item.html",
+      "type": "registry:file",
+      "target": "templates/cotton/breadcrumb/item.html",
+      "content": "{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}\n<c-vars\n  :body=\"None\"\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<li data-slot=\"breadcrumb-item\" class=\"inline-flex items-center gap-1.5\" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ body|default_if_none:\"\" }}{% endif %}</li>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/breadcrumb/link.html",
+      "type": "registry:file",
+      "target": "templates/cotton/breadcrumb/link.html",
+      "content": "{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}\n<c-vars\n  :label=\"None\"\n  :href=\"None\"\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<a {% if href %}href=\"{{ href|default_if_none:\"\" }}\"{% endif %} data-slot=\"breadcrumb-link\"\n   class=\"transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none\" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:\"\" }}{% endif %}</a>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/breadcrumb/list.html",
+      "type": "registry:file",
+      "target": "templates/cotton/breadcrumb/list.html",
+      "content": "{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}\n<c-vars\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<ol {{ attrs }} data-slot=\"breadcrumb-list\" class=\"flex flex-wrap items-center gap-1.5 text-sm break-words text-muted-foreground sm:gap-2.5\">\n{{ slot }}\n</ol>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/breadcrumb/page.html",
+      "type": "registry:file",
+      "target": "templates/cotton/breadcrumb/page.html",
+      "content": "{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}\n<c-vars\n  :label=\"None\"\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<span {{ attrs }} data-slot=\"breadcrumb-page\" aria-current=\"page\" class=\"font-normal text-foreground\">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:\"\" }}{% endif %}</span>\n{% endlocalize %}\n"
+    },
+    {
+      "path": "registry/django-cotton/breadcrumb/separator.html",
+      "type": "registry:file",
+      "target": "templates/cotton/breadcrumb/separator.html",
+      "content": "{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}\n<c-vars\n  :body=\"None\"\n  class=\" {{ class }}\"\n/>\n{% load l10n %}{% localize off %}\n<li data-slot=\"breadcrumb-separator\" aria-hidden=\"true\" class=\"[&>svg]:size-3.5\" {{ attrs }}>{% if body %}{% if slot %}{{ slot }}{% else %}{{ body|default_if_none:\"\" }}{% endif %}{% else %}<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polyline points=\"9 18 15 12 9 6\" /></svg>{% endif %}</li>\n{% endlocalize %}\n"
     }
   ]
 }

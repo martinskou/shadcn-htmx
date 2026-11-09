@@ -1,0 +1,11 @@
+{# toolbar — Django Cotton. See registry/ui/toolbar.tsx for platform references. #}
+<c-vars
+  orientation="horizontal"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} role="separator"
+     data-slot="toolbar-separator"
+     aria-orientation="{% if orientation == "horizontal" %}vertical{% else %}horizontal{% endif %}"
+     class="shrink-0 bg-border {% if orientation == "horizontal" %}{% if "vertical" == "vertical" %}mx-0.5 h-5 w-px{% else %}my-0.5 h-px w-full{% endif %}{% elif "horizontal" == "vertical" %}mx-0.5 h-5 w-px{% else %}my-0.5 h-px w-full{% endif %} {{ class }}"></div>
+{% endlocalize %}

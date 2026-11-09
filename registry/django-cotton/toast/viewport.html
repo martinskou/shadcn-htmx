@@ -1,0 +1,14 @@
+{# toast — Django Cotton. See registry/ui/toast.tsx for platform references. #}
+<c-vars
+  id="toast-viewport"
+  position="bottom-right"
+  aria-label="Notifications"
+  live="polite"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<ol {{ attrs }} id="{{ id }}" role="region" aria-label="{{ aria_label }}"
+    aria-live="{{ live }}" aria-atomic="false"
+    data-slot="toast-viewport" data-position="{{ position }}"
+    class="pointer-events-none fixed z-50 flex w-full max-w-[420px] gap-2 p-2 {% if position == "top-right" %}top-4 right-4 flex-col items-end{% elif position == "top-left" %}top-4 left-4 flex-col items-start{% elif position == "top-center" %}top-4 left-1/2 -translate-x-1/2 flex-col items-center{% elif position == "bottom-right" %}bottom-4 right-4 flex-col-reverse items-end{% elif position == "bottom-left" %}bottom-4 left-4 flex-col-reverse items-start{% elif position == "bottom-center" %}bottom-4 left-1/2 -translate-x-1/2 flex-col-reverse items-center{% endif %} {{ class }}"></ol>
+{% endlocalize %}

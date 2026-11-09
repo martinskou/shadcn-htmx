@@ -1,0 +1,24 @@
+{# responsive-image — Django Cotton. See registry/ui/responsive-image.tsx for platform references. #}
+<c-vars
+  :src="None"
+  :alt="None"
+  :sources="[]"
+  :width="None"
+  :height="None"
+  :loading="None"
+  :decoding="None"
+  :fetchpriority="None"
+  :srcset="None"
+  :sizes="None"
+  class=""
+  img-class=""
+  :id="None"
+/>
+{% load l10n %}{% localize off %}
+<picture data-slot="responsive-image"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+         class="block overflow-hidden rounded-lg border bg-muted {{ class }}" {{ attrs }}>{% for s in sources %}
+  <source srcset="{{ s.srcset }}"{% if s.type %} type="{{ s.type }}"{% endif %}{% if s.media %} media="{{ s.media }}"{% endif %}{% if s.sizes %} sizes="{{ s.sizes }}"{% endif %}{% if s.width %} width="{{ s.width }}"{% endif %}{% if s.height %} height="{{ s.height }}"{% endif %}>{% endfor %}
+  <img src="{{ src|default_if_none:"" }}" alt="{{ alt|default_if_none:"" }}" data-slot="responsive-image-img"{% if srcset %} srcset="{{ srcset|default_if_none:"" }}"{% endif %}{% if sizes %} sizes="{{ sizes|default_if_none:"" }}"{% endif %}{% if width %} width="{{ width|default_if_none:"" }}"{% endif %}{% if height %} height="{{ height|default_if_none:"" }}"{% endif %}{% if loading %} loading="{{ loading|default_if_none:"" }}"{% endif %}{% if decoding %} decoding="{{ decoding|default_if_none:"" }}"{% endif %}{% if fetchpriority %} fetchpriority="{{ fetchpriority|default_if_none:"" }}"{% endif %}
+       class="block size-full object-cover {{ img_class }}">
+</picture>
+{% endlocalize %}

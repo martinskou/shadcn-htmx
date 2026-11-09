@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { SPLIT_BUTTON_PROPS } from "@/app/data/api-rows"
 import {
@@ -111,6 +112,7 @@ splitButtonRoutes.get("/", async (c) => {
             <LangTabs
               id="install-split-button"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "split-button" }) },
                 {
                   lang: "jsx",
                   node: await InstallPanel({

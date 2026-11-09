@@ -1,0 +1,8 @@
+{# breadcrumb — Django Cotton. See registry/ui/breadcrumb.tsx for platform references. #}
+<c-vars
+  :body="None"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5" {{ attrs }}>{% if slot %}{{ slot }}{% else %}{{ body|default_if_none:"" }}{% endif %}</li>
+{% endlocalize %}

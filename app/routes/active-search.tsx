@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { ACTIVE_SEARCH_PROPS } from "@/app/data/api-rows"
 import { ActiveSearch } from "@/registry/ui/active-search"
@@ -194,6 +195,7 @@ activeSearchRoutes.get("/", async (c) => {
             <LangTabs
               id="install-active-search"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "active-search" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/active-search.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/active-search.html", source: jinjaSource, note: "Copy active-search.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/active-search.tmpl", source: goSource, note: "Add active-search.tmpl alongside your templates." }) },

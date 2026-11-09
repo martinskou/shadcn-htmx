@@ -1,0 +1,13 @@
+{# dialog — Django Cotton. See registry/ui/dialog.tsx for platform references. #}
+<c-vars
+  :label="None"
+  command="close"
+  :commandfor="None"
+  :value="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<button {{ attrs }} type="button"
+        command="{{ command }}"{% if commandfor %} commandfor="{{ commandfor|default_if_none:"" }}"{% endif %}{% if value is not None %} value="{{ value|default_if_none:"" }}"{% endif %}
+        class="{{ class }}">{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}</button>
+{% endlocalize %}

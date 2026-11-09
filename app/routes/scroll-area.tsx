@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { SCROLL_AREA_PROPS } from "@/app/data/api-rows"
 import { ScrollArea } from "@/registry/ui/scroll-area"
@@ -99,6 +100,7 @@ scrollAreaRoutes.get("/", async (c) => {
             <LangTabs
               id="install-scroll-area"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "scroll-area" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/scroll-area.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/scroll-area.html", source: jinjaSource, note: "Copy scroll-area.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/scroll-area.tmpl", source: goSource, note: "Add scroll-area.tmpl alongside your templates." }) },

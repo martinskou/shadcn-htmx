@@ -1,0 +1,10 @@
+{# combobox — Django Cotton. See registry/ui/combobox.tsx for platform references. #}
+<c-vars
+  :value="None"
+  :label="None"
+  :disabled="False"
+  class=" {{ class }}"
+/>
+{% load l10n %}{% localize off %}
+<option {{ attrs }} value="{{ value|default_if_none:"" }}"{% if label %} label="{% if slot %}{{ slot }}{% else %}{{ label|default_if_none:"" }}{% endif %}"{% endif %}{% if disabled %} disabled{% endif %}>
+{% endlocalize %}

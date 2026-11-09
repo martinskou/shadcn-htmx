@@ -1,0 +1,36 @@
+{# dialog — Django Cotton. See registry/ui/dialog.tsx for platform references. #}
+<c-vars
+  :id="None"
+  :title="None"
+  :description="None"
+  :close-on-backdrop="True"
+  :show-close-button="True"
+  :open="False"
+  :closedby="None"
+  role="dialog"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<dialog {{ attrs }} id="{{ id|default_if_none:"" }}"{% if open %} open{% endif %}{% if closedby %} closedby="{{ closedby|default_if_none:"" }}"{% endif %}
+        role="{{ role }}"
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 m-0 w-[calc(100%-2rem)] max-w-lg grid gap-4 rounded-lg border bg-background p-6 text-foreground shadow-lg outline-none hidden open:grid backdrop:bg-black/60 backdrop:backdrop-blur-sm {{ class }}"
+        data-slot="dialog"{% if close_on_backdrop %} data-close-on-backdrop="true"{% endif %}
+        {% if title %}aria-labelledby="{{ id|default_if_none:"" }}-title"{% endif %}
+        {% if description %}aria-describedby="{{ id|default_if_none:"" }}-description"{% endif %}>{% if title %}
+  <div data-slot="dialog-header" class="flex flex-col gap-1.5 text-left">
+    <h2 id="{{ id|default_if_none:"" }}-title" data-slot="dialog-title" class="text-lg leading-none font-semibold">{{ title|default_if_none:"" }}</h2>
+    {% if description %}<p id="{{ id|default_if_none:"" }}-description" data-slot="dialog-description" class="text-sm text-muted-foreground">{{ description|default_if_none:"" }}</p>{% endif %}
+  </div>{% elif description %}
+  <div data-slot="dialog-header" class="flex flex-col gap-1.5 text-left">
+    
+    <p id="{{ id|default_if_none:"" }}-description" data-slot="dialog-description" class="text-sm text-muted-foreground">{{ description|default_if_none:"" }}</p>
+  </div>{% endif %}
+  {{ slot }}{% if show_close_button %}
+  <button type="button" data-dialog-close="true" aria-label="Close"
+          class="absolute top-4 right-4 inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground opacity-70 transition-opacity hover:bg-accent hover:text-foreground hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true">
+      <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+    </svg>
+  </button>{% endif %}
+</dialog>
+{% endlocalize %}

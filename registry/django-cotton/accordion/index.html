@@ -1,0 +1,11 @@
+{# accordion — Django Cotton. See registry/ui/accordion.tsx for platform references. #}
+<c-vars
+  :id="None"
+  type="multiple"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<div {{ attrs }} id="{{ id|default_if_none:"" }}"
+     data-slot="accordion" data-accordion data-type="{{ type }}"{% if type == "single" %} data-group-name="{{ id|default_if_none:"" }}"{% endif %}
+     class="w-full {{ class }}">{{ slot }}</div>
+{% endlocalize %}

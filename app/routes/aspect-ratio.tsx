@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { ASPECT_RATIO_PROPS } from "@/app/data/api-rows"
 import { AspectRatio } from "@/registry/ui/aspect-ratio"
@@ -116,6 +117,7 @@ aspectRatioRoutes.get("/", async (c) => {
             <LangTabs
               id="install-aspect-ratio"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "aspect-ratio" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/aspect-ratio.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/aspect-ratio.html", source: jinjaSource, note: "Copy aspect-ratio.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/aspect-ratio.tmpl", source: goSource, note: "Add aspect-ratio.tmpl alongside your templates." }) },

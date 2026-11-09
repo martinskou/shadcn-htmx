@@ -8,6 +8,7 @@ import { LangTabs } from "@/app/components/lang-tabs"
 import { DocsSidebar } from "@/app/components/docs-sidebar"
 import { DocsToc } from "@/app/components/docs-toc"
 import { ApiTable } from "@/app/components/api-table"
+import { CottonInstallPanel } from "@/app/components/cotton-install-panel"
 import { InstallPanel } from "@/app/components/install-panel"
 import { HOVER_CARD_PROPS } from "@/app/data/api-rows"
 import { HoverCard, HoverCardTrigger } from "@/registry/ui/hover-card"
@@ -105,6 +106,7 @@ hoverCardRoutes.get("/", async (c) => {
             <LangTabs
               id="install-hover-card"
               panels={[
+                { lang: "cotton", node: await CottonInstallPanel({ component: "hover-card" }) },
                 { lang: "jsx", node: await InstallPanel({ cmd: cliCmd, usage: usageJsx, lang: "tsx", filename: "components/ui/hover-card.tsx", source: jsxSource }) },
                 { lang: "jinja", node: await InstallPanel({ usage: usageJinja, lang: "html", filename: "templates/components/hover-card.html", source: jinjaSource, note: "Copy hover-card.html into templates/components/." }) },
                 { lang: "go", node: await InstallPanel({ usage: usageGo, lang: "html", filename: "components/hover-card.tmpl", source: goSource, note: "Add hover-card.tmpl alongside your templates." }) },

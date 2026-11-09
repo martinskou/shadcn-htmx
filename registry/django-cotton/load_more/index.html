@@ -1,0 +1,26 @@
+{# load-more — Django Cotton. See registry/ui/load-more.tsx for platform references. #}
+<c-vars
+  :href="None"
+  trigger="click"
+  label="Load more"
+  :aria-label="None"
+  :disabled="False"
+  :id="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+{% if trigger == "intersect" or trigger == "revealed" %}
+<div{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="load-more" data-trigger="{{ trigger }}"
+  role="status" aria-label="{% if aria_label %}{{ aria_label|default_if_none:"" }}{% else %}Loading more{% endif %}"{% if href %}hx-get="{{ href|default_if_none:"" }}"{% endif %}
+  hx-trigger="{% if trigger == "intersect" %}intersect once{% else %}revealed{% endif %}" hx-swap="outerHTML"
+  class="flex items-center justify-center gap-2 py-4 text-sm text-muted-foreground {{ class }}" {{ attrs }}>{% if slot %}{{ slot }}{% else %}<span class="htmx-indicator size-4 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground" aria-hidden="true"></span>Loading more…{% endif %}</div>
+{% else %}
+<button type="button"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}
+  data-slot="load-more" data-trigger="click"{% if disabled %}disabled{% endif %}
+  {% if aria_label %}aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+  {% if href %}hx-get="{{ href|default_if_none:"" }}"{% endif %}
+  hx-trigger="click" hx-target="this" hx-swap="outerHTML"
+  class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap outline-none transition-all text-foreground hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&.htmx-request]:pointer-events-none [&.htmx-request]:opacity-70 {{ class }}" {{ attrs }}><span class="htmx-indicator size-4 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground" aria-hidden="true"></span>{% if slot %}{{ slot }}{% else %}{{ label }}{% endif %}</button>
+{% endif %}
+{% endlocalize %}

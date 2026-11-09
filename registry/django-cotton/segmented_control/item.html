@@ -1,0 +1,20 @@
+{# segmented-control — Django Cotton. See registry/ui/segmented-control.tsx for platform references. #}
+<c-vars
+  :text="None"
+  :value="None"
+  :name="None"
+  :id="None"
+  :checked="False"
+  :disabled="False"
+  :required="False"
+  :aria-label="None"
+  class=""
+/>
+{% load l10n %}{% localize off %}
+<label data-slot="segmented-control-item" data-value="{{ value|default_if_none:"" }}" class="relative inline-flex h-[calc(100%-2px)] flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md border border-transparent px-3 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all select-none hover:text-foreground has-[:checked]:bg-background has-[:checked]:text-foreground has-[:checked]:shadow-sm dark:has-[:checked]:border-input dark:has-[:checked]:bg-input/30 dark:has-[:checked]:text-foreground has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 {{ class }}">
+  <input type="radio" class="peer sr-only"
+         value="{{ value|default_if_none:"" }}" name="{{ name|default_if_none:"" }}"{% if id %} id="{{ id|default_if_none:"" }}"{% endif %}{% if checked %} checked{% endif %}{% if disabled %} disabled{% endif %}{% if required %} required{% endif %}{% if aria_label %} aria-label="{{ aria_label|default_if_none:"" }}"{% endif %}
+         data-slot="segmented-control-input" {{ attrs }}>
+  <span data-slot="segmented-control-label">{% if slot %}{{ slot }}{% else %}{{ text|default_if_none:"" }}{% endif %}</span>
+</label>
+{% endlocalize %}
